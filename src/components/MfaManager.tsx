@@ -45,7 +45,7 @@ export function MfaManager() {
     const supabase = createClient();
     const { data, error } = await supabase.auth.mfa.enroll({
       factorType: "totp",
-      // Issuer = what the authenticator app displays (e.g. "astraljar.com").
+      // Issuer = what the authenticator app displays (e.g. "domain.com").
       // Set it explicitly so it never falls back to the Supabase Site URL
       // default (which shows "localhost:3000" if that's left unset).
       issuer: new URL(SITE_URL).host,

@@ -15,7 +15,7 @@
 	// date your installed wrangler supports, so you can't set it too new.
 	// Floor: >= 2025-05-05 for OpenNext (2025-04-01 makes wrangler vars appear in
 	// process.env; 2025-05-05 fixes FinalizationRegistry errors). Newer is better.
-	"compatibility_date": "2025-05-05",
+	"compatibility_date": "2026-06-01",
 	"compatibility_flags": [
 		// Enable Node.js APIs (required by Next.js + the Supabase SDK on Workers).
 		"nodejs_compat",
