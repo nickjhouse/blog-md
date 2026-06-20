@@ -1,0 +1,95 @@
+// Template Cloudflare config. Copy to `wrangler.jsonc` and replace the
+// placeholders with your own resources, then deploy. The real wrangler.jsonc is
+// gitignored because it holds account-bound identifiers (worker name, bucket
+// names, the D1 database_id). None are secrets — API keys are set separately via
+// `wrangler secret put` / .dev.vars — but they're specific to your account.
+//
+// Resources to create first (see README / notes):
+//   - 2 R2 buckets (backups + Next.js cache)
+//   - 1 D1 database (OpenNext tag cache) → paste its id below
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "my-blog",
+	// Set this to a RECENT date (roughly today). The build caps it at the newest
+	// date your installed wrangler supports, so you can't set it too new.
+	// Floor: >= 2025-05-05 for OpenNext (2025-04-01 makes wrangler vars appear in
+	// process.env; 2025-05-05 fixes FinalizationRegistry errors). Newer is better.
+	"compatibility_date": "2025-05-05",
+	"compatibility_flags": [
+		// Enable Node.js APIs (required by Next.js + the Supabase SDK on Workers).
+		"nodejs_compat",
+		// Let the app fetch public URLs (e.g. Supabase) from the Worker.
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			// Must match "name" above.
+			"service": "my-blog"
+		}
+	],
+	// Enables Next.js <Image> optimization on Cloudflare.
+	"images": {
+		"binding": "IMAGES"
+	},
+	// Retain Worker logs (searchable under the worker's Observability → Logs).
+	// invocation_logs adds the per-request summary lines (status, CPU time) —
+	// useful for spotting 1102 / resource-limit hits.
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": true
+		}
+	},
+	// R2 buckets:
+	//  - BACKUP_R2_BUCKET: scheduled DB backups.
+	//  - NEXT_INC_CACHE_R2_BUCKET: Next.js ISR/data cache. The binding name MUST
+	//    be NEXT_INC_CACHE_R2_BUCKET — that's the name OpenNext's
+	//    r2IncrementalCache looks up.
+	"r2_buckets": [
+		{
+			"binding": "BACKUP_R2_BUCKET",
+			"bucket_name": "my-blog-backups"
+		},
+		{
+			"binding": "NEXT_INC_CACHE_R2_BUCKET",
+			"bucket_name": "my-blog-cache"
+		}
+	],
+	// OpenNext caching Durable Objects. NEXT_CACHE_DO_QUEUE (DOQueueHandler)
+	// processes/dedupes ISR revalidations. SQLite-backed (free-tier eligible),
+	// created on deploy — no provisioning.
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "NEXT_CACHE_DO_QUEUE",
+				"class_name": "DOQueueHandler"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"DOQueueHandler"
+			]
+		}
+	],
+	// D1 tag cache for OpenNext on-demand revalidation (revalidatePath/Tag).
+	// Binding name MUST be NEXT_TAG_CACHE_D1 — that's what d1NextTagCache looks
+	// up. Create the DB with `wrangler d1 create my-blog-tags` and paste the
+	// returned database_id here. The `revalidations` table is auto-created by
+	// the deploy's populateCache step (no manual schema).
+	"d1_databases": [
+		{
+			"binding": "NEXT_TAG_CACHE_D1",
+			"database_name": "my-blog-tags",
+			"database_id": "<your-d1-database-id>"
+		}
+	]
+}

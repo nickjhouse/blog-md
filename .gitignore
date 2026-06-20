@@ -1,0 +1,47 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# cloudflare / opennext build output
+/.open-next
+/.wrangler
+
+# misc
+.DS_Store
+*.pem
+.fuse_hidden*
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files (NEVER commit secrets)
+.env
+.env*.local
+.env.local
+.dev.vars
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# folders
+notes/
+/ziptest.ts
+
+# supabase CLI link/branch state (project ref, org id — not for public repos)
+supabase/.temp/
+supabase/.branches/
+
+# real Cloudflare config (account-bound IDs). Commit wrangler.jsonc.example
+# instead; forkers copy it to wrangler.jsonc and fill in their own resources.
+/wrangler.jsonc

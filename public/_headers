@@ -1,0 +1,15 @@
+# NOTE: On Cloudflare Workers, _headers applies ONLY to STATIC ASSETS, not to
+# Worker-rendered (SSR) pages. So the headers below cover assets (fonts, images,
+# /_next/static). Page-level security headers + the Content-Security-Policy are
+# set in next.config.mjs `headers()`, which applies to the SSR responses.
+
+# Security headers for static-asset responses (mirrors next.config for assets).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
+
+# Hashed build assets (incl. self-hosted fonts) never change — cache forever.
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable
