@@ -122,7 +122,6 @@ export default async function RootLayout({
                   "window.sentryOnLoad=function(){Sentry.init({tracesSampleRate:0,replaysSessionSampleRate:0,replaysOnErrorSampleRate:0});};",
               }}
             />
-            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
             <script src={sentryLoaderUrl} crossOrigin="anonymous" async />
           </>
         ) : null}

@@ -40,7 +40,6 @@ function renderLink(it: NavItem, onClick?: () => void) {
   if (it.external) {
     return (
       // API download route, not a page — a Next.js <Link> would be inappropriate.
-      // eslint-disable-next-line @next/next/no-html-link-for-pages
       <a key={it.href} href={it.href} className={linkClass} onClick={onClick}>
         {inner}
       </a>
