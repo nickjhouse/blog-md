@@ -13,7 +13,7 @@ export default async function ManageSeriesPage() {
 
   return (
     <div>
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         Add a series from the post editor (and set each post’s part number there).
         Renaming changes its URL slug; deleting removes posts from the series — it
         doesn’t delete posts.

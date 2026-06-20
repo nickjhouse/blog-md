@@ -122,7 +122,7 @@ export function CategoryManager({
   return (
     <div className="mt-6">
       {error ? (
-        <p className="mb-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mb-3 text-sm text-(--danger)">{error}</p>
       ) : null}
 
       {showCreate ? (
@@ -137,12 +137,12 @@ export function CategoryManager({
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="New category name"
-            className="flex-1 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="flex-1 rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
           <button
             type="submit"
             disabled={creating || !newName.trim()}
-            className="shrink-0 rounded-md border border-[color:var(--border-strong)] px-3 py-2 text-sm disabled:opacity-50"
+            className="shrink-0 rounded-md border border-(--border-strong) px-3 py-2 text-sm disabled:opacity-50"
           >
             {creating ? "Adding…" : "Add"}
           </button>
@@ -152,7 +152,7 @@ export function CategoryManager({
               setShowCreate(false);
               setNewName("");
             }}
-            className="shrink-0 text-sm text-[color:var(--muted)] hover:underline"
+            className="shrink-0 text-sm text-(--muted) hover:underline"
           >
             Cancel
           </button>
@@ -161,14 +161,14 @@ export function CategoryManager({
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="mb-4 text-sm font-medium text-[color:var(--accent)] hover:underline"
+          className="mb-4 text-sm font-medium text-(--accent) hover:underline"
         >
           + New category
         </button>
       )}
 
       {categories.length === 0 ? (
-        <p className="text-[color:var(--muted)]">No categories yet.</p>
+        <p className="text-(--muted)">No categories yet.</p>
       ) : (
         <>
           <AdminSearch
@@ -186,7 +186,7 @@ export function CategoryManager({
                 className="h-4 w-4"
                 aria-label="Select all categories"
               />
-              <span className="text-[color:var(--muted)]">
+              <span className="text-(--muted)">
                 {selected.size > 0 ? `${selected.size} selected` : "Select all"}
               </span>
             </label>
@@ -196,7 +196,7 @@ export function CategoryManager({
                   type="button"
                   onClick={runBulkDelete}
                   disabled={bulkBusy}
-                  className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+                  className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
                 >
                   {bulkBusy ? "Deleting…" : "Delete"}
                 </button>
@@ -204,7 +204,7 @@ export function CategoryManager({
                   type="button"
                   onClick={() => setSelected(new Set())}
                   disabled={bulkBusy}
-                  className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+                  className="text-sm text-(--muted) hover:underline disabled:opacity-50"
                 >
                   Clear
                 </button>
@@ -214,14 +214,14 @@ export function CategoryManager({
 
           <div className="mt-4">
             {filtered.length === 0 ? (
-              <p className="py-6 text-sm text-[color:var(--muted)]">
+              <p className="py-6 text-sm text-(--muted)">
                 No categories match “{query}”.
               </p>
             ) : (
               filtered.map((cat) => (
               <div
                 key={cat.id}
-                className="flex items-center gap-3 border-t border-[color:var(--border)] py-3"
+                className="flex items-center gap-3 border-t border-(--border) py-3"
               >
                 <input
                   type="checkbox"
@@ -233,7 +233,7 @@ export function CategoryManager({
                 <div className="flex min-w-0 flex-1 items-center justify-between gap-4">
                   <div className="min-w-0">
                     <div className="font-medium">{cat.name}</div>
-                    <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+                    <div className="mt-0.5 text-xs text-(--muted)">
                       {cat.published} published
                       <span aria-hidden> · </span>
                       {cat.total} total
@@ -243,7 +243,7 @@ export function CategoryManager({
                     type="button"
                     onClick={() => remove(cat)}
                     disabled={busyId === cat.id}
-                    className="shrink-0 text-sm text-[color:var(--danger)] hover:underline disabled:opacity-50"
+                    className="shrink-0 text-sm text-(--danger) hover:underline disabled:opacity-50"
                   >
                     {busyId === cat.id ? "Deleting…" : "Delete"}
                   </button>

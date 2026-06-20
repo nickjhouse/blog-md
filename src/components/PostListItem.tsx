@@ -5,8 +5,8 @@ import type { PostListed } from "@/lib/posts";
 // A single row in the clean & minimal feed: category · date, title, excerpt.
 export function PostListItem({ post }: { post: PostListed }) {
   return (
-    <article className="relative mb-4 rounded-xl border border-[color:var(--border)] bg-[var(--surface)] p-5 transition-colors hover:border-[color:var(--accent)] focus-within:border-[color:var(--accent)]">
-      <div className="text-xs text-[color:var(--muted)]">
+    <article className="relative mb-4 rounded-xl border border-(--border) bg-(--surface) p-5 transition-colors hover:border-(--accent) focus-within:border-(--accent)">
+      <div className="text-xs text-(--muted)">
         {post.category ? (
           <>
             <Link

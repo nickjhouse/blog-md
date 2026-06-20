@@ -56,7 +56,7 @@ export function BookmarkButton({ postId, postSlug }: Props) {
       <a
         href={`/login?next=/post/${postSlug}`}
         aria-label="Sign in to save this post"
-        className="inline-flex items-center gap-2 rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+        className="inline-flex items-center gap-2 rounded-md border border-(--border-strong) px-3 py-1.5 text-sm text-(--muted) hover:bg-(--hover)"
       >
         <BookmarkIcon filled={false} />
         <span>Save</span>
@@ -94,8 +94,8 @@ export function BookmarkButton({ postId, postSlug }: Props) {
       aria-label={saved ? "Remove from saved" : "Save for later"}
       className={`inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors disabled:opacity-60 ${
         saved
-          ? "border-[color:var(--accent)] text-[color:var(--accent)]"
-          : "border-[color:var(--border-strong)] text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+          ? "border-(--accent) text-(--accent)"
+          : "border-(--border-strong) text-(--muted) hover:bg-(--hover)"
       }`}
     >
       <BookmarkIcon filled={saved} />

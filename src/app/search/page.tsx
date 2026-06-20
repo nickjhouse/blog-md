@@ -36,7 +36,7 @@ export default async function SearchPage({
 
       {query ? (
         <div className="mt-8">
-          <p className="text-sm text-[color:var(--muted)]">
+          <p className="text-sm text-(--muted)">
             {results.length === 0
               ? `No results for “${query}”.`
               : `${results.length} result${results.length === 1 ? "" : "s"} for “${query}”`}
@@ -48,7 +48,7 @@ export default async function SearchPage({
           </div>
         </div>
       ) : (
-        <p className="mt-6 text-[color:var(--muted)]">
+        <p className="mt-6 text-(--muted)">
           Type a few words to search across all posts.
         </p>
       )}

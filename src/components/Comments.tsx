@@ -225,7 +225,7 @@ export function Comments({ postId, postSlug }: Props) {
               className="h-7 w-7 rounded-full object-cover"
             />
           ) : (
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[color:var(--border-strong)] text-xs font-medium">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-(--border-strong) text-xs font-medium">
               {initials}
             </span>
           )}
@@ -234,7 +234,7 @@ export function Comments({ postId, postSlug }: Props) {
             {formatDate(c.created_at)}
           </span>
           {c.edited_at ? (
-            <span className="text-xs text-[color:var(--muted)]">(edited)</span>
+            <span className="text-xs text-(--muted)">(edited)</span>
           ) : null}
           {c.status === "hidden" ? (
             <span className="text-xs text-amber-600">hidden</span>
@@ -252,14 +252,14 @@ export function Comments({ postId, postSlug }: Props) {
               value={editBody}
               onChange={(e) => setEditBody(e.target.value)}
               rows={3}
-              className="w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+              className="w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
             />
             <div className="mt-1 flex gap-2">
               <button
                 type="button"
                 onClick={() => saveEdit(c.id)}
                 disabled={submitting || !editBody.trim()}
-                className="rounded-md bg-[color:var(--button-bg)] px-3 py-1 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+                className="rounded-md bg-(--button-bg) px-3 py-1 text-sm font-medium text-(--button-fg) disabled:opacity-50"
               >
                 {submitting ? "Saving…" : "Save"}
               </button>
@@ -269,7 +269,7 @@ export function Comments({ postId, postSlug }: Props) {
                   setEditingId(null);
                   setEditBody("");
                 }}
-                className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm hover:bg-[color:var(--hover)]"
+                className="rounded-md border border-(--border-strong) px-3 py-1 text-sm hover:bg-(--hover)"
               >
                 Cancel
               </button>
@@ -282,7 +282,7 @@ export function Comments({ postId, postSlug }: Props) {
         )}
 
         {viewer?.isAdmin || canDelete || canReport || canEdit ? (
-          <div className="mt-1 flex gap-3 text-xs text-[color:var(--muted)]">
+          <div className="mt-1 flex gap-3 text-xs text-(--muted)">
             {canEdit && !editing ? (
               <button
                 type="button"
@@ -356,8 +356,8 @@ export function Comments({ postId, postSlug }: Props) {
                     }}
                     className={
                       blocked
-                        ? "text-[color:var(--success)] hover:underline"
-                        : "text-[color:var(--danger)] hover:underline"
+                        ? "text-(--success) hover:underline"
+                        : "text-(--danger) hover:underline"
                     }
                   >
                     {blocked ? "Unblock user" : "Block user"}
@@ -374,24 +374,24 @@ export function Comments({ postId, postSlug }: Props) {
   const canReply = !!viewer && !viewer.isBlocked && !!viewer.displayName;
 
   return (
-    <section className="mt-12 border-t border-[color:var(--border)] pt-8">
+    <section className="mt-12 border-t border-(--border) pt-8">
       <h2 className="text-xl font-bold">
         Comments{!loading && comments.length ? ` (${comments.length})` : ""}
       </h2>
 
       {loading ? (
-        <p className="mt-4 text-sm text-[color:var(--muted)]">
+        <p className="mt-4 text-sm text-(--muted)">
           Loading comments…
         </p>
       ) : (
         <>
           {viewer ? (
             viewer.isBlocked ? (
-              <p className="mt-4 text-sm text-[color:var(--muted)]">
+              <p className="mt-4 text-sm text-(--muted)">
                 Your account is not allowed to post comments.
               </p>
             ) : !viewer.displayName ? (
-              <p className="mt-4 text-sm text-[color:var(--muted)]">
+              <p className="mt-4 text-sm text-(--muted)">
                 <Link
                   href={`/welcome?next=/post/${postSlug}`}
                   className="underline"
@@ -408,7 +408,7 @@ export function Comments({ postId, postSlug }: Props) {
                   rows={3}
                   maxLength={5000}
                   placeholder="Add a comment…"
-                  className="w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+                  className="w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
                 />
                 <input
                   type="text"
@@ -424,7 +424,7 @@ export function Comments({ postId, postSlug }: Props) {
                   <button
                     type="submit"
                     disabled={submitting || !body.trim()}
-                    className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+                    className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
                   >
                     {submitting ? "Posting…" : "Post comment"}
                   </button>
@@ -432,7 +432,7 @@ export function Comments({ postId, postSlug }: Props) {
               </form>
             )
           ) : (
-            <p className="mt-4 text-sm text-[color:var(--muted)]">
+            <p className="mt-4 text-sm text-(--muted)">
               <Link href={`/login?next=/post/${postSlug}`} className="underline">
                 Sign in
               </Link>{" "}
@@ -445,12 +445,12 @@ export function Comments({ postId, postSlug }: Props) {
           )}
 
           {error ? (
-            <p className="mt-3 text-sm text-[color:var(--danger)]">{error}</p>
+            <p className="mt-3 text-sm text-(--danger)">{error}</p>
           ) : null}
 
           <div className="mt-8 space-y-6">
             {topLevel.length === 0 ? (
-              <p className="text-sm text-[color:var(--muted)]">
+              <p className="text-sm text-(--muted)">
                 No comments yet.
               </p>
             ) : (
@@ -472,7 +472,7 @@ export function Comments({ postId, postSlug }: Props) {
                             rows={2}
                             maxLength={5000}
                             placeholder={`Reply to ${c.author?.display_name?.trim() || "this comment"}…`}
-                            className="w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+                            className="w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
                           />
                           <input
                             type="text"
@@ -488,7 +488,7 @@ export function Comments({ postId, postSlug }: Props) {
                             <button
                               type="submit"
                               disabled={submitting || !replyBody.trim()}
-                              className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+                              className="rounded-md bg-(--button-bg) px-3 py-1.5 font-medium text-(--button-fg) disabled:opacity-50 "
                             >
                               {submitting ? "Posting…" : "Post reply"}
                             </button>
@@ -519,7 +519,7 @@ export function Comments({ postId, postSlug }: Props) {
                     ) : null}
 
                     {replies.length > 0 ? (
-                      <div className="mt-4 space-y-4 border-l border-[color:var(--border)] pl-4">
+                      <div className="mt-4 space-y-4 border-l border-(--border) pl-4">
                         {replies.map((r) => (
                           <div key={r.id}>{renderComment(r)}</div>
                         ))}

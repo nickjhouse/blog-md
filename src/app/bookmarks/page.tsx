@@ -21,13 +21,13 @@ export default async function BookmarksPage() {
   return (
     <section>
       <h1 className="font-serif text-3xl font-bold tracking-tight">Saved</h1>
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
+      <p className="mt-2 text-sm text-(--muted)">
         Posts you’ve saved to read later.
       </p>
 
       <div className="mt-6">
         {posts.length === 0 ? (
-          <p className="text-[color:var(--muted)]">
+          <p className="text-(--muted)">
             Nothing saved yet. Tap “Save” on any post to add it here.
           </p>
         ) : (

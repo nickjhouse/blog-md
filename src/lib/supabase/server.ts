@@ -12,11 +12,9 @@ type CookieToSet = { name: string; value: string; options: CookieOptions };
 // Note: in Next.js 15 `cookies()` is async, so this is an async factory —
 // call it with `await createClient()`.
 //
-// The return type is annotated as `SupabaseClient<Database>` on purpose:
-// @supabase/ssr@0.5 doesn't thread the `Database` generic through to the newer
-// postgrest-js, so reads off the raw client infer as `never`. Re-asserting the
-// typed client here — once, at the factory — fixes inference at every call site
-// and removes the need for an `as unknown as` cast on each read.
+// Typed as SupabaseClient<Database> so query results infer their row types at
+// every call site. (Older @supabase/ssr versions didn't thread the Database
+// generic to postgrest-js and needed an explicit cast here; fixed as of 0.12.)
 export async function createClient(): Promise<SupabaseClient<Database>> {
   const cookieStore = await cookies();
 
@@ -40,5 +38,5 @@ export async function createClient(): Promise<SupabaseClient<Database>> {
         },
       },
     },
-  ) as unknown as SupabaseClient<Database>;
+  );
 }

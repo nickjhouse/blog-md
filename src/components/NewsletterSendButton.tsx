@@ -52,9 +52,9 @@ export function NewsletterSendButton({ postId, initialSentAt }: Props) {
   }
 
   return (
-    <div className="mt-8 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
+    <div className="mt-8 rounded-xl border border-(--border) bg-(--surface) p-4">
       <h2 className="text-sm font-medium">Newsletter</h2>
-      <p className="mt-1 text-xs text-[color:var(--muted)]">
+      <p className="mt-1 text-xs text-(--muted)">
         {sentAt
           ? `Sent to subscribers on ${fmt(sentAt)}.`
           : "Not sent yet. This emails the post (title, excerpt, link) to all subscribers."}
@@ -65,8 +65,8 @@ export function NewsletterSendButton({ postId, initialSentAt }: Props) {
         disabled={busy}
         className={`mt-3 rounded-md px-3 py-1.5 text-sm font-medium disabled:opacity-50 ${
           sentAt
-            ? "border border-[color:var(--border-strong)] hover:bg-[color:var(--hover)]"
-            : "bg-[color:var(--button-bg)] text-[color:var(--button-fg)]"
+            ? "border border-(--border-strong) hover:bg-(--hover)"
+            : "bg-(--button-bg) text-(--button-fg)"
         }`}
       >
         {busy
@@ -76,7 +76,7 @@ export function NewsletterSendButton({ postId, initialSentAt }: Props) {
             : "Send to newsletter"}
       </button>
       {error ? (
-        <p className="mt-2 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mt-2 text-sm text-(--danger)">{error}</p>
       ) : null}
     </div>
   );

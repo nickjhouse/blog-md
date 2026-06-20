@@ -38,7 +38,7 @@ export function GoogleButton() {
         type="button"
         onClick={signIn}
         disabled={loading}
-        className="flex w-full items-center justify-center gap-2 rounded-md border border-[color:var(--border-strong)] px-4 py-2 text-sm font-medium disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-2 rounded-md border border-(--border-strong) px-4 py-2 text-sm font-medium disabled:opacity-50"
       >
         <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true">
           <path
@@ -61,7 +61,7 @@ export function GoogleButton() {
         {loading ? "Redirecting…" : "Continue with Google"}
       </button>
       {error ? (
-        <p className="mt-2 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mt-2 text-sm text-(--danger)">{error}</p>
       ) : null}
     </div>
   );

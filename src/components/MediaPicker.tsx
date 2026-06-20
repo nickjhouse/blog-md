@@ -22,13 +22,13 @@ export function MediaPicker({
       aria-modal="true"
       aria-label="Choose image"
     >
-      <div className="mt-10 w-full max-w-2xl rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
+      <div className="mt-10 w-full max-w-2xl rounded-xl border border-(--border) bg-(--surface) p-4">
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-medium">Choose image</h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-sm text-[color:var(--muted)] hover:underline"
+            className="text-sm text-(--muted) hover:underline"
           >
             Close
           </button>

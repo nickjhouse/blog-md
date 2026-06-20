@@ -8,7 +8,7 @@ export function RelatedPosts({ posts }: { posts: PostListed[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <section className="mt-12 border-t border-[color:var(--border)] pt-6">
+    <section className="mt-12 border-t border-(--border) pt-6">
       <h2 className="font-serif text-xl font-semibold tracking-tight">
         Related posts
       </h2>
@@ -22,7 +22,7 @@ export function RelatedPosts({ posts }: { posts: PostListed[] }) {
             >
               {post.title}
             </Link>
-            <div className="text-xs text-[color:var(--muted)]">
+            <div className="text-xs text-(--muted)">
               {post.category ? (
                 <>
                   {post.category.name}

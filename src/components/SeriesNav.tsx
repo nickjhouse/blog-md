@@ -16,12 +16,12 @@ export function SeriesNav({
   const part = idx >= 0 ? idx + 1 : null;
 
   return (
-    <aside className="mt-6 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
-      <div className="text-xs text-[color:var(--muted)]">
+    <aside className="mt-6 rounded-xl border border-(--border) bg-(--surface) p-4">
+      <div className="text-xs text-(--muted)">
         {part ? `Part ${part} of ${total} · ` : ""}
         <Link
           href={`/series/${series.slug}`}
-          className="text-[color:var(--accent)] hover:underline"
+          className="text-(--accent) hover:underline"
         >
           {series.title}
         </Link>
@@ -29,7 +29,7 @@ export function SeriesNav({
       <ol className="mt-2 space-y-1 text-sm">
         {series.parts.map((p, i) => (
           <li key={p.slug} className="flex gap-2">
-            <span className="text-[color:var(--muted)]">{i + 1}.</span>
+            <span className="text-(--muted)">{i + 1}.</span>
             {p.slug === currentSlug ? (
               <span className="font-medium">{p.title}</span>
             ) : (

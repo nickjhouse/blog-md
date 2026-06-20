@@ -289,7 +289,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
       onDragLeave={onDragLeave}
       onDrop={onDrop}
       className={`rounded-lg transition ${
-        dragOver ? "ring-2 ring-[color:var(--accent)]" : ""
+        dragOver ? "ring-2 ring-(--accent)" : ""
       }`}
     >
       <div className="flex flex-wrap items-center gap-3">
@@ -297,7 +297,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
           type="button"
           onClick={() => fileRef.current?.click()}
           disabled={uploading || batch !== null}
-          className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+          className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
         >
           {batch
             ? `Uploading ${batch.done} of ${batch.total}…`
@@ -309,10 +309,10 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
         </button>
         {mode === "manage" ? (
           <>
-            <span className="text-sm text-[color:var(--muted)]">
+            <span className="text-sm text-(--muted)">
               or drag &amp; drop
             </span>
-            <label className="flex items-center gap-2 text-sm text-[color:var(--muted)]">
+            <label className="flex items-center gap-2 text-sm text-(--muted)">
               <input
                 type="checkbox"
                 checked={orphansOnly}
@@ -327,7 +327,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                 setSelecting((v) => !v);
                 setSelected(new Set());
               }}
-              className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm"
+              className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm"
             >
               {selecting ? "Cancel" : "Bulk delete"}
             </button>
@@ -351,10 +351,10 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
       </div>
 
       {error ? (
-        <p className="mt-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mt-3 text-sm text-(--danger)">{error}</p>
       ) : null}
       {notice ? (
-        <p className="mt-3 text-sm text-[color:var(--muted)]">{notice}</p>
+        <p className="mt-3 text-sm text-(--muted)">{notice}</p>
       ) : null}
 
       {mode === "manage" && selecting && items.length > 0 ? (
@@ -367,7 +367,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
               className="h-4 w-4"
               aria-label="Select all images"
             />
-            <span className="text-[color:var(--muted)]">
+            <span className="text-(--muted)">
               {selected.size > 0 ? `${selected.size} selected` : "Select all"}
             </span>
           </label>
@@ -377,7 +377,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                 type="button"
                 onClick={runBulkDelete}
                 disabled={bulkBusy}
-                className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+                className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
               >
                 {bulkBusy ? "Deleting…" : `Delete ${selected.size}`}
               </button>
@@ -385,7 +385,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                 type="button"
                 onClick={() => setSelected(new Set())}
                 disabled={bulkBusy}
-                className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+                className="text-sm text-(--muted) hover:underline disabled:opacity-50"
               >
                 Clear
               </button>
@@ -400,12 +400,12 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
             key={item.path}
             className={`relative overflow-hidden rounded-md border ${
               mode === "manage" && selecting && selected.has(item.path)
-                ? "border-[color:var(--accent)] ring-1 ring-[color:var(--accent)]"
-                : "border-[color:var(--border)]"
+                ? "border-(--accent) ring-1 ring-(--accent)"
+                : "border-(--border)"
             }`}
           >
             {mode === "manage" && selecting ? (
-              <label className="absolute left-1.5 top-1.5 z-10 flex h-6 w-6 cursor-pointer items-center justify-center rounded bg-black/55">
+              <label className="absolute left-1.5 top-1.5 z-10 flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm bg-black/55">
                 <input
                   type="checkbox"
                   checked={selected.has(item.path)}
@@ -440,10 +440,10 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                 alt={item.alt ?? ""}
                 loading="lazy"
                 decoding="async"
-                className="aspect-square w-full bg-[color:var(--hover)] object-cover"
+                className="aspect-square w-full bg-(--hover) object-cover"
               />
             </button>
-            <div className="flex items-center justify-between gap-2 px-2 py-1.5 text-xs text-[color:var(--muted)]">
+            <div className="flex items-center justify-between gap-2 px-2 py-1.5 text-xs text-(--muted)">
               <span className="truncate">
                 {formatBytes(item.size_bytes)}
                 {" · "}
@@ -452,7 +452,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                     <button
                       type="button"
                       onClick={() => showUsage(item)}
-                      className="underline hover:text-[color:var(--foreground)]"
+                      className="underline hover:text-(--foreground)"
                     >
                       used {item.used}×
                     </button>
@@ -467,7 +467,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                 <button
                   type="button"
                   onClick={() => remove(item)}
-                  className="shrink-0 text-[color:var(--danger)] hover:underline"
+                  className="shrink-0 text-(--danger) hover:underline"
                 >
                   Delete
                 </button>
@@ -478,9 +478,9 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
       </div>
 
       {loading ? (
-        <p className="mt-4 text-sm text-[color:var(--muted)]">Loading…</p>
+        <p className="mt-4 text-sm text-(--muted)">Loading…</p>
       ) : items.length === 0 ? (
-        <p className="mt-4 text-sm text-[color:var(--muted)]">
+        <p className="mt-4 text-sm text-(--muted)">
           {orphansOnly ? "No unused images." : "No images yet."}
         </p>
       ) : null}
@@ -490,7 +490,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
           type="button"
           onClick={() => loadPage(offset + 60)}
           disabled={loading}
-          className="mt-4 rounded-md border border-[color:var(--border-strong)] px-4 py-2 text-sm disabled:opacity-50"
+          className="mt-4 rounded-md border border-(--border-strong) px-4 py-2 text-sm disabled:opacity-50"
         >
           Load more
         </button>
@@ -505,7 +505,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
           onClick={() => setUsageModal(null)}
         >
           <div
-            className="w-full max-w-sm rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4"
+            className="w-full max-w-sm rounded-xl border border-(--border) bg-(--surface) p-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">
@@ -513,15 +513,15 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
               <button
                 type="button"
                 onClick={() => setUsageModal(null)}
-                className="text-sm text-[color:var(--muted)] hover:underline"
+                className="text-sm text-(--muted) hover:underline"
               >
                 Close
               </button>
             </div>
             {usageModal.posts === null ? (
-              <p className="mt-3 text-sm text-[color:var(--muted)]">Loading…</p>
+              <p className="mt-3 text-sm text-(--muted)">Loading…</p>
             ) : usageModal.posts.length === 0 ? (
-              <p className="mt-3 text-sm text-[color:var(--muted)]">
+              <p className="mt-3 text-sm text-(--muted)">
                 Not referenced by any post.
               </p>
             ) : (
@@ -530,7 +530,7 @@ export function MediaBrowser({ mode, onSelect, crop }: Props) {
                   <li key={p.id}>
                     <a
                       href={`/admin/edit/${p.id}`}
-                      className="underline hover:text-[color:var(--foreground)]"
+                      className="underline hover:text-(--foreground)"
                     >
                       {p.title || p.slug}
                     </a>

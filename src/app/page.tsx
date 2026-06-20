@@ -30,7 +30,7 @@ export default async function HomePage() {
       <JsonLd data={jsonLd} />
 
       {identity.homeIntroEnabled ? (
-        <section className="mb-8 border-b border-[color:var(--border)] pb-6">
+        <section className="mb-8 border-b border-(--border) pb-6">
           {identity.homeIntro
             ? identity.homeIntro
                 .split(/\n{2,}/)
@@ -45,12 +45,12 @@ export default async function HomePage() {
                   </p>
                 ))
             : null}
-          <p className="mt-2 text-sm text-[color:var(--muted)]">
+          <p className="mt-2 text-sm text-(--muted)">
             Signing in is optional — used only to comment and manage your account.
             See our{" "}
             <Link
               href="/privacy"
-              className="text-[color:var(--accent)] hover:underline"
+              className="text-(--accent) hover:underline"
             >
               Privacy Policy
             </Link>
@@ -66,14 +66,14 @@ export default async function HomePage() {
 
       {/* Surface series on the home page only once there are a few to browse. */}
       {series.length > 3 ? (
-        <div className="mt-6 rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
+        <div className="mt-6 rounded-xl border border-(--border) bg-(--surface) p-4">
           <div className="flex items-center justify-between gap-4">
             <h2 className="font-serif text-lg font-semibold tracking-tight">
               Series
             </h2>
             <Link
               href="/series"
-              className="text-sm text-[color:var(--accent)] hover:underline"
+              className="text-sm text-(--accent) hover:underline"
             >
               View all →
             </Link>
@@ -83,10 +83,10 @@ export default async function HomePage() {
               <li key={s.id}>
                 <Link
                   href={`/series/${s.slug}`}
-                  className="inline-block rounded-md border border-[color:var(--border-strong)] px-2.5 py-1 text-sm hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
+                  className="inline-block rounded-md border border-(--border-strong) px-2.5 py-1 text-sm hover:border-(--accent) hover:text-(--accent)"
                 >
                   {s.title}{" "}
-                  <span className="text-[color:var(--muted)]">
+                  <span className="text-(--muted)">
                     · {s.published}
                   </span>
                 </Link>

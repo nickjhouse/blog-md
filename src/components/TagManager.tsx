@@ -135,7 +135,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
   return (
     <div className="mt-6">
       {error ? (
-        <p className="mb-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mb-3 text-sm text-(--danger)">{error}</p>
       ) : null}
 
       {showCreate ? (
@@ -150,12 +150,12 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="New tag name"
-            className="flex-1 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="flex-1 rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
           <button
             type="submit"
             disabled={creating || !newName.trim()}
-            className="shrink-0 rounded-md border border-[color:var(--border-strong)] px-3 py-2 text-sm disabled:opacity-50"
+            className="shrink-0 rounded-md border border-(--border-strong) px-3 py-2 text-sm disabled:opacity-50"
           >
             {creating ? "Adding…" : "Add"}
           </button>
@@ -165,7 +165,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
               setShowCreate(false);
               setNewName("");
             }}
-            className="shrink-0 text-sm text-[color:var(--muted)] hover:underline"
+            className="shrink-0 text-sm text-(--muted) hover:underline"
           >
             Cancel
           </button>
@@ -174,28 +174,28 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="mb-4 text-sm font-medium text-[color:var(--accent)] hover:underline"
+          className="mb-4 text-sm font-medium text-(--accent) hover:underline"
         >
           + New tag
         </button>
       )}
 
       {tags.length === 0 ? (
-        <p className="text-[color:var(--muted)]">
+        <p className="text-(--muted)">
           No tags yet. Add one above, or they’re created when you tag a post.
         </p>
       ) : (
         <>
       {unusedCount > 0 ? (
-        <div className="mb-3 flex items-center justify-between gap-4 rounded-md border border-[color:var(--border)] px-3 py-2 text-sm">
-          <span className="text-[color:var(--muted)]">
+        <div className="mb-3 flex items-center justify-between gap-4 rounded-md border border-(--border) px-3 py-2 text-sm">
+          <span className="text-(--muted)">
             {unusedCount} unused tag{unusedCount === 1 ? "" : "s"} (no posts).
           </span>
           <button
             type="button"
             onClick={pruneUnused}
             disabled={pruning}
-            className="shrink-0 font-medium text-[color:var(--danger)] hover:underline disabled:opacity-50"
+            className="shrink-0 font-medium text-(--danger) hover:underline disabled:opacity-50"
           >
             {pruning ? "Removing…" : "Remove all unused"}
           </button>
@@ -217,7 +217,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
             className="h-4 w-4"
             aria-label="Select all tags"
           />
-          <span className="text-[color:var(--muted)]">
+          <span className="text-(--muted)">
             {selected.size > 0 ? `${selected.size} selected` : "Select all"}
           </span>
         </label>
@@ -227,7 +227,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
               type="button"
               onClick={runBulkDelete}
               disabled={bulkBusy}
-              className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+              className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
             >
               {bulkBusy ? "Deleting…" : "Delete"}
             </button>
@@ -235,7 +235,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
               type="button"
               onClick={() => setSelected(new Set())}
               disabled={bulkBusy}
-              className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+              className="text-sm text-(--muted) hover:underline disabled:opacity-50"
             >
               Clear
             </button>
@@ -245,14 +245,14 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
 
       <div className="mt-4">
         {filtered.length === 0 ? (
-          <p className="py-6 text-sm text-[color:var(--muted)]">
+          <p className="py-6 text-sm text-(--muted)">
             No tags match “{query}”.
           </p>
         ) : (
           filtered.map((tag) => (
         <div
           key={tag.id}
-          className="flex items-center gap-3 border-t border-[color:var(--border)] py-3"
+          className="flex items-center gap-3 border-t border-(--border) py-3"
         >
           <input
             type="checkbox"
@@ -264,7 +264,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
           <div className="flex min-w-0 flex-1 items-center justify-between gap-4">
             <div className="min-w-0">
               <div className="font-medium">{tag.name}</div>
-              <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+              <div className="mt-0.5 text-xs text-(--muted)">
                 {tag.published} published
                 <span aria-hidden> · </span>
                 {tag.total} total
@@ -274,7 +274,7 @@ export function TagManager({ tags }: { tags: TagWithCounts[] }) {
               type="button"
               onClick={() => remove(tag)}
               disabled={busyId === tag.id}
-              className="shrink-0 text-sm text-[color:var(--danger)] hover:underline disabled:opacity-50"
+              className="shrink-0 text-sm text-(--danger) hover:underline disabled:opacity-50"
             >
               {busyId === tag.id ? "Deleting…" : "Delete"}
             </button>

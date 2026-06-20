@@ -48,14 +48,14 @@ export function ImportPosts() {
   }
 
   const color: Record<Result["status"], string> = {
-    created: "text-[color:var(--success)]",
-    skipped: "text-[color:var(--muted)]",
-    error: "text-[color:var(--danger)]",
+    created: "text-(--success)",
+    skipped: "text-(--muted)",
+    error: "text-(--danger)",
   };
 
   return (
     <div className="mt-6 space-y-4">
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         Upload markdown files (the format produced by Export). Each becomes a
         post. Files whose slug already exists are skipped, so re-importing is
         safe.
@@ -78,7 +78,7 @@ export function ImportPosts() {
           type="checkbox"
           checked={asDraft}
           onChange={(e) => setAsDraft(e.target.checked)}
-          className="h-4 w-4 rounded border-[color:var(--border-strong)]"
+          className="h-4 w-4 rounded-sm border-(--border-strong)"
         />
         Import as drafts (recommended — review before publishing)
       </label>
@@ -87,7 +87,7 @@ export function ImportPosts() {
         type="button"
         onClick={onImport}
         disabled={busy || files.length === 0}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
       >
         {busy
           ? "Importing…"
@@ -95,11 +95,11 @@ export function ImportPosts() {
       </button>
 
       {error ? (
-        <p className="text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="text-sm text-(--danger)">{error}</p>
       ) : null}
 
       {results ? (
-        <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-sm">
+        <div className="rounded-xl border border-(--border) bg-(--surface) p-4 text-sm">
           <p className="font-medium">
             {results.filter((r) => r.status === "created").length} created ·{" "}
             {results.filter((r) => r.status === "skipped").length} skipped ·{" "}

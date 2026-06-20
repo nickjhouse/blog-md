@@ -70,11 +70,11 @@ export function ShareButtons({ url, title }: Props) {
   }
 
   const btn =
-    "inline-flex items-center gap-1.5 rounded-md border border-[color:var(--border)] px-3 py-1.5 text-sm hover:bg-[color:var(--hover)]";
+    "inline-flex items-center gap-1.5 rounded-md border border-(--border) px-3 py-1.5 text-sm hover:bg-(--hover)";
 
   return (
-    <div className="mt-10 border-t border-[color:var(--border)] pt-6">
-      <span className="text-sm text-[color:var(--muted)]">Share</span>
+    <div className="mt-10 border-t border-(--border) pt-6">
+      <span className="text-sm text-(--muted)">Share</span>
       <div className="mt-3 flex flex-wrap gap-2">
         {targets.map((s) => (
           <a

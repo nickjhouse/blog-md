@@ -122,7 +122,6 @@ export default async function RootLayout({
                   "window.sentryOnLoad=function(){Sentry.init({tracesSampleRate:0,replaysSessionSampleRate:0,replaysOnErrorSampleRate:0});};",
               }}
             />
-            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
             <script src={sentryLoaderUrl} crossOrigin="anonymous" async />
           </>
         ) : null}
@@ -154,25 +153,25 @@ export default async function RootLayout({
         <SessionProvider>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-[color:var(--border)] focus:bg-[var(--surface)] focus:px-3 focus:py-2 focus:text-sm"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:border focus:border-(--border) focus:bg-(--surface) focus:px-3 focus:py-2 focus:text-sm"
         >
           Skip to content
         </a>
-        <header className="border-b border-[color:var(--border)]">
+        <header className="border-b border-(--border)">
           <SiteNav brandIconUrl={brandIconUrl} siteName={identity.name} />
         </header>
         <main
           id="main-content"
           tabIndex={-1}
-          className="mx-auto max-w-3xl px-4 py-8 focus:outline-none"
+          className="mx-auto max-w-3xl px-4 py-8 focus:outline-hidden"
         >
           {children}
         </main>
-        <footer className="mx-auto max-w-3xl px-4 py-10 text-sm text-[color:var(--muted)]">
+        <footer className="mx-auto max-w-3xl px-4 py-10 text-sm text-(--muted)">
           <div className="max-w-sm">
             <NewsletterSignup />
           </div>
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--border)] pt-4">
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-(--border) pt-4">
             <span>
               © {new Date().getFullYear()} {identity.name}
             </span>
@@ -180,7 +179,7 @@ export default async function RootLayout({
               {showSeriesLink ? (
                 <Link
                   href="/series"
-                  className="hover:text-[color:var(--foreground)]"
+                  className="hover:text-(--foreground)"
                 >
                   Series
                 </Link>
@@ -189,7 +188,7 @@ export default async function RootLayout({
                 <Link
                   key={p.slug}
                   href={`/${p.slug}`}
-                  className="hover:text-[color:var(--foreground)]"
+                  className="hover:text-(--foreground)"
                 >
                   {p.title}
                 </Link>
@@ -197,20 +196,20 @@ export default async function RootLayout({
               {settings.contact_enabled ? (
                 <Link
                   href="/contact"
-                  className="hover:text-[color:var(--foreground)]"
+                  className="hover:text-(--foreground)"
                 >
                   Contact
                 </Link>
               ) : null}
               <Link
                 href="/privacy"
-                className="hover:text-[color:var(--foreground)]"
+                className="hover:text-(--foreground)"
               >
                 Privacy
               </Link>
               <a
                 href="/feed.xml"
-                className="hover:text-[color:var(--foreground)]"
+                className="hover:text-(--foreground)"
               >
                 RSS
               </a>

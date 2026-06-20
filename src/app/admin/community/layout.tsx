@@ -26,7 +26,7 @@ export default async function CommunityLayout({
         <h1 className="text-2xl font-bold">Community</h1>
         <Link
           href="/admin"
-          className="text-sm text-[color:var(--muted)] hover:underline"
+          className="text-sm text-(--muted) hover:underline"
         >
           ← Posts
         </Link>

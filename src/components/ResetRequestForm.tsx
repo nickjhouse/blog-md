@@ -41,7 +41,7 @@ export function ResetRequestForm() {
   if (sent) {
     // Neutral message — don't reveal whether the email is registered.
     return (
-      <p className="mt-6 rounded-md border border-[color:var(--border)] p-4 text-sm">
+      <p className="mt-6 rounded-md border border-(--border) p-4 text-sm">
         If an account exists for that email, a password reset link is on its way.
       </p>
     );
@@ -57,15 +57,15 @@ export function ResetRequestForm() {
           autoComplete="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         />
       </label>
       <TurnstileWidget ref={turnstileRef} />
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
       <button
         type="submit"
         disabled={loading}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
       >
         {loading ? "Sending…" : "Send reset link"}
       </button>

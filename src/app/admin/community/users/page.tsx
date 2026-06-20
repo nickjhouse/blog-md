@@ -16,7 +16,7 @@ export default async function UsersTab() {
 
   return (
     <div>
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         Set roles: <strong>author</strong> can write and manage their own posts;{" "}
         <strong>admin</strong> manages everything. The only admin can’t be
         demoted. Blocking users is on the Moderation tab.

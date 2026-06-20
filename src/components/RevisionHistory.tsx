@@ -187,10 +187,10 @@ export function RevisionHistory({
           onClick={close}
         >
           <div
-            className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-lg border border-[color:var(--border)] bg-[var(--surface)] shadow-xl"
+            className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-lg border border-(--border) bg-(--surface) shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[color:var(--border)] px-4 py-3">
+            <div className="flex items-center justify-between border-b border-(--border) px-4 py-3">
               <h2 className="font-serif text-lg font-bold">
                 {selected ? "Compare version" : "Revision history"}
               </h2>
@@ -198,7 +198,7 @@ export function RevisionHistory({
                 type="button"
                 onClick={close}
                 aria-label="Close"
-                className="rounded-md p-1 text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+                className="rounded-md p-1 text-(--muted) hover:bg-(--hover)"
               >
                 <svg
                   width="18"
@@ -217,11 +217,11 @@ export function RevisionHistory({
 
             <div className="min-h-0 flex-1 overflow-auto">
               {error ? (
-                <p className="px-4 py-6 text-sm text-[color:var(--danger)]">
+                <p className="px-4 py-6 text-sm text-(--danger)">
                   {error}
                 </p>
               ) : loading ? (
-                <p className="px-4 py-6 text-sm text-[color:var(--muted)]">
+                <p className="px-4 py-6 text-sm text-(--muted)">
                   Loading…
                 </p>
               ) : selected ? (
@@ -234,35 +234,35 @@ export function RevisionHistory({
                       series,
                     )}
                   />
-                  <div className="border-t border-[color:var(--border)] px-4 py-2 text-xs font-medium text-[color:var(--muted)]">
+                  <div className="border-t border-(--border) px-4 py-2 text-xs font-medium text-(--muted)">
                     Body
                   </div>
                   <DiffView lines={lines} />
                 </div>
               ) : list.length === 0 ? (
-                <p className="px-4 py-6 text-sm text-[color:var(--muted)]">
+                <p className="px-4 py-6 text-sm text-(--muted)">
                   No saved versions yet. Each save adds one.
                 </p>
               ) : (
-                <ul className="divide-y divide-[color:var(--border)]">
+                <ul className="divide-y divide-(--border)">
                   {list.map((r, idx) => (
                     <li key={r.id}>
                       <button
                         type="button"
                         onClick={() => selectRevision(r.id)}
-                        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-[color:var(--hover)]"
+                        className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm hover:bg-(--hover)"
                       >
                         <span className="min-w-0">
                           <span className="block truncate font-medium">
                             {r.title || "(untitled)"}
                           </span>
-                          <span className="block text-xs text-[color:var(--muted)]">
+                          <span className="block text-xs text-(--muted)">
                             {new Date(r.createdAt).toLocaleString()}
                             {r.editorName ? ` · ${r.editorName}` : ""}
                             {idx === 0 ? " · latest" : ""}
                           </span>
                         </span>
-                        <span className="shrink-0 text-xs text-[color:var(--muted)]">
+                        <span className="shrink-0 text-xs text-(--muted)">
                           Compare →
                         </span>
                       </button>
@@ -273,8 +273,8 @@ export function RevisionHistory({
             </div>
 
             {selected ? (
-              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--border)] px-4 py-3">
-                <span className="text-xs text-[color:var(--muted)]">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-t border-(--border) px-4 py-3">
+                <span className="text-xs text-(--muted)">
                   Version from {new Date(selected.createdAt).toLocaleString()} vs.
                   current ·{" "}
                   <span className="text-green-700 dark:text-green-400">
@@ -288,7 +288,7 @@ export function RevisionHistory({
                   <button
                     type="button"
                     onClick={() => setSelected(null)}
-                    className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm hover:bg-[color:var(--hover)]"
+                    className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm hover:bg-(--hover)"
                   >
                     Back
                   </button>
@@ -298,7 +298,7 @@ export function RevisionHistory({
                       onRestore(selected);
                       close();
                     }}
-                    className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)]"
+                    className="rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg)"
                   >
                     Restore this version
                   </button>
@@ -315,11 +315,11 @@ export function RevisionHistory({
 function MetaChanges({ changes }: { changes: FieldChange[] }) {
   return (
     <div className="px-4 py-3">
-      <div className="mb-2 text-xs font-medium text-[color:var(--muted)]">
+      <div className="mb-2 text-xs font-medium text-(--muted)">
         Other changes since this version
       </div>
       {changes.length === 0 ? (
-        <p className="text-sm text-[color:var(--muted)]">
+        <p className="text-sm text-(--muted)">
           No metadata changes — only the body differs (if anything).
         </p>
       ) : (
@@ -330,7 +330,7 @@ function MetaChanges({ changes }: { changes: FieldChange[] }) {
               <span className="text-red-700 line-through dark:text-red-300">
                 {c.from}
               </span>
-              <span aria-hidden className="text-[color:var(--muted)]">
+              <span aria-hidden className="text-(--muted)">
                 →
               </span>
               <span className="text-green-700 dark:text-green-300">{c.to}</span>
@@ -345,7 +345,7 @@ function MetaChanges({ changes }: { changes: FieldChange[] }) {
 function DiffView({ lines }: { lines: ReturnType<typeof diffLines> }) {
   if (lines.length === 0) {
     return (
-      <p className="px-4 py-6 text-sm text-[color:var(--muted)]">
+      <p className="px-4 py-6 text-sm text-(--muted)">
         This version&apos;s body is identical to the current one.
       </p>
     );
@@ -360,7 +360,7 @@ function DiffView({ lines }: { lines: ReturnType<typeof diffLines> }) {
               ? "bg-green-500/10 text-green-800 dark:text-green-300"
               : l.type === "del"
                 ? "bg-red-500/10 text-red-800 dark:text-red-300"
-                : "text-[color:var(--muted)]"
+                : "text-(--muted)"
           }
         >
           <span className="select-none pr-2 opacity-60">

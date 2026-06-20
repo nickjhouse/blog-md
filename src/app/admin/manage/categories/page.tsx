@@ -13,7 +13,7 @@ export default async function ManageCategoriesPage() {
 
   return (
     <div>
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         Add categories from the post editor. Deleting one leaves its posts
         uncategorized — it doesn’t delete posts.
       </p>

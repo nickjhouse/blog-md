@@ -66,10 +66,10 @@ export default async function ConfirmPage({
   return (
     <section className="max-w-lg">
       <h1 className="font-serif text-3xl font-bold tracking-tight">{title}</h1>
-      <p className="mt-3 text-[color:var(--muted)]">{body}</p>
+      <p className="mt-3 text-(--muted)">{body}</p>
       <Link
         href="/"
-        className="mt-6 inline-block text-sm text-[color:var(--accent)] hover:underline"
+        className="mt-6 inline-block text-sm text-(--accent) hover:underline"
       >
         ← Back to the blog
       </Link>

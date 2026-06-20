@@ -137,7 +137,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
   return (
     <div className="mt-6">
       {error ? (
-        <p className="mb-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mb-3 text-sm text-(--danger)">{error}</p>
       ) : null}
 
       {showCreate ? (
@@ -152,12 +152,12 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="New series title"
-            className="flex-1 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="flex-1 rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
           <button
             type="submit"
             disabled={creating || !newTitle.trim()}
-            className="shrink-0 rounded-md border border-[color:var(--border-strong)] px-3 py-2 text-sm disabled:opacity-50"
+            className="shrink-0 rounded-md border border-(--border-strong) px-3 py-2 text-sm disabled:opacity-50"
           >
             {creating ? "Adding…" : "Add"}
           </button>
@@ -167,7 +167,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
               setShowCreate(false);
               setNewTitle("");
             }}
-            className="shrink-0 text-sm text-[color:var(--muted)] hover:underline"
+            className="shrink-0 text-sm text-(--muted) hover:underline"
           >
             Cancel
           </button>
@@ -176,14 +176,14 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
         <button
           type="button"
           onClick={() => setShowCreate(true)}
-          className="mb-4 text-sm font-medium text-[color:var(--accent)] hover:underline"
+          className="mb-4 text-sm font-medium text-(--accent) hover:underline"
         >
           + New series
         </button>
       )}
 
       {series.length === 0 ? (
-        <p className="text-[color:var(--muted)]">
+        <p className="text-(--muted)">
           No series yet. Add one above, or from the post editor.
         </p>
       ) : (
@@ -203,7 +203,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                 className="h-4 w-4"
                 aria-label="Select all series"
               />
-              <span className="text-[color:var(--muted)]">
+              <span className="text-(--muted)">
                 {selected.size > 0 ? `${selected.size} selected` : "Select all"}
               </span>
             </label>
@@ -213,7 +213,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                   type="button"
                   onClick={runBulkDelete}
                   disabled={bulkBusy}
-                  className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+                  className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
                 >
                   {bulkBusy ? "Deleting…" : "Delete"}
                 </button>
@@ -221,7 +221,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                   type="button"
                   onClick={() => setSelected(new Set())}
                   disabled={bulkBusy}
-                  className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+                  className="text-sm text-(--muted) hover:underline disabled:opacity-50"
                 >
                   Clear
                 </button>
@@ -231,14 +231,14 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
 
           <div className="mt-4">
             {filtered.length === 0 ? (
-              <p className="py-6 text-sm text-[color:var(--muted)]">
+              <p className="py-6 text-sm text-(--muted)">
                 No series match “{query}”.
               </p>
             ) : (
               filtered.map((s) => (
               <div
                 key={s.id}
-                className="flex items-center gap-3 border-t border-[color:var(--border)] py-3"
+                className="flex items-center gap-3 border-t border-(--border) py-3"
               >
                 <input
                   type="checkbox"
@@ -254,20 +254,20 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                         <input
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
-                          className="rounded-md border border-[color:var(--border)] bg-transparent px-2 py-1 text-sm outline-none focus:border-[color:var(--border-strong)]"
+                          className="rounded-md border border-(--border) bg-transparent px-2 py-1 text-sm outline-hidden focus:border-(--border-strong)"
                         />
                         <button
                           type="button"
                           onClick={() => rename(s.id)}
                           disabled={busyId === s.id}
-                          className="text-sm text-[color:var(--accent)] hover:underline disabled:opacity-50"
+                          className="text-sm text-(--accent) hover:underline disabled:opacity-50"
                         >
                           Save
                         </button>
                         <button
                           type="button"
                           onClick={() => setEditingId(null)}
-                          className="text-sm text-[color:var(--muted)] hover:underline"
+                          className="text-sm text-(--muted) hover:underline"
                         >
                           Cancel
                         </button>
@@ -275,7 +275,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                     ) : (
                       <>
                         <div className="font-medium">{s.title}</div>
-                        <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+                        <div className="mt-0.5 text-xs text-(--muted)">
                           {s.published} published
                           <span aria-hidden> · </span>
                           {s.total} total
@@ -291,7 +291,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                           setEditingId(s.id);
                           setTitle(s.title);
                         }}
-                        className="text-[color:var(--muted)] hover:underline"
+                        className="text-(--muted) hover:underline"
                       >
                         Rename
                       </button>
@@ -299,7 +299,7 @@ export function SeriesManager({ series }: { series: SeriesWithCounts[] }) {
                         type="button"
                         onClick={() => remove(s)}
                         disabled={busyId === s.id}
-                        className="text-[color:var(--danger)] hover:underline disabled:opacity-50"
+                        className="text-(--danger) hover:underline disabled:opacity-50"
                       >
                         {busyId === s.id ? "…" : "Delete"}
                       </button>

@@ -123,7 +123,7 @@ export function MfaManager() {
 
   if (loading) {
     return (
-      <p className="mt-3 text-xs text-[color:var(--muted)]">Loading…</p>
+      <p className="mt-3 text-xs text-(--muted)">Loading…</p>
     );
   }
 
@@ -131,7 +131,7 @@ export function MfaManager() {
   if (enrolling) {
     return (
       <form onSubmit={confirmEnroll} className="mt-3 space-y-3">
-        <p className="text-xs text-[color:var(--muted)]">
+        <p className="text-xs text-(--muted)">
           Scan this with an authenticator app (or enter the key manually), then
           enter the 6-digit code to finish.
         </p>
@@ -141,7 +141,7 @@ export function MfaManager() {
           alt="Authenticator QR code"
           className="h-40 w-40 rounded-md bg-white p-2"
         />
-        <p className="break-all text-xs text-[color:var(--muted)]">
+        <p className="break-all text-xs text-(--muted)">
           Manual key: <span className="font-mono">{enrolling.secret}</span>
         </p>
         <label className="block text-sm">
@@ -152,24 +152,24 @@ export function MfaManager() {
             required
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
         </label>
         {error ? (
-          <p className="text-sm text-[color:var(--danger)]">{error}</p>
+          <p className="text-sm text-(--danger)">{error}</p>
         ) : null}
         <div className="flex gap-2">
           <button
             type="submit"
             disabled={busy || !code}
-            className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+            className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
           >
             {busy ? "Verifying…" : "Verify & enable"}
           </button>
           <button
             type="button"
             onClick={cancelEnroll}
-            className="rounded-md px-4 py-2 text-sm font-medium text-[color:var(--muted)]"
+            className="rounded-md px-4 py-2 text-sm font-medium text-(--muted)"
           >
             Cancel
           </button>
@@ -182,17 +182,17 @@ export function MfaManager() {
   if (factor) {
     return (
       <div className="mt-3 space-y-2">
-        <p className="text-sm text-[color:var(--success)]">
+        <p className="text-sm text-(--success)">
           Authenticator app enabled ✓
         </p>
         {error ? (
-          <p className="text-sm text-[color:var(--danger)]">{error}</p>
+          <p className="text-sm text-(--danger)">{error}</p>
         ) : null}
         <button
           type="button"
           onClick={remove}
           disabled={busy}
-          className="rounded-md border border-[color:var(--danger)] px-4 py-2 text-sm font-medium text-[color:var(--danger)] disabled:opacity-50"
+          className="rounded-md border border-(--danger) px-4 py-2 text-sm font-medium text-(--danger) disabled:opacity-50"
         >
           {busy ? "Removing…" : "Remove"}
         </button>
@@ -204,13 +204,13 @@ export function MfaManager() {
   return (
     <div className="mt-3 space-y-2">
       {error ? (
-        <p className="text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="text-sm text-(--danger)">{error}</p>
       ) : null}
       <button
         type="button"
         onClick={startEnroll}
         disabled={busy}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
       >
         {busy ? "Starting…" : "Set up authenticator app"}
       </button>

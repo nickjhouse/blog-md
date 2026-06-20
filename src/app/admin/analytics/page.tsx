@@ -27,12 +27,12 @@ export default async function AdminAnalyticsPage() {
         <h1 className="text-2xl font-bold">Analytics</h1>
         <Link
           href="/admin"
-          className="text-sm text-[color:var(--muted)] hover:underline"
+          className="text-sm text-(--muted) hover:underline"
         >
           ← Posts
         </Link>
       </div>
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
+      <p className="mt-2 text-sm text-(--muted)">
         Custom events from the last {s.days} days. Pageviews live in Cloudflare
         Web Analytics.
       </p>
@@ -41,9 +41,9 @@ export default async function AdminAnalyticsPage() {
         {known.map((name) => (
           <div
             key={name}
-            className="rounded-xl border border-[color:var(--border)] bg-[var(--surface)] p-4"
+            className="rounded-xl border border-(--border) bg-(--surface) p-4"
           >
-            <div className="text-xs text-[color:var(--muted)]">
+            <div className="text-xs text-(--muted)">
               {LABELS[name] ?? name}
             </div>
             <div className="mt-1 text-2xl font-semibold">{countFor(name)}</div>
@@ -58,7 +58,7 @@ export default async function AdminAnalyticsPage() {
             {s.shareByNetwork.map((n) => (
               <li key={n.network} className="flex justify-between">
                 <span className="capitalize">{n.network}</span>
-                <span className="text-[color:var(--muted)]">{n.count}</span>
+                <span className="text-(--muted)">{n.count}</span>
               </li>
             ))}
           </ul>
@@ -72,7 +72,7 @@ export default async function AdminAnalyticsPage() {
             {s.topSearches.map((row) => (
               <li key={row.query} className="flex justify-between gap-4">
                 <span className="truncate">{row.query}</span>
-                <span className="text-[color:var(--muted)]">{row.count}</span>
+                <span className="text-(--muted)">{row.count}</span>
               </li>
             ))}
           </ul>
@@ -84,14 +84,14 @@ export default async function AdminAnalyticsPage() {
           <h2 className="font-serif text-lg font-semibold">
             Searches with no results
           </h2>
-          <p className="mt-1 text-xs text-[color:var(--muted)]">
+          <p className="mt-1 text-xs text-(--muted)">
             Content gaps — what people looked for and didn’t find.
           </p>
           <ul className="mt-2 space-y-1 text-sm">
             {s.zeroResultSearches.map((row) => (
               <li key={row.query} className="flex justify-between gap-4">
                 <span className="truncate">{row.query}</span>
-                <span className="text-[color:var(--muted)]">{row.count}</span>
+                <span className="text-(--muted)">{row.count}</span>
               </li>
             ))}
           </ul>
@@ -101,7 +101,7 @@ export default async function AdminAnalyticsPage() {
       <div className="mt-8">
         <h2 className="font-serif text-lg font-semibold">Recent events</h2>
         {s.recent.length === 0 ? (
-          <p className="mt-2 text-sm text-[color:var(--muted)]">
+          <p className="mt-2 text-sm text-(--muted)">
             No events yet.
           </p>
         ) : (
@@ -111,10 +111,10 @@ export default async function AdminAnalyticsPage() {
                 <span>
                   <span className="font-medium">{LABELS[e.name] ?? e.name}</span>
                   {e.path ? (
-                    <span className="text-[color:var(--muted)]"> · {e.path}</span>
+                    <span className="text-(--muted)"> · {e.path}</span>
                   ) : null}
                 </span>
-                <span className="text-[color:var(--muted)]">
+                <span className="text-(--muted)">
                   {new Date(e.created_at).toLocaleString()}
                 </span>
               </li>

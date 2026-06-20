@@ -42,16 +42,16 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
 
   if (messages.length === 0) {
     return (
-      <p className="mt-6 text-sm text-[color:var(--muted)]">No messages yet.</p>
+      <p className="mt-6 text-sm text-(--muted)">No messages yet.</p>
     );
   }
 
   return (
-    <ul className="mt-6 divide-y divide-[color:var(--border)] rounded-md border border-[color:var(--border)]">
+    <ul className="mt-6 divide-y divide-(--border) rounded-md border border-(--border)">
       {messages.map((m) => {
         const open = openId === m.id;
         return (
-          <li key={m.id} className={m.read ? "" : "bg-[color:var(--hover)]"}>
+          <li key={m.id} className={m.read ? "" : "bg-(--hover)"}>
             <button
               type="button"
               onClick={() => toggleOpen(m)}
@@ -62,7 +62,7 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
                   {!m.read ? (
                     <span
                       aria-label="Unread"
-                      className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--accent)]"
+                      className="h-2 w-2 shrink-0 rounded-full bg-(--accent)"
                     />
                   ) : null}
                   <span
@@ -71,20 +71,20 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
                     {m.subject || "(no subject)"}
                   </span>
                 </span>
-                <span className="mt-0.5 block truncate text-xs text-[color:var(--muted)]">
+                <span className="mt-0.5 block truncate text-xs text-(--muted)">
                   {m.name} · {m.email} ·{" "}
                   {new Date(m.createdAt).toLocaleString()}
                   {!m.emailSent ? " · email not sent" : ""}
                 </span>
               </span>
-              <span className="shrink-0 text-xs text-[color:var(--muted)]">
+              <span className="shrink-0 text-xs text-(--muted)">
                 {open ? "Hide" : "View"}
               </span>
             </button>
 
             {open ? (
               <div className="px-4 pb-4">
-                <p className="whitespace-pre-wrap rounded-md border border-[color:var(--border)] bg-[var(--surface)] p-3 text-sm">
+                <p className="whitespace-pre-wrap rounded-md border border-(--border) bg-(--surface) p-3 text-sm">
                   {m.body}
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-3 text-sm">
@@ -92,7 +92,7 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
                     href={`mailto:${m.email}?subject=${encodeURIComponent(
                       `Re: ${m.subject || "your message"}`,
                     )}`}
-                    className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 font-medium text-[color:var(--button-fg)]"
+                    className="rounded-md bg-(--button-bg) px-3 py-1.5 font-medium text-(--button-fg)"
                   >
                     Reply
                   </a>
@@ -100,7 +100,7 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
                     type="button"
                     onClick={() => setRead(m.id, !m.read)}
                     disabled={busyId === m.id}
-                    className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 hover:bg-[color:var(--hover)] disabled:opacity-50"
+                    className="rounded-md border border-(--border-strong) px-3 py-1.5 hover:bg-(--hover) disabled:opacity-50"
                   >
                     Mark {m.read ? "unread" : "read"}
                   </button>
@@ -108,7 +108,7 @@ export function ContactInbox({ messages }: { messages: ContactMessage[] }) {
                     type="button"
                     onClick={() => remove(m.id)}
                     disabled={busyId === m.id}
-                    className="ml-auto text-[color:var(--danger)] hover:underline disabled:opacity-50"
+                    className="ml-auto text-(--danger) hover:underline disabled:opacity-50"
                   >
                     Delete
                   </button>

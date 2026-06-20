@@ -19,8 +19,8 @@ export function CategoryNav({
           href={`/category/${c.slug}`}
           className={
             c.slug === activeSlug
-              ? "font-medium text-[color:var(--accent)] underline"
-              : "hover:text-[color:var(--accent)] hover:underline"
+              ? "font-medium text-(--accent) underline"
+              : "hover:text-(--accent) hover:underline"
           }
         >
           {c.name}

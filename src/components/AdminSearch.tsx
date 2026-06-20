@@ -20,7 +20,7 @@ export function AdminSearch({
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[color:var(--muted)]"
+        className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--muted)"
       >
         <circle cx="11" cy="11" r="7" />
         <path d="m20 20-3.5-3.5" />
@@ -30,7 +30,7 @@ export function AdminSearch({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-md border border-[color:var(--border)] bg-transparent py-2 pl-9 pr-3 text-sm outline-none focus:border-[color:var(--border-strong)]"
+        className="w-full rounded-md border border-(--border) bg-transparent py-2 pl-9 pr-3 text-sm outline-hidden focus:border-(--border-strong)"
       />
     </div>
   );

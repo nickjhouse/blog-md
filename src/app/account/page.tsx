@@ -28,7 +28,7 @@ export default async function AccountPage() {
       </p>
 
       {!viewer.displayName ? (
-        <p className="mt-4 rounded-md border border-[color:var(--border-strong)] bg-[color:var(--accent-soft,transparent)] p-3 text-sm">
+        <p className="mt-4 rounded-md border border-(--border-strong) bg-(--accent-soft,transparent) p-3 text-sm">
           Almost there — choose a username below to finish setting up your
           account and start commenting.
         </p>
@@ -40,9 +40,9 @@ export default async function AccountPage() {
         initialNotifyOnReply={viewer.notifyOnReply}
       />
 
-      <div className="mt-10 border-t border-[color:var(--border)] pt-6">
+      <div className="mt-10 border-t border-(--border) pt-6">
         <h2 className="text-sm font-semibold">Email</h2>
-        <p className="mt-1 text-xs text-[color:var(--muted)]">
+        <p className="mt-1 text-xs text-(--muted)">
           Used to sign in and for account notifications. Changing it requires
           confirmation from both your current and new address.
         </p>
@@ -50,9 +50,9 @@ export default async function AccountPage() {
       </div>
 
       {viewer.isAuthor && profile ? (
-        <div className="mt-10 border-t border-[color:var(--border)] pt-6">
+        <div className="mt-10 border-t border-(--border) pt-6">
           <h2 className="text-sm font-semibold">Public profile</h2>
-          <p className="mt-1 text-xs text-[color:var(--muted)]">
+          <p className="mt-1 text-xs text-(--muted)">
             Your avatar, bio, and links — shown on your author page (and your
             avatar alongside your posts).
           </p>
@@ -65,9 +65,9 @@ export default async function AccountPage() {
       ) : null}
 
       {viewer.isAdmin ? (
-        <div className="mt-10 border-t border-[color:var(--border)] pt-6">
+        <div className="mt-10 border-t border-(--border) pt-6">
           <h2 className="text-sm font-semibold">Two-factor authentication</h2>
-          <p className="mt-1 text-xs text-[color:var(--muted)]">
+          <p className="mt-1 text-xs text-(--muted)">
             Add a one-time code from an authenticator app to your sign-in. Keep
             your recovery in mind — if you lose the app, the factor must be
             cleared in Supabase to regain access.
@@ -76,9 +76,9 @@ export default async function AccountPage() {
         </div>
       ) : null}
 
-      <div className="mt-10 border-t border-[color:var(--border)] pt-6">
+      <div className="mt-10 border-t border-(--border) pt-6">
         <h2 className="text-sm font-semibold">Your data</h2>
-        <p className="mt-1 text-xs text-[color:var(--muted)]">
+        <p className="mt-1 text-xs text-(--muted)">
           Download a copy of your account data — profile, comments, reactions,
           and bookmarks — as a JSON file.
         </p>
@@ -86,7 +86,7 @@ export default async function AccountPage() {
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
           href="/api/account/export"
-          className="mt-3 inline-block rounded-md border border-[color:var(--border-strong)] px-4 py-2 text-sm font-medium"
+          className="mt-3 inline-block rounded-md border border-(--border-strong) px-4 py-2 text-sm font-medium"
         >
           Download my data
         </a>

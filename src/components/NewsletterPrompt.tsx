@@ -116,7 +116,7 @@ export function NewsletterPrompt({
     <div
       role="dialog"
       aria-label="Newsletter signup"
-      className={`fixed bottom-4 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-lg border border-[color:var(--border)] bg-[var(--surface)] p-4 shadow-lg transition-all duration-200 sm:bottom-6 sm:right-6 ${
+      className={`fixed bottom-4 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-lg border border-(--border) bg-(--surface) p-4 shadow-lg transition-all duration-200 sm:bottom-6 sm:right-6 ${
         closing
           ? "translate-y-2 opacity-0"
           : "translate-y-0 opacity-100"
@@ -126,7 +126,7 @@ export function NewsletterPrompt({
         type="button"
         onClick={dismiss}
         aria-label="Dismiss"
-        className="absolute right-2 top-2 rounded-md p-1 text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+        className="absolute right-2 top-2 rounded-md p-1 text-(--muted) hover:bg-(--hover)"
       >
         <svg
           width="16"
