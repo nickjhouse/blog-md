@@ -64,8 +64,11 @@ until the env vars are set.
       uploads, and saved settings will silently break.
 4. **Authentication → Providers**: enable Email and Google (add your Google
    OAuth credentials).
-5. Sign in once at `/admin`, then run [`supabase/seed.sql`](./supabase/seed.sql)
-   to grant your `ADMIN_EMAIL` the admin role.
+5. **Create your admin account:** sign up at `/signup` using your `ADMIN_EMAIL`.
+   This also creates your `profiles` row via the `on_auth_user_created` trigger
+   (confirm the email first if Supabase email-confirmation is enabled). Then set
+   the email in [`supabase/seed.sql`](./supabase/seed.sql) to that same address
+   and run it to grant the account the `admin` role — after which `/admin` opens.
 
 > **Note.** This baseline is a snapshot of the production schema, so RLS helper
 > functions already live in a non-API-exposed `private` schema and the
