@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import parse from "html-react-parser";
 import { slugify } from "@/lib/slug";
 import type { Page } from "@/lib/pages";
 
 const inputClass =
   "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
 
-// Editor for an admin-managed static page. Markdown body with live preview
-// (reuses the post preview endpoint). Used for both create and edit.
+// Editor for an admin-managed static page. Markdown body with a client-side
+// live preview. Used for both create and edit.
 export function PageEditor({
   mode,
   initial,
@@ -36,19 +37,30 @@ export function PageEditor({
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Debounced live preview. Renders in the browser with the same converter the
+  // server uses on save (markdownToSafeHtml, dynamically imported so the markdown
+  // pipeline stays out of the initial bundle). Client-side avoids a per-keystroke
+  // fetch to a Worker route running the CPU-heavy remark/rehype pipeline, which
+  // trips the Workers CPU limit (1102) on the free plan. Save still re-runs it
+  // server-side, so sanitization can't be bypassed.
   useEffect(() => {
+    let cancelled = false;
     const handle = setTimeout(async () => {
       setPreviewLoading(true);
-      const res = await fetch("/api/admin/preview", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body_md: bodyMd }),
-      });
-      const json = await res.json().catch(() => ({}));
-      setPreviewLoading(false);
-      if (res.ok) setPreviewHtml(json.html ?? "");
+      try {
+        const { markdownToSafeHtml } = await import("@/lib/markdown");
+        const html = await markdownToSafeHtml(bodyMd);
+        if (!cancelled) setPreviewHtml(html);
+      } catch {
+        if (!cancelled) setPreviewHtml("");
+      } finally {
+        if (!cancelled) setPreviewLoading(false);
+      }
     }, 500);
-    return () => clearTimeout(handle);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
   }, [bodyMd]);
 
   function onTitleChange(v: string) {
@@ -188,10 +200,7 @@ export function PageEditor({
             <div className="mb-2 text-xs text-black/55 dark:text-white/40">
               {previewLoading ? "Updating preview…" : "Preview"}
             </div>
-            <div
-              className="prose-content"
-              dangerouslySetInnerHTML={{ __html: previewHtml }}
-            />
+            <div className="prose-content">{parse(previewHtml)}</div>
           </div>
         </div>
       </div>

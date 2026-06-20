@@ -136,20 +136,33 @@ export function PostEditor({
   };
   const draftJson = JSON.stringify(draftContent);
 
-  // Debounced live preview using the same server conversion as publish.
+  // Debounced live preview. Renders in the BROWSER with the exact same converter
+  // the server uses on publish (markdownToSafeHtml) — dynamically imported so the
+  // markdown pipeline stays out of the editor's initial bundle. Doing it
+  // client-side avoids a per-keystroke fetch to a Worker route running the
+  // CPU-heavy remark/rehype pipeline, which was tripping the Workers CPU limit
+  // (1102) on the free plan. Publish still re-runs this server-side, so
+  // sanitization can't be bypassed. The old server route also stamped stored
+  // image dimensions; the published post still does — the live preview skips that
+  // to stay off the Worker (at worst a small image reflow while drafting).
   useEffect(() => {
+    let cancelled = false;
     const handle = setTimeout(async () => {
       setPreviewLoading(true);
-      const res = await fetch("/api/admin/preview", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ body_md: bodyMd }),
-      });
-      const json = await res.json().catch(() => ({}));
-      setPreviewLoading(false);
-      if (res.ok) setPreviewHtml(json.html ?? "");
+      try {
+        const { markdownToSafeHtml } = await import("@/lib/markdown");
+        const html = await markdownToSafeHtml(bodyMd);
+        if (!cancelled) setPreviewHtml(html);
+      } catch {
+        if (!cancelled) setPreviewHtml("");
+      } finally {
+        if (!cancelled) setPreviewLoading(false);
+      }
     }, 500);
-    return () => clearTimeout(handle);
+    return () => {
+      cancelled = true;
+      clearTimeout(handle);
+    };
   }, [bodyMd]);
 
   // On mount: surface a recovered snapshot if it differs from the loaded post.
