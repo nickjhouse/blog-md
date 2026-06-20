@@ -7,7 +7,7 @@ import type { ModerationTerm } from "@/lib/terms";
 
 const muted = "text-black/60 dark:text-white/60";
 const numInput =
-  "w-20 rounded-md border border-[color:var(--border)] bg-transparent px-2 py-1 text-sm outline-none focus:border-[color:var(--border-strong)]";
+  "w-20 rounded-md border border-(--border) bg-transparent px-2 py-1 text-sm outline-hidden focus:border-(--border-strong)";
 
 // Comment behavior settings + the custom filtered-words list. Posts to the
 // shared /api/admin/settings and /api/admin/terms routes.
@@ -69,7 +69,7 @@ export function CommentsSettings({
   return (
     <div className="space-y-8">
       {error ? (
-        <p className="text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="text-sm text-(--danger)">{error}</p>
       ) : null}
 
       <section>
@@ -143,14 +143,14 @@ export function CommentsSettings({
               }
             }}
             placeholder="word or phrase"
-            className="rounded-md border border-[color:var(--border)] bg-transparent px-3 py-1.5 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="rounded-md border border-(--border) bg-transparent px-3 py-1.5 text-sm outline-hidden focus:border-(--border-strong)"
           />
           <select
             value={newTermKind}
             onChange={(e) =>
               setNewTermKind(e.target.value === "allow" ? "allow" : "block")
             }
-            className="rounded-md border border-[color:var(--border)] bg-transparent px-2 py-1.5 text-sm"
+            className="rounded-md border border-(--border) bg-transparent px-2 py-1.5 text-sm"
           >
             <option value="block">block</option>
             <option value="allow">allow</option>
@@ -158,7 +158,7 @@ export function CommentsSettings({
           <button
             type="button"
             onClick={addTerm}
-            className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm"
+            className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm"
           >
             Add
           </button>
@@ -168,7 +168,7 @@ export function CommentsSettings({
             {terms.map((t) => (
               <span
                 key={t.id}
-                className="flex items-center gap-1 rounded bg-[color:var(--hover)] px-2 py-0.5 text-xs"
+                className="flex items-center gap-1 rounded-sm bg-(--hover) px-2 py-0.5 text-xs"
               >
                 {t.term}
                 <span className={muted}>· {t.kind}</span>

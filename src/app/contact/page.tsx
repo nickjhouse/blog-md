@@ -25,7 +25,7 @@ export default async function ContactPage() {
   return (
     <section className="mx-auto max-w-xl">
       <h1 className="font-serif text-3xl font-bold tracking-tight">Contact</h1>
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
+      <p className="mt-2 text-sm text-(--muted)">
         Have a question or want to get in touch with {siteName}? Send a message
         and we&apos;ll get back to you.
       </p>

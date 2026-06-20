@@ -57,7 +57,7 @@ export function MarkdownToolbar({
           {gi > 0 ? (
             <span
               aria-hidden="true"
-              className="mx-1 h-5 w-px bg-[color:var(--border)]"
+              className="mx-1 h-5 w-px bg-(--border)"
             />
           ) : null}
           {group.map((item) => (
@@ -67,7 +67,7 @@ export function MarkdownToolbar({
               title={item.title}
               aria-label={item.title}
               onClick={() => onAction(item.action)}
-              className="inline-flex h-7 min-w-[28px] items-center justify-center rounded px-1 text-xs font-medium text-[color:var(--muted)] hover:bg-[color:var(--hover)] hover:text-[color:var(--foreground)]"
+              className="inline-flex h-7 min-w-[28px] items-center justify-center rounded-sm px-1 text-xs font-medium text-(--muted) hover:bg-(--hover) hover:text-(--foreground)"
             >
               {item.text ? (
                 item.text

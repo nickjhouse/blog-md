@@ -19,7 +19,7 @@ export function SettingsTabs() {
   return (
     <nav
       aria-label="Settings sections"
-      className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-b border-[color:var(--border)] text-sm"
+      className="mt-4 flex flex-wrap gap-x-6 gap-y-2 border-b border-(--border) text-sm"
     >
       {TABS.map((tab) => {
         const active = pathname.startsWith(tab.href);
@@ -29,7 +29,7 @@ export function SettingsTabs() {
               key={tab.href}
               aria-disabled="true"
               title="Coming soon"
-              className="-mb-px cursor-not-allowed border-b-2 border-transparent pb-2 text-[color:var(--muted)] opacity-50"
+              className="-mb-px cursor-not-allowed border-b-2 border-transparent pb-2 text-(--muted) opacity-50"
             >
               {tab.label}
             </span>
@@ -42,8 +42,8 @@ export function SettingsTabs() {
             aria-current={active ? "page" : undefined}
             className={
               active
-                ? "-mb-px border-b-2 border-[color:var(--accent)] pb-2 font-medium text-[color:var(--foreground)]"
-                : "-mb-px border-b-2 border-transparent pb-2 text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                ? "-mb-px border-b-2 border-(--accent) pb-2 font-medium text-(--foreground)"
+                : "-mb-px border-b-2 border-transparent pb-2 text-(--muted) hover:text-(--foreground)"
             }
           >
             {tab.label}

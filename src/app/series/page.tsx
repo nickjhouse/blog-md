@@ -14,29 +14,29 @@ export default async function SeriesIndexPage() {
   return (
     <section>
       <h1 className="font-serif text-3xl font-bold tracking-tight">Series</h1>
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
+      <p className="mt-2 text-sm text-(--muted)">
         Multi-part collections of posts.
       </p>
 
       <div className="mt-6">
         {series.length === 0 ? (
-          <p className="text-[color:var(--muted)]">No series yet.</p>
+          <p className="text-(--muted)">No series yet.</p>
         ) : (
           series.map((s) => (
             <article
               key={s.id}
-              className="border-t border-[color:var(--border)] py-5"
+              className="border-t border-(--border) py-5"
             >
               <h2 className="font-serif text-xl font-semibold tracking-tight">
                 <Link href={`/series/${s.slug}`} className="hover:underline">
                   {s.title}
                 </Link>
               </h2>
-              <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+              <div className="mt-0.5 text-xs text-(--muted)">
                 {s.published} part{s.published === 1 ? "" : "s"}
               </div>
               {s.description ? (
-                <p className="mt-1 text-[color:var(--muted)]">{s.description}</p>
+                <p className="mt-1 text-(--muted)">{s.description}</p>
               ) : null}
             </article>
           ))

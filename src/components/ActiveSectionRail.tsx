@@ -68,7 +68,7 @@ export function ActiveSectionRail() {
     <div
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute left-0 top-0 w-[2px] bg-[color:var(--accent)] transition-all duration-200"
+      className="pointer-events-none absolute left-0 top-0 w-[2px] bg-(--accent) transition-all duration-200"
       style={rail ? { transform: `translateY(${rail.top}px)`, height: rail.height } : { opacity: 0 }}
     />
   );

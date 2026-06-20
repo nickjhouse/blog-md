@@ -18,7 +18,7 @@ function PreviewSwatch({
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className="flex items-center gap-4 rounded-lg border border-[color:var(--border)] px-5 py-4"
+        className="flex items-center gap-4 rounded-lg border border-(--border) px-5 py-4"
         style={{ background: bg }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,7 +28,7 @@ function PreviewSwatch({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={url} alt="" width={48} height={48} />
       </div>
-      <span className="text-xs text-[color:var(--muted)]">{label}</span>
+      <span className="text-xs text-(--muted)">{label}</span>
     </div>
   );
 }
@@ -108,7 +108,7 @@ export function BrandMarkEditor({
 
   return (
     <div className="max-w-xl">
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         This icon is used for both the browser favicon and the nav logo. Upload an
         SVG (preferred — crisp at any size) or PNG. Use a square-ish viewBox and a
         design that reads on both light and dark backgrounds.
@@ -119,11 +119,11 @@ export function BrandMarkEditor({
         <PreviewSwatch label="On dark" bg="#0b0a14" url={shown} />
       </div>
       {previewUrl ? (
-        <p className="mt-2 text-xs text-[color:var(--accent)]">
+        <p className="mt-2 text-xs text-(--accent)">
           Preview of the selected file — not saved yet.
         </p>
       ) : (
-        <p className="mt-2 text-xs text-[color:var(--muted)]">
+        <p className="mt-2 text-xs text-(--muted)">
           {isCustom ? "Showing your uploaded mark." : "Showing the default mark."}
         </p>
       )}
@@ -140,7 +140,7 @@ export function BrandMarkEditor({
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={busy}
-          className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm font-medium disabled:opacity-50"
+          className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm font-medium disabled:opacity-50"
         >
           Choose file…
         </button>
@@ -148,7 +148,7 @@ export function BrandMarkEditor({
           type="button"
           onClick={upload}
           disabled={!file || busy}
-          className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+          className="rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg) disabled:opacity-50"
         >
           {busy ? "Saving…" : "Save icon"}
         </button>
@@ -157,7 +157,7 @@ export function BrandMarkEditor({
             type="button"
             onClick={reset}
             disabled={busy}
-            className="rounded-md px-3 py-1.5 text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] disabled:opacity-50"
+            className="rounded-md px-3 py-1.5 text-sm text-(--muted) hover:text-(--foreground) disabled:opacity-50"
           >
             Reset to default
           </button>
@@ -165,10 +165,10 @@ export function BrandMarkEditor({
       </div>
 
       {file ? (
-        <p className="mt-2 text-xs text-[color:var(--muted)]">Selected: {file.name}</p>
+        <p className="mt-2 text-xs text-(--muted)">Selected: {file.name}</p>
       ) : null}
       {error ? (
-        <p className="mt-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mt-3 text-sm text-(--danger)">{error}</p>
       ) : null}
     </div>
   );

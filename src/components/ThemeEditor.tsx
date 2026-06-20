@@ -156,18 +156,18 @@ function ColorPopover({
   }
 
   return (
-    <div className="absolute left-0 top-9 z-50 w-56 rounded-md border border-[color:var(--border)] bg-[var(--surface)] p-2 shadow-lg">
+    <div className="absolute left-0 top-9 z-50 w-56 rounded-md border border-(--border) bg-(--surface) p-2 shadow-lg">
       <div
         onMouseDown={dragSV}
-        className="relative h-28 w-full cursor-crosshair rounded"
+        className="relative h-28 w-full cursor-crosshair rounded-sm"
         style={{ background: `hsl(${hsv.h}deg 100% 50%)` }}
       >
         <div
-          className="pointer-events-none absolute inset-0 rounded"
+          className="pointer-events-none absolute inset-0 rounded-sm"
           style={{ background: "linear-gradient(to right,#fff,rgba(255,255,255,0))" }}
         />
         <div
-          className="pointer-events-none absolute inset-0 rounded"
+          className="pointer-events-none absolute inset-0 rounded-sm"
           style={{ background: "linear-gradient(to top,#000,rgba(0,0,0,0))" }}
         />
         <div
@@ -177,39 +177,39 @@ function ColorPopover({
       </div>
       <div
         onMouseDown={dragHue}
-        className="relative mt-2 h-3 w-full cursor-pointer rounded"
+        className="relative mt-2 h-3 w-full cursor-pointer rounded-sm"
         style={{
           background:
             "linear-gradient(to right,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)",
         }}
       >
         <div
-          className="pointer-events-none absolute top-1/2 h-4 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded border border-white"
+          className="pointer-events-none absolute top-1/2 h-4 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-sm border border-white"
           style={{ left: `${(hsv.h / 360) * 100}%`, boxShadow: "0 0 0 1px rgba(0,0,0,.4)" }}
         />
       </div>
 
       {/* Editable hex + RGB. Type freely; commits on valid input. */}
       <div className="mt-2 flex items-center gap-1.5">
-        <span className="w-7 shrink-0 text-xs text-[color:var(--muted)]">Hex</span>
+        <span className="w-7 shrink-0 text-xs text-(--muted)">Hex</span>
         <FieldInput
           value={hex}
           valid={isHexColor}
           commit={commitHex}
           ariaLabel="Hex value"
-          className="w-full rounded border border-[color:var(--border)] bg-[var(--background)] px-1.5 py-1 text-xs"
+          className="w-full rounded-sm border border-(--border) bg-(--background) px-1.5 py-1 text-xs"
         />
       </div>
       <div className="mt-1.5 grid grid-cols-3 gap-1.5">
         {(["r", "g", "b"] as const).map((ch) => (
           <label key={ch} className="flex items-center gap-1">
-            <span className="text-xs uppercase text-[color:var(--muted)]">{ch}</span>
+            <span className="text-xs uppercase text-(--muted)">{ch}</span>
             <FieldInput
               value={String(rgb[ch])}
               valid={channelValid}
               commit={(v) => commitChannel(ch, v)}
               ariaLabel={`${ch.toUpperCase()} channel`}
-              className="w-full rounded border border-[color:var(--border)] bg-[var(--background)] px-1 py-1 text-xs"
+              className="w-full rounded-sm border border-(--border) bg-(--background) px-1 py-1 text-xs"
             />
           </label>
         ))}
@@ -254,7 +254,7 @@ function ColorField({
         aria-label={ariaLabel}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="h-7 w-8 shrink-0 cursor-pointer rounded border border-[color:var(--border)]"
+        className="h-7 w-8 shrink-0 cursor-pointer rounded-sm border border-(--border)"
         style={{ background: toColorInput(value) }}
       />
       {open ? <ColorPopover value={value} onChange={onChange} /> : null}
@@ -282,7 +282,7 @@ function OgCardPreview({
 }) {
   return (
     <div className="mt-5">
-      <div className="mb-1 text-xs text-[color:var(--muted)]">
+      <div className="mb-1 text-xs text-(--muted)">
         Social card preview — always rendered in dark mode
       </div>
       <div
@@ -332,7 +332,7 @@ function OgCardPreview({
 function Preview({ eff, label }: { eff: Map; label: string }) {
   return (
     <div className="flex-1">
-      <div className="mb-1 text-xs text-[color:var(--muted)]">{label}</div>
+      <div className="mb-1 text-xs text-(--muted)">{label}</div>
       <div
         style={varsStyle(eff)}
         className="rounded-lg p-4"
@@ -565,7 +565,7 @@ export function ThemeEditor({
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="max-w-xl text-sm text-[color:var(--muted)]">
+        <p className="max-w-xl text-sm text-(--muted)">
           Recolor the site for light and dark mode. Unchanged tokens use the
           built-in defaults; interaction shades (hover, strong border) are derived
           automatically from your core picks.
@@ -596,12 +596,12 @@ export function ThemeEditor({
         return (
           <div
             key={mode}
-            className="mt-3 rounded-md border border-[color:var(--border)] p-3 text-sm"
+            className="mt-3 rounded-md border border-(--border) p-3 text-sm"
           >
-            <span className="font-medium capitalize text-[color:var(--danger)]">
+            <span className="font-medium capitalize text-(--danger)">
               {mode} contrast warnings
             </span>
-            <ul className="mt-1 list-disc pl-5 text-[color:var(--muted)]">
+            <ul className="mt-1 list-disc pl-5 text-(--muted)">
               {w.map((msg) => (
                 <li key={msg}>{msg}</li>
               ))}
@@ -612,7 +612,7 @@ export function ThemeEditor({
 
       {/* Token pickers */}
       <div className="mt-6 space-y-1">
-        <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-1 pb-1 text-xs text-[color:var(--muted)]">
+        <div className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 px-1 pb-1 text-xs text-(--muted)">
           <span>Token</span>
           <span className="w-28 text-center">Light</span>
           <span className="w-28 text-center">Dark</span>
@@ -620,12 +620,12 @@ export function ThemeEditor({
         {visibleTokens.map((t) => (
           <div
             key={t.name}
-            className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 rounded-md px-1 py-1.5 hover:bg-[color:var(--hover)]"
+            className="grid grid-cols-[1fr_auto_auto] items-center gap-x-4 rounded-md px-1 py-1.5 hover:bg-(--hover)"
           >
             <span className="text-sm">
               {t.label}
               {t.group !== "core" ? (
-                <span className="ml-2 text-xs text-[color:var(--muted)]">
+                <span className="ml-2 text-xs text-(--muted)">
                   {t.group}
                 </span>
               ) : null}
@@ -646,7 +646,7 @@ export function ThemeEditor({
                       const v = e.target.value.trim();
                       if (isHexColor(v)) setToken(mode, t.name, v);
                     }}
-                    className="w-full rounded border border-[color:var(--border)] bg-[var(--surface)] px-1.5 py-1 text-xs"
+                    className="w-full rounded-sm border border-(--border) bg-(--surface) px-1.5 py-1 text-xs"
                   />
                 </span>
               );
@@ -660,7 +660,7 @@ export function ThemeEditor({
           type="button"
           onClick={save}
           disabled={busy}
-          className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+          className="rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg) disabled:opacity-50"
         >
           {busy ? "Saving…" : "Save theme"}
         </button>
@@ -669,18 +669,18 @@ export function ThemeEditor({
           onClick={saveDefault}
           disabled={busy}
           title="Apply this theme and store it as the default that Reset to default reverts to."
-          className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm disabled:opacity-50"
+          className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm disabled:opacity-50"
         >
           Save as default
         </button>
         {saved ? (
-          <span className="text-sm text-[color:var(--success)]">Saved.</span>
+          <span className="text-sm text-(--success)">Saved.</span>
         ) : null}
         {error ? (
-          <span className="text-sm text-[color:var(--danger)]">{error}</span>
+          <span className="text-sm text-(--danger)">{error}</span>
         ) : null}
         {notice ? (
-          <span className="text-sm text-[color:var(--muted)]">{notice}</span>
+          <span className="text-sm text-(--muted)">{notice}</span>
         ) : null}
       </div>
 
@@ -692,7 +692,7 @@ export function ThemeEditor({
             type="button"
             onClick={resetToDefault}
             disabled={busy}
-            className="text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:underline disabled:opacity-50"
+            className="text-(--muted) hover:text-(--foreground) hover:underline disabled:opacity-50"
           >
             Reset to default
           </button>
@@ -701,7 +701,7 @@ export function ThemeEditor({
           type="button"
           onClick={resetToBuiltin}
           disabled={busy}
-          className="text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:underline disabled:opacity-50"
+          className="text-(--muted) hover:text-(--foreground) hover:underline disabled:opacity-50"
         >
           Reset to built-in
         </button>
@@ -713,14 +713,14 @@ export function ThemeEditor({
         <button
           type="button"
           onClick={exportTheme}
-          className="text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:underline"
+          className="text-(--muted) hover:text-(--foreground) hover:underline"
         >
           Export theme
         </button>
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:underline"
+          className="text-(--muted) hover:text-(--foreground) hover:underline"
         >
           Import theme
         </button>

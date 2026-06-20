@@ -66,18 +66,18 @@ export function MfaChallengeForm({ next }: { next: string }) {
           required
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         />
-        <span className="mt-1 block text-xs text-[color:var(--muted)]">
+        <span className="mt-1 block text-xs text-(--muted)">
           Enter the 6-digit code from your authenticator app.
         </span>
       </label>
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
       <div className="flex items-center gap-4">
         <button
           type="submit"
           disabled={loading || !code}
-          className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+          className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
         >
           {loading ? "Verifying…" : "Verify"}
         </button>

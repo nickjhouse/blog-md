@@ -115,7 +115,7 @@ export function UsersManager({
   return (
     <div className="mt-6">
       {error ? (
-        <p className="mb-3 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mb-3 text-sm text-(--danger)">{error}</p>
       ) : null}
 
       <AdminSearch
@@ -133,7 +133,7 @@ export function UsersManager({
             className="h-4 w-4"
             aria-label="Select all users"
           />
-          <span className="text-[color:var(--muted)]">
+          <span className="text-(--muted)">
             {selected.size > 0 ? `${selected.size} selected` : "Select all"}
           </span>
         </label>
@@ -143,7 +143,7 @@ export function UsersManager({
               type="button"
               onClick={() => runBulk(true)}
               disabled={bulkBusy}
-              className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+              className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
             >
               Block
             </button>
@@ -151,7 +151,7 @@ export function UsersManager({
               type="button"
               onClick={() => runBulk(false)}
               disabled={bulkBusy}
-              className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm disabled:opacity-50"
+              className="rounded-md border border-(--border-strong) px-3 py-1 text-sm disabled:opacity-50"
             >
               Unblock
             </button>
@@ -159,7 +159,7 @@ export function UsersManager({
               type="button"
               onClick={() => setSelected(new Set())}
               disabled={bulkBusy}
-              className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+              className="text-sm text-(--muted) hover:underline disabled:opacity-50"
             >
               Clear
             </button>
@@ -169,14 +169,14 @@ export function UsersManager({
 
       <div className="mt-4">
         {filtered.length === 0 ? (
-          <p className="py-6 text-sm text-[color:var(--muted)]">
+          <p className="py-6 text-sm text-(--muted)">
             No users match “{query}”.
           </p>
         ) : (
           filtered.map((u) => (
           <div
             key={u.id}
-            className="flex items-center gap-3 border-t border-[color:var(--border)] py-3"
+            className="flex items-center gap-3 border-t border-(--border) py-3"
           >
             <input
               type="checkbox"
@@ -191,18 +191,18 @@ export function UsersManager({
                 <div className="font-medium">
                   {u.display_name ?? "(no name)"}
                   {u.id === currentUserId ? (
-                    <span className="text-[color:var(--muted)]"> · you</span>
+                    <span className="text-(--muted)"> · you</span>
                   ) : null}
                 </div>
                 {u.is_blocked ? (
-                  <div className="text-xs text-[color:var(--danger)]">blocked</div>
+                  <div className="text-xs text-(--danger)">blocked</div>
                 ) : null}
               </div>
               <select
                 value={u.role}
                 disabled={busyId === u.id}
                 onChange={(e) => changeRole(u.id, e.target.value as UserRole)}
-                className="shrink-0 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-1.5 text-sm outline-none focus:border-[color:var(--border-strong)] disabled:opacity-50"
+                className="shrink-0 rounded-md border border-(--border) bg-transparent px-3 py-1.5 text-sm outline-hidden focus:border-(--border-strong) disabled:opacity-50"
               >
                 {ROLES.map((r) => (
                   <option key={r} value={r}>

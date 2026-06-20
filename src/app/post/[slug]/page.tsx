@@ -131,7 +131,7 @@ export default async function PostPage({ params }: { params: Params }) {
       <div className="flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-sm text-[color:var(--muted)] hover:underline"
+          className="text-sm text-(--muted) hover:underline"
         >
           ← Back
         </Link>
@@ -151,11 +151,11 @@ export default async function PostPage({ params }: { params: Params }) {
           height={800}
           fetchPriority="high"
           decoding="async"
-          className="mt-6 aspect-[2/1] max-h-[28rem] w-full rounded-lg object-cover"
+          className="mt-6 aspect-2/1 max-h-112 w-full rounded-lg object-cover"
         />
       ) : null}
 
-      <div className="mt-6 text-sm text-[color:var(--muted)]">
+      <div className="mt-6 text-sm text-(--muted)">
         {post.category ? (
           <>
             <Link
@@ -213,7 +213,7 @@ export default async function PostPage({ params }: { params: Params }) {
             <Link
               key={t.slug}
               href={`/tag/${t.slug}`}
-              className="rounded-md border border-[color:var(--border)] px-2.5 py-1 text-xs text-black/70 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)] dark:text-white/70"
+              className="rounded-md border border-(--border) px-2.5 py-1 text-xs text-black/70 hover:border-(--accent) hover:text-(--accent) dark:text-white/70"
             >
               #{t.name}
             </Link>

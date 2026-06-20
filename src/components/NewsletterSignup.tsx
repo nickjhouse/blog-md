@@ -81,12 +81,12 @@ export function NewsletterSignup({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           aria-label="Email address"
-          className="min-w-0 flex-1 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="min-w-0 flex-1 rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         />
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="shrink-0 rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+          className="shrink-0 rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
         >
           {state === "submitting" ? "…" : "Subscribe"}
         </button>
@@ -103,7 +103,7 @@ export function NewsletterSignup({
       />
       <TurnstileWidget ref={turnstileRef} />
       {message && state === "error" ? (
-        <p className="mt-2 text-sm text-[color:var(--danger)]">{message}</p>
+        <p className="mt-2 text-sm text-(--danger)">{message}</p>
       ) : null}
     </form>
   );

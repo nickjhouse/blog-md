@@ -21,7 +21,7 @@ export default async function PagePreview({ params }: { params: Params }) {
 
   return (
     <article className="prose-content">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-[color:var(--accent)] bg-[color:var(--hover)] px-3 py-2 text-sm not-prose">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-md border border-(--accent) bg-(--hover) px-3 py-2 text-sm not-prose">
         <span>
           Preview — {page.enabled ? "this page is live" : "this page is disabled (not public)"}.
           {page.enabled ? (

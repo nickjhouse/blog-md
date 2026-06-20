@@ -86,7 +86,7 @@ export default async function AuthorPage({ params }: { params: Params }) {
             className="h-16 w-16 shrink-0 rounded-full object-cover"
           />
         ) : (
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[color:var(--hover)] text-2xl font-medium text-[color:var(--muted)]">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-(--hover) text-2xl font-medium text-(--muted)">
             {initial}
           </div>
         )}
@@ -99,7 +99,7 @@ export default async function AuthorPage({ params }: { params: Params }) {
               url={`${SITE_URL}/author/${encodeURIComponent(data.displayName)}/feed.xml`}
             />
           </div>
-          <p className="mt-1 text-sm text-[color:var(--muted)]">
+          <p className="mt-1 text-sm text-(--muted)">
             {data.fullName?.trim() ? (
               <>
                 <span>@{data.displayName}</span>
@@ -112,7 +112,7 @@ export default async function AuthorPage({ params }: { params: Params }) {
       </div>
 
       {data.bio ? (
-        <p className="mt-4 max-w-prose text-[color:var(--muted)]">{data.bio}</p>
+        <p className="mt-4 max-w-prose text-(--muted)">{data.bio}</p>
       ) : null}
 
       {socialLinks.length > 0 ? (
@@ -125,7 +125,7 @@ export default async function AuthorPage({ params }: { params: Params }) {
               rel="me noopener noreferrer"
               aria-label={s.label}
               title={s.label}
-              className="text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+              className="text-(--muted) hover:text-(--foreground)"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -143,7 +143,7 @@ export default async function AuthorPage({ params }: { params: Params }) {
 
       <div className="mt-6">
         {data.posts.length === 0 ? (
-          <p className="text-[color:var(--muted)]">No posts yet.</p>
+          <p className="text-(--muted)">No posts yet.</p>
         ) : (
           data.posts.map((post) => <PostListItem key={post.id} post={post} />)
         )}

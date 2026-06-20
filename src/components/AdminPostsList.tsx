@@ -86,7 +86,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
 
   if (posts.length === 0) {
     return (
-      <p className="mt-6 text-[color:var(--muted)]">
+      <p className="mt-6 text-(--muted)">
         No posts yet. Create your first one.
       </p>
     );
@@ -110,7 +110,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
               className="h-4 w-4"
               aria-label="Select all posts"
             />
-            <span className="text-[color:var(--muted)]">
+            <span className="text-(--muted)">
               {selected.size > 0 ? `${selected.size} selected` : "Select all"}
             </span>
           </label>
@@ -121,7 +121,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                 type="button"
                 onClick={() => runBulk("publish")}
                 disabled={busy}
-                className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm disabled:opacity-50"
+                className="rounded-md border border-(--border-strong) px-3 py-1 text-sm disabled:opacity-50"
               >
                 Publish
               </button>
@@ -129,7 +129,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                 type="button"
                 onClick={() => runBulk("draft")}
                 disabled={busy}
-                className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm disabled:opacity-50"
+                className="rounded-md border border-(--border-strong) px-3 py-1 text-sm disabled:opacity-50"
               >
                 Move to draft
               </button>
@@ -137,7 +137,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                 type="button"
                 onClick={() => runBulk("delete")}
                 disabled={busy}
-                className="rounded-md border border-[color:var(--danger)] px-3 py-1 text-sm text-[color:var(--danger)] disabled:opacity-50"
+                className="rounded-md border border-(--danger) px-3 py-1 text-sm text-(--danger) disabled:opacity-50"
               >
                 Delete
               </button>
@@ -145,7 +145,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                 type="button"
                 onClick={() => setSelected(new Set())}
                 disabled={busy}
-                className="text-sm text-[color:var(--muted)] hover:underline disabled:opacity-50"
+                className="text-sm text-(--muted) hover:underline disabled:opacity-50"
               >
                 Clear
               </button>
@@ -155,19 +155,19 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
       ) : null}
 
       {error ? (
-        <p className="mt-2 text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="mt-2 text-sm text-(--danger)">{error}</p>
       ) : null}
 
       <div className="mt-4">
         {filtered.length === 0 ? (
-          <p className="py-6 text-sm text-[color:var(--muted)]">
+          <p className="py-6 text-sm text-(--muted)">
             No posts match “{query}”.
           </p>
         ) : (
           filtered.map((post) => (
             <div
               key={post.id}
-              className="flex items-center gap-3 border-t border-[color:var(--border)] py-3"
+              className="flex items-center gap-3 border-t border-(--border) py-3"
             >
               <input
                 type="checkbox"
@@ -184,7 +184,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                   >
                     {post.title}
                   </Link>
-                  <div className="mt-0.5 text-xs text-[color:var(--muted)]">
+                  <div className="mt-0.5 text-xs text-(--muted)">
                     {(() => {
                       const scheduled =
                         post.status === "published" &&
@@ -211,7 +211,7 @@ export function AdminPostsList({ posts }: { posts: AdminPostRow[] }) {
                   new Date(post.published_at).getTime() <= Date.now() ? (
                     <Link
                       href={`/post/${post.slug}`}
-                      className="text-[color:var(--muted)] hover:underline"
+                      className="text-(--muted) hover:underline"
                     >
                       View
                     </Link>

@@ -25,7 +25,7 @@ export default async function PrivacyPage() {
       <h1 className="font-serif text-3xl font-bold tracking-tight">
         Privacy Policy
       </h1>
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         Last updated: {LAST_UPDATED}
       </p>
 

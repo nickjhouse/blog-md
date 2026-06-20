@@ -21,7 +21,7 @@ type Defaults = {
 };
 
 const fieldClass =
-  "mt-1 w-full rounded-md border border-[color:var(--border)] bg-[var(--surface)] px-3 py-2 text-sm focus:border-[color:var(--border-strong)]";
+  "mt-1 w-full rounded-md border border-(--border) bg-(--surface) px-3 py-2 text-sm focus:border-(--border-strong)";
 
 export function IdentitySettingsForm({
   current,
@@ -71,7 +71,7 @@ export function IdentitySettingsForm({
 
   return (
     <div className="max-w-xl">
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         These control the site name, tagline, contact address, and language used
         across the nav, page titles, RSS feed, social cards, and emails. Leave a
         field blank to use its built-in default.
@@ -112,22 +112,22 @@ export function IdentitySettingsForm({
             onChange={(e) => setEmail(e.target.value)}
             className={fieldClass}
           />
-          <span className="mt-1 block text-xs text-[color:var(--muted)]">
+          <span className="mt-1 block text-xs text-(--muted)">
             Shown on the privacy policy page.
           </span>
         </label>
 
-        <div className="rounded-md border border-[color:var(--border)] p-4">
+        <div className="rounded-md border border-(--border) p-4">
           <label className="flex items-start gap-2">
             <input
               type="checkbox"
               checked={homeIntroEnabled}
               onChange={(e) => setHomeIntroEnabled(e.target.checked)}
-              className="mt-0.5 h-4 w-4 rounded border-[color:var(--border-strong)]"
+              className="mt-0.5 h-4 w-4 rounded-sm border-(--border-strong)"
             />
             <span className="text-sm font-medium">
               Show homepage intro
-              <span className="mt-0.5 block text-xs font-normal text-[color:var(--muted)]">
+              <span className="mt-0.5 block text-xs font-normal text-(--muted)">
                 Displays the intro section at the top of the homepage (above
                 “Latest posts”).
               </span>
@@ -145,7 +145,7 @@ export function IdentitySettingsForm({
                 onChange={(e) => setHomeIntro(e.target.value)}
                 className={fieldClass}
               />
-              <span className="mt-1 block text-xs text-[color:var(--muted)]">
+              <span className="mt-1 block text-xs text-(--muted)">
                 Separate paragraphs with a blank line. A privacy-policy line is
                 shown beneath it automatically.
               </span>
@@ -167,7 +167,7 @@ export function IdentitySettingsForm({
               </option>
             ))}
           </select>
-          <span className="mt-1 block text-xs text-[color:var(--muted)]">
+          <span className="mt-1 block text-xs text-(--muted)">
             Sets the page language for browsers, screen readers, and the RSS feed.
           </span>
         </label>
@@ -178,15 +178,15 @@ export function IdentitySettingsForm({
           type="button"
           onClick={save}
           disabled={busy}
-          className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+          className="rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg) disabled:opacity-50"
         >
           {busy ? "Saving…" : "Save changes"}
         </button>
         {saved ? (
-          <span className="text-sm text-[color:var(--success)]">Saved.</span>
+          <span className="text-sm text-(--success)">Saved.</span>
         ) : null}
         {error ? (
-          <span className="text-sm text-[color:var(--danger)]">{error}</span>
+          <span className="text-sm text-(--danger)">{error}</span>
         ) : null}
       </div>
     </div>

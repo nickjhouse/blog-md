@@ -23,11 +23,11 @@ export function SearchBox({ initialQuery = "" }: { initialQuery?: string }) {
         onChange={(e) => setQ(e.target.value)}
         placeholder="Search posts…"
         aria-label="Search posts"
-        className="min-w-0 flex-1 rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+        className="min-w-0 flex-1 rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
       />
       <button
         type="submit"
-        className="shrink-0 rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] "
+        className="shrink-0 rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) "
       >
         Search
       </button>

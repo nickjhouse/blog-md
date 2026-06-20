@@ -87,7 +87,7 @@ export function EmailForm({ initialEmail }: { initialEmail: string | null }) {
 
   if (sent) {
     return (
-      <p className="mt-3 rounded-md border border-[color:var(--border)] p-3 text-sm">
+      <p className="mt-3 rounded-md border border-(--border) p-3 text-sm">
         Almost done — check both your current and new email inboxes for a
         confirmation link. Your email changes once you confirm.
       </p>
@@ -97,7 +97,7 @@ export function EmailForm({ initialEmail }: { initialEmail: string | null }) {
   return (
     <form onSubmit={onSubmit} className="mt-3 space-y-3">
       {initialEmail ? (
-        <p className="text-xs text-[color:var(--muted)]">
+        <p className="text-xs text-(--muted)">
           Current email: <span className="font-medium">{initialEmail}</span>
         </p>
       ) : null}
@@ -109,7 +109,7 @@ export function EmailForm({ initialEmail }: { initialEmail: string | null }) {
           autoComplete="email"
           value={newEmail}
           onChange={(e) => setNewEmail(e.target.value)}
-          className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         />
       </label>
       <label className="block text-sm">
@@ -120,17 +120,17 @@ export function EmailForm({ initialEmail }: { initialEmail: string | null }) {
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         />
       </label>
       <TurnstileWidget ref={turnstileRef} />
       {error ? (
-        <p className="text-sm text-[color:var(--danger)]">{error}</p>
+        <p className="text-sm text-(--danger)">{error}</p>
       ) : null}
       <button
         type="submit"
         disabled={loading || !newEmail || !password}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
       >
         {loading ? "Sending…" : "Change email"}
       </button>

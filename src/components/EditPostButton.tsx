@@ -20,7 +20,7 @@ export function EditPostButton({
   return (
     <Link
       href={`/admin/edit/${postId}`}
-      className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm hover:bg-[color:var(--hover)]"
+      className="rounded-md border border-(--border-strong) px-3 py-1 text-sm hover:bg-(--hover)"
     >
       Edit
     </Link>

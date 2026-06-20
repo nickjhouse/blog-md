@@ -18,12 +18,12 @@ export default async function MediaPage() {
         <h1 className="text-2xl font-bold">Media</h1>
         <Link
           href="/admin"
-          className="text-sm text-[color:var(--muted)] hover:underline"
+          className="text-sm text-(--muted) hover:underline"
         >
           ← Posts
         </Link>
       </div>
-      <p className="mt-2 max-w-prose text-sm text-[color:var(--muted)]">
+      <p className="mt-2 max-w-prose text-sm text-(--muted)">
         Browse, upload, and clean up images. “Unused” images aren’t referenced by
         any post’s cover, social image, or body — safe to delete to reclaim
         storage.

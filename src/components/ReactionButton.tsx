@@ -70,7 +70,7 @@ export function ReactionButton({ postId, postSlug, initialCount }: Props) {
       <a
         href={`/login?next=/post/${postSlug}`}
         aria-label="Sign in to like this post"
-        className="inline-flex items-center gap-2 rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+        className="inline-flex items-center gap-2 rounded-md border border-(--border-strong) px-3 py-1.5 text-sm text-(--muted) hover:bg-(--hover)"
       >
         <Heart filled={false} />
         <span>{count}</span>
@@ -115,8 +115,8 @@ export function ReactionButton({ postId, postSlug, initialCount }: Props) {
       aria-label={label}
       className={`inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors disabled:opacity-60 ${
         liked
-          ? "border-[color:var(--accent)] text-[color:var(--accent)]"
-          : "border-[color:var(--border-strong)] text-[color:var(--muted)] hover:bg-[color:var(--hover)]"
+          ? "border-(--accent) text-(--accent)"
+          : "border-(--border-strong) text-(--muted) hover:bg-(--hover)"
       }`}
     >
       <Heart filled={liked} />

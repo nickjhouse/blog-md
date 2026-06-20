@@ -31,7 +31,7 @@ export default async function AdminDashboard() {
         </h1>
         <Link
           href="/admin/new"
-          className="shrink-0 rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)]"
+          className="shrink-0 rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg)"
         >
           New post
         </Link>

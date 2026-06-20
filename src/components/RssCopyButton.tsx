@@ -36,7 +36,7 @@ export function RssCopyButton({ url }: { url: string }) {
         onClick={copy}
         title="Copy RSS feed URL"
         aria-label="Copy RSS feed URL"
-        className="rounded-md p-1.5 text-[color:var(--muted)] hover:bg-[color:var(--hover)] hover:text-[color:var(--foreground)]"
+        className="rounded-md p-1.5 text-(--muted) hover:bg-(--hover) hover:text-(--foreground)"
       >
         <svg
           width="18"
@@ -56,7 +56,7 @@ export function RssCopyButton({ url }: { url: string }) {
       </button>
       <span
         aria-live="polite"
-        className={`pointer-events-none absolute left-full top-1/2 ml-1 -translate-y-1/2 whitespace-nowrap rounded bg-[color:var(--button-bg)] px-1.5 py-0.5 text-xs text-[color:var(--button-fg)] transition-opacity ${
+        className={`pointer-events-none absolute left-full top-1/2 ml-1 -translate-y-1/2 whitespace-nowrap rounded bg-(--button-bg) px-1.5 py-0.5 text-xs text-(--button-fg) transition-opacity ${
           copied ? "opacity-100" : "opacity-0"
         }`}
       >

@@ -32,7 +32,7 @@ type Props = {
 };
 
 const inputClass =
-  "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
+  "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
 
 function toLocalInput(iso: string | null | undefined): string {
   if (!iso) return "";
@@ -519,7 +519,7 @@ export function PostEditor({
   return (
     <div className="mt-6 space-y-5" suppressHydrationWarning>
       {restorable ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[color:var(--accent)] bg-[color:var(--hover)] px-3 py-2 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-(--accent) bg-(--hover) px-3 py-2 text-sm">
           <span>
             Unsaved changes from{" "}
             {new Date(restorable.savedAt).toLocaleString()} were recovered.
@@ -528,14 +528,14 @@ export function PostEditor({
             <button
               type="button"
               onClick={restoreDraft}
-              className="rounded-md bg-[color:var(--button-bg)] px-3 py-1 text-sm font-medium text-[color:var(--button-fg)]"
+              className="rounded-md bg-(--button-bg) px-3 py-1 text-sm font-medium text-(--button-fg)"
             >
               Restore
             </button>
             <button
               type="button"
               onClick={discardDraft}
-              className="rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm font-medium hover:bg-[color:var(--surface)]"
+              className="rounded-md border border-(--border-strong) px-3 py-1 text-sm font-medium hover:bg-(--surface)"
             >
               Discard
             </button>
@@ -544,7 +544,7 @@ export function PostEditor({
       ) : null}
 
       {restoredAt ? (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-[color:var(--accent)] bg-[color:var(--hover)] px-3 py-2 text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-md border border-(--accent) bg-(--hover) px-3 py-2 text-sm">
           <span>
             Loaded the version from{" "}
             {new Date(restoredAt).toLocaleString()}. Review and Save to keep it.
@@ -552,7 +552,7 @@ export function PostEditor({
           <button
             type="button"
             onClick={() => setRestoredAt(null)}
-            className="shrink-0 rounded-md border border-[color:var(--border-strong)] px-3 py-1 text-sm font-medium hover:bg-[color:var(--surface)]"
+            className="shrink-0 rounded-md border border-(--border-strong) px-3 py-1 text-sm font-medium hover:bg-(--surface)"
           >
             Dismiss
           </button>
@@ -580,7 +580,7 @@ export function PostEditor({
           className={inputClass}
           placeholder="post-slug"
         />
-        <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+        <span className="mt-1 block text-xs font-normal text-(--muted)">
           /post/{slugify(slug || title) || "…"}
         </span>
       </label>
@@ -591,7 +591,7 @@ export function PostEditor({
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           >
             <option value="">Uncategorized</option>
             {categories.map((c) => (
@@ -614,13 +614,13 @@ export function PostEditor({
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
               placeholder="New category name"
-              className="rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+              className="rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
             />
             <button
               type="button"
               onClick={addCategory}
               disabled={busy}
-              className="rounded-md border border-[color:var(--border-strong)] px-3 py-2 text-sm disabled:opacity-50"
+              className="rounded-md border border-(--border-strong) px-3 py-2 text-sm disabled:opacity-50"
             >
               Add
             </button>
@@ -634,7 +634,7 @@ export function PostEditor({
           <select
             value={seriesId}
             onChange={(e) => setSeriesId(e.target.value)}
-            className="rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           >
             <option value="">No series</option>
             {series.map((s) => (
@@ -644,21 +644,21 @@ export function PostEditor({
             ))}
           </select>
           {seriesId ? (
-            <label className="flex items-center gap-1 text-sm font-normal text-[color:var(--muted)]">
+            <label className="flex items-center gap-1 text-sm font-normal text-(--muted)">
               Part #
               <input
                 type="number"
                 min={1}
                 value={seriesOrder}
                 onChange={(e) => setSeriesOrder(e.target.value)}
-                className="w-20 rounded-md border border-[color:var(--border)] bg-transparent px-2 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+                className="w-20 rounded-md border border-(--border) bg-transparent px-2 py-2 text-sm outline-hidden focus:border-(--border-strong)"
               />
             </label>
           ) : null}
           <button
             type="button"
             onClick={() => setShowNewSeries((v) => !v)}
-            className="text-sm font-normal text-[color:var(--muted)] hover:underline"
+            className="text-sm font-normal text-(--muted) hover:underline"
           >
             + Add new
           </button>
@@ -669,13 +669,13 @@ export function PostEditor({
               value={newSeries}
               onChange={(e) => setNewSeries(e.target.value)}
               placeholder="New series title"
-              className="rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+              className="rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
             />
             <button
               type="button"
               onClick={addSeries}
               disabled={busy}
-              className="rounded-md border border-[color:var(--border-strong)] px-3 py-2 text-sm disabled:opacity-50"
+              className="rounded-md border border-(--border-strong) px-3 py-2 text-sm disabled:opacity-50"
             >
               Add
             </button>
@@ -690,7 +690,7 @@ export function PostEditor({
           <select
             value={authorId}
             onChange={(e) => setAuthorId(e.target.value)}
-            className="mt-1 block rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="mt-1 block rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           >
             <option value="">{mode === "edit" ? "Unchanged" : "Me"}</option>
             {authors.map((a) => (
@@ -704,11 +704,11 @@ export function PostEditor({
 
       <div className="text-sm font-medium">
         Tags
-        <div className="mt-1 flex flex-wrap items-center gap-2 rounded-md border border-[color:var(--border)] px-2 py-2">
+        <div className="mt-1 flex flex-wrap items-center gap-2 rounded-md border border-(--border) px-2 py-2">
           {tags.map((t) => (
             <span
               key={t}
-              className="flex items-center gap-1 rounded bg-[color:var(--hover)] px-2 py-0.5 text-xs"
+              className="flex items-center gap-1 rounded-sm bg-(--hover) px-2 py-0.5 text-xs"
             >
               {t}
               <button
@@ -734,7 +734,7 @@ export function PostEditor({
             }}
             onBlur={() => addTag(tagInput)}
             placeholder={tags.length ? "" : "Add tags (Enter or comma)"}
-            className="flex-1 bg-transparent text-sm outline-none"
+            className="flex-1 bg-transparent text-sm outline-hidden"
           />
         </div>
       </div>
@@ -756,7 +756,7 @@ export function PostEditor({
           <button
             type="button"
             onClick={() => setPicker("cover")}
-            className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm font-normal"
+            className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm font-normal"
           >
             {coverImage ? "Replace" : "Choose image"}
           </button>
@@ -770,7 +770,7 @@ export function PostEditor({
                 height={40}
                 loading="lazy"
                 decoding="async"
-                className="h-10 w-16 rounded object-cover"
+                className="h-10 w-16 rounded-sm object-cover"
               />
               <button
                 type="button"
@@ -800,20 +800,20 @@ export function PostEditor({
           onChange={(e) => setPublishAt(e.target.value)}
           className={inputClass}
         />
-        <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+        <span className="mt-1 block text-xs font-normal text-(--muted)">
           Leave blank to publish immediately. A future time schedules the post —
           it stays hidden until then.
         </span>
       </label>
 
-      <div className="rounded-md border border-[color:var(--border)] p-4">
+      <div className="rounded-md border border-(--border) p-4">
         <button
           type="button"
           onClick={() => setShowSeo((v) => !v)}
           className="flex w-full items-center justify-between text-sm font-medium"
         >
           <span>SEO &amp; social overrides</span>
-          <span className="text-xs font-normal text-[color:var(--muted)]">
+          <span className="text-xs font-normal text-(--muted)">
             {showSeo ? "Hide" : "Optional — show"}
           </span>
         </button>
@@ -823,7 +823,7 @@ export function PostEditor({
               <span className="flex items-center justify-between">
                 SEO title
                 <span
-                  className={`text-xs font-normal ${seoTitle.trim().length > 60 ? "text-[color:var(--danger)]" : "text-[color:var(--muted)]"}`}
+                  className={`text-xs font-normal ${seoTitle.trim().length > 60 ? "text-(--danger)" : "text-(--muted)"}`}
                 >
                   {seoTitle.trim().length}/60
                 </span>
@@ -839,7 +839,7 @@ export function PostEditor({
               <span className="flex items-center justify-between">
                 Meta description
                 <span
-                  className={`text-xs font-normal ${seoDescription.trim().length > 160 ? "text-[color:var(--danger)]" : "text-[color:var(--muted)]"}`}
+                  className={`text-xs font-normal ${seoDescription.trim().length > 160 ? "text-(--danger)" : "text-(--muted)"}`}
                 >
                   {seoDescription.trim().length}/160
                 </span>
@@ -860,7 +860,7 @@ export function PostEditor({
                 className={`${inputClass} font-normal`}
                 placeholder="https://… — only for cross-posted content"
               />
-              <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+              <span className="mt-1 block text-xs font-normal text-(--muted)">
                 Leave blank to use this post’s own URL.
               </span>
             </label>
@@ -876,7 +876,7 @@ export function PostEditor({
                 <button
                   type="button"
                   onClick={() => setPicker("og")}
-                  className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm font-normal"
+                  className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm font-normal"
                 >
                   {ogImage ? "Replace" : "Choose image"}
                 </button>
@@ -890,7 +890,7 @@ export function PostEditor({
                       height={34}
                       loading="lazy"
                       decoding="async"
-                      className="h-9 w-16 rounded object-cover"
+                      className="h-9 w-16 rounded-sm object-cover"
                     />
                     <button
                       type="button"
@@ -902,7 +902,7 @@ export function PostEditor({
                   </>
                 ) : null}
               </div>
-              <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+              <span className="mt-1 block text-xs font-normal text-(--muted)">
                 Recommended 1200×630. Defaults to the cover image, then a
                 generated image.
               </span>
@@ -912,11 +912,11 @@ export function PostEditor({
                 type="checkbox"
                 checked={noindex}
                 onChange={(e) => setNoindex(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-[color:var(--border-strong)]"
+                className="mt-0.5 h-4 w-4 rounded-sm border-(--border-strong)"
               />
               <span>
                 Hide from search engines (noindex)
-                <span className="mt-0.5 block text-xs text-[color:var(--muted)]">
+                <span className="mt-0.5 block text-xs text-(--muted)">
                   Adds a robots noindex tag and removes the post from the sitemap.
                 </span>
               </span>
@@ -935,24 +935,24 @@ export function PostEditor({
                 `/post/${slugify(slug || title) || "…"}`;
               const effImg = ogImage.trim() || coverImage || "";
               return (
-                <div className="space-y-3 border-t border-[color:var(--border)] pt-4">
-                  <span className="text-xs font-normal text-[color:var(--muted)]">
+                <div className="space-y-3 border-t border-(--border) pt-4">
+                  <span className="text-xs font-normal text-(--muted)">
                     Preview
                   </span>
                   {/* Search result */}
-                  <div className="rounded-md border border-[color:var(--border)] p-3">
-                    <div className="truncate text-xs text-[color:var(--muted)]">
+                  <div className="rounded-md border border-(--border) p-3">
+                    <div className="truncate text-xs text-(--muted)">
                       {effPath}
                     </div>
                     <div className="truncate text-base text-blue-700 dark:text-blue-400">
                       {effTitle}
                     </div>
-                    <div className="line-clamp-2 text-xs font-normal text-[color:var(--muted)]">
+                    <div className="line-clamp-2 text-xs font-normal text-(--muted)">
                       {effDesc}
                     </div>
                   </div>
                   {/* Social card */}
-                  <div className="max-w-sm overflow-hidden rounded-md border border-[color:var(--border)]">
+                  <div className="max-w-sm overflow-hidden rounded-md border border-(--border)">
                     {effImg ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -963,18 +963,18 @@ export function PostEditor({
                         decoding="async"
                       />
                     ) : (
-                      <div className="flex aspect-[1.91/1] w-full items-center justify-center bg-[color:var(--hover)] text-xs text-[color:var(--muted)]">
+                      <div className="flex aspect-[1.91/1] w-full items-center justify-center bg-(--hover) text-xs text-(--muted)">
                         Generated image
                       </div>
                     )}
                     <div className="p-2">
-                      <div className="truncate text-xs text-[color:var(--muted)]">
+                      <div className="truncate text-xs text-(--muted)">
                         {effPath}
                       </div>
                       <div className="truncate text-sm font-medium">
                         {effTitle}
                       </div>
-                      <div className="line-clamp-2 text-xs font-normal text-[color:var(--muted)]">
+                      <div className="line-clamp-2 text-xs font-normal text-(--muted)">
                         {effDesc}
                       </div>
                     </div>
@@ -987,7 +987,7 @@ export function PostEditor({
       </div>
 
       <div>
-        <div className="flex items-center justify-between border-b border-[color:var(--border)] pb-2">
+        <div className="flex items-center justify-between border-b border-(--border) pb-2">
           <span className="text-sm font-medium">Body</span>
           <div className="flex gap-3 text-sm">
             <button
@@ -1032,7 +1032,7 @@ export function PostEditor({
           </div>
         </div>
 
-        <div className="mt-2 border-b border-[color:var(--border)] pb-2">
+        <div className="mt-2 border-b border-(--border) pb-2">
           <MarkdownToolbar onAction={applyFormat} />
         </div>
 
@@ -1043,10 +1043,10 @@ export function PostEditor({
             onChange={(e) => setBodyMd(e.target.value)}
             onKeyDown={onBodyKeyDown}
             rows={20}
-            className="w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 font-mono text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="w-full rounded-md border border-(--border) bg-transparent px-3 py-2 font-mono text-sm outline-hidden focus:border-(--border-strong)"
             placeholder="Write or paste Markdown here, or upload a .md file."
           />
-          <div className="rounded-md border border-[color:var(--border)] p-4">
+          <div className="rounded-md border border-(--border) p-4">
             <div className="mb-2 text-xs text-black/55 dark:text-white/40">
               {previewLoading ? "Updating preview…" : "Preview"}
             </div>
@@ -1085,14 +1085,14 @@ export function PostEditor({
         />
       ) : null}
 
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
 
-      <div className="flex items-center gap-3 border-t border-[color:var(--border)] pt-4">
+      <div className="flex items-center gap-3 border-t border-(--border) pt-4">
         <button
           type="button"
           onClick={() => save("published")}
           disabled={busy}
-          className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+          className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
         >
           {busy ? "Saving…" : publishAt ? "Schedule / Publish" : "Publish"}
         </button>
@@ -1100,12 +1100,12 @@ export function PostEditor({
           type="button"
           onClick={() => save("draft")}
           disabled={busy}
-          className="rounded-md border border-[color:var(--border-strong)] px-4 py-2 text-sm disabled:opacity-50"
+          className="rounded-md border border-(--border-strong) px-4 py-2 text-sm disabled:opacity-50"
         >
           Save draft
         </button>
         <span
-          className="text-xs text-[color:var(--muted)]"
+          className="text-xs text-(--muted)"
           aria-live="polite"
         >
           {saveStatus === "saving"
@@ -1121,7 +1121,7 @@ export function PostEditor({
             type="button"
             onClick={remove}
             disabled={busy}
-            className="ml-auto text-sm text-[color:var(--danger)] hover:underline disabled:opacity-50"
+            className="ml-auto text-sm text-(--danger) hover:underline disabled:opacity-50"
           >
             Delete
           </button>

@@ -145,9 +145,9 @@ export function CoverCropper({
       aria-modal="true"
       aria-label={title}
     >
-      <div className="w-full max-w-lg rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4">
+      <div className="w-full max-w-lg rounded-xl border border-(--border) bg-(--surface) p-4">
         <h2 className="text-sm font-medium">{title}</h2>
-        <p className="mt-1 text-xs text-[color:var(--muted)]">
+        <p className="mt-1 text-xs text-(--muted)">
           Drag to reposition, use the slider to zoom. Exported at {OUT_W}×{OUT_H}.
         </p>
 
@@ -157,7 +157,7 @@ export function CoverCropper({
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerCancel={onPointerUp}
-          className="relative mt-3 w-full touch-none overflow-hidden rounded-md border border-[color:var(--border)] bg-[color:var(--hover)]"
+          className="relative mt-3 w-full touch-none overflow-hidden rounded-md border border-(--border) bg-(--hover)"
           style={{ aspectRatio: String(ASPECT), cursor: "move" }}
         >
           {url ? (
@@ -186,7 +186,7 @@ export function CoverCropper({
           ) : null}
         </div>
 
-        <label className="mt-3 flex items-center gap-3 text-xs text-[color:var(--muted)]">
+        <label className="mt-3 flex items-center gap-3 text-xs text-(--muted)">
           Zoom
           <input
             type="range"
@@ -204,7 +204,7 @@ export function CoverCropper({
             type="button"
             onClick={onCancel}
             disabled={working}
-            className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm hover:bg-[color:var(--hover)] disabled:opacity-50"
+            className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm hover:bg-(--hover) disabled:opacity-50"
           >
             Cancel
           </button>
@@ -212,7 +212,7 @@ export function CoverCropper({
             type="button"
             onClick={apply}
             disabled={working || !ready}
-            className="rounded-md bg-[color:var(--button-bg)] px-3 py-1.5 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+            className="rounded-md bg-(--button-bg) px-3 py-1.5 text-sm font-medium text-(--button-fg) disabled:opacity-50"
           >
             {working ? "Applying…" : "Apply crop"}
           </button>

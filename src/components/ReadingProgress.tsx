@@ -44,7 +44,7 @@ export function ReadingProgress() {
 
   return (
     <div
-      className="fixed left-0 top-0 z-50 h-[3px] bg-[color:var(--accent)]"
+      className="fixed left-0 top-0 z-50 h-[3px] bg-(--accent)"
       style={{ width: `${pct}%` }}
       aria-hidden="true"
     />

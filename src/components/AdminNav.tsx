@@ -21,8 +21,8 @@ type NavItem = {
 };
 
 const badgeClass =
-  "ml-1 rounded-full bg-[color:var(--accent)] px-1.5 py-0.5 text-xs font-medium text-white";
-const linkClass = "text-[color:var(--muted)] hover:underline";
+  "ml-1 rounded-full bg-(--accent) px-1.5 py-0.5 text-xs font-medium text-white";
+const linkClass = "text-(--muted) hover:underline";
 
 function badge(n: number) {
   return n > 0 ? <span className={badgeClass}>{n}</span> : null;
@@ -68,12 +68,12 @@ function renderHub(it: NavItem) {
           shown; `pt-1` bridges the gap so the cursor can travel into the card
           without it closing. Opens on group-hover and group-focus-within. */}
       <div className="invisible absolute left-0 top-full z-20 pt-1 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-        <div className="min-w-[11rem] rounded-md border border-[color:var(--border)] bg-[color:var(--surface)] py-1 shadow-lg">
+        <div className="min-w-44 rounded-md border border-(--border) bg-(--surface) py-1 shadow-lg">
           {it.sub?.map((s) => (
             <Link
               key={s.href}
               href={s.href}
-              className="flex items-center justify-between gap-3 whitespace-nowrap px-3 py-1.5 text-[color:var(--muted)] hover:bg-[color:var(--hover)] hover:text-[color:var(--foreground)]"
+              className="flex items-center justify-between gap-3 whitespace-nowrap px-3 py-1.5 text-(--muted) hover:bg-(--hover) hover:text-(--foreground)"
             >
               {s.label}
               {badge(s.badge ?? 0)}
@@ -95,7 +95,7 @@ function renderMobileItem(it: NavItem, onClose: () => void) {
       <Link
         href={it.href}
         onClick={onClose}
-        className="inline-flex items-center font-medium text-[color:var(--foreground)]"
+        className="inline-flex items-center font-medium text-(--foreground)"
       >
         {it.label}
         {badge(it.badge)}
@@ -106,7 +106,7 @@ function renderMobileItem(it: NavItem, onClose: () => void) {
             key={s.href}
             href={s.href}
             onClick={onClose}
-            className="inline-flex items-center text-[color:var(--muted)] hover:underline"
+            className="inline-flex items-center text-(--muted) hover:underline"
           >
             {s.label}
             {badge(s.badge ?? 0)}
@@ -168,7 +168,7 @@ export function AdminNav({
   const totalAlerts = unreadMessages + moderationCount;
 
   return (
-    <div className="mt-3 border-t border-[color:var(--border)] pt-3 text-sm">
+    <div className="mt-3 border-t border-(--border) pt-3 text-sm">
       {/* Desktop: inline row; hubs get a hover/focus dropdown. */}
       <nav className="hidden flex-wrap items-center gap-x-4 gap-y-2 md:flex">
         {items.map((it) => (it.sub ? renderHub(it) : renderLink(it)))}
@@ -180,11 +180,11 @@ export function AdminNav({
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="flex items-center gap-1 text-[color:var(--foreground)]"
+          className="flex items-center gap-1 text-(--foreground)"
         >
           <span className="font-medium">Menu</span>
           {badge(totalAlerts)}
-          <span aria-hidden className="ml-0.5 text-[color:var(--muted)]">
+          <span aria-hidden className="ml-0.5 text-(--muted)">
             {open ? "▴" : "▾"}
           </span>
         </button>

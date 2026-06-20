@@ -32,7 +32,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
-      className="text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+      className="text-(--muted) hover:text-(--foreground)"
     >
       {/* Until mounted, render a neutral icon to avoid a hydration flash. */}
       <svg

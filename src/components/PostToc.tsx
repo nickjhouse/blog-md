@@ -57,8 +57,8 @@ export function PostToc({ toc }: { toc: TocItem[] }) {
               t.level === 3 ? "pl-6" : "pl-3"
             } ${
               active === t.id
-                ? "border-[color:var(--accent)] font-medium text-[color:var(--accent)]"
-                : "border-transparent text-[color:var(--muted)] hover:text-[color:var(--foreground)]"
+                ? "border-(--accent) font-medium text-(--accent)"
+                : "border-transparent text-(--muted) hover:text-(--foreground)"
             }`}
           >
             {t.text}
@@ -76,7 +76,7 @@ export function PostToc({ toc }: { toc: TocItem[] }) {
         aria-label="Table of contents"
       >
         <nav className="sticky top-24 w-44">
-          <p className="mb-2 text-xs font-medium text-[color:var(--muted)]">
+          <p className="mb-2 text-xs font-medium text-(--muted)">
             On this page
           </p>
           {links}
@@ -84,7 +84,7 @@ export function PostToc({ toc }: { toc: TocItem[] }) {
       </aside>
 
       {/* Mobile/tablet: collapsible block above the body. */}
-      <details className="mb-6 rounded-md border border-[color:var(--border)] xl:hidden">
+      <details className="mb-6 rounded-md border border-(--border) xl:hidden">
         <summary className="cursor-pointer px-3 py-2 text-sm font-medium">
           On this page
         </summary>

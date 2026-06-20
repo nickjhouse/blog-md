@@ -84,11 +84,11 @@ export function AccountDanger() {
   }
 
   return (
-    <div className="mt-10 rounded-md border border-[color:var(--danger)]/40 p-4">
-      <h2 className="text-sm font-semibold text-[color:var(--danger)]">
+    <div className="mt-10 rounded-md border border-(--danger)/40 p-4">
+      <h2 className="text-sm font-semibold text-(--danger)">
         Delete account
       </h2>
-      <p className="mt-1 text-xs text-[color:var(--muted)]">
+      <p className="mt-1 text-xs text-(--muted)">
         Permanently deletes your account, profile, comments, reactions, and
         bookmarks. Posts you authored are kept but lose their byline. This can’t
         be undone.
@@ -98,7 +98,7 @@ export function AccountDanger() {
         <button
           type="button"
           onClick={() => setConfirming(true)}
-          className="mt-3 rounded-md border border-[color:var(--danger)] px-4 py-2 text-sm font-medium text-[color:var(--danger)]"
+          className="mt-3 rounded-md border border-(--danger) px-4 py-2 text-sm font-medium text-(--danger)"
         >
           Delete my account
         </button>
@@ -112,18 +112,18 @@ export function AccountDanger() {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+              className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
             />
           </label>
           <TurnstileWidget ref={turnstileRef} />
           {error ? (
-            <p className="text-sm text-[color:var(--danger)]">{error}</p>
+            <p className="text-sm text-(--danger)">{error}</p>
           ) : null}
           <div className="flex gap-2">
             <button
               type="submit"
               disabled={loading || !password}
-              className="rounded-md bg-[color:var(--danger)] px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+              className="rounded-md bg-(--danger) px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
             >
               {loading ? "Deleting…" : "Permanently delete"}
             </button>
@@ -134,7 +134,7 @@ export function AccountDanger() {
                 setPassword("");
                 setError(null);
               }}
-              className="rounded-md px-4 py-2 text-sm font-medium text-[color:var(--muted)]"
+              className="rounded-md px-4 py-2 text-sm font-medium text-(--muted)"
             >
               Cancel
             </button>

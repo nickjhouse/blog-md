@@ -51,7 +51,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
 
   return (
     <div className="mt-6 space-y-10">
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
 
       <section>
         <h2 className="text-lg font-semibold">
@@ -64,7 +64,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
             {pending.map((c) => (
               <div
                 key={c.id}
-                className="border-t border-[color:var(--border)] py-3"
+                className="border-t border-(--border) py-3"
               >
                 <div className={`text-xs ${muted}`}>
                   {c.authorName ?? "Anonymous"}
@@ -94,7 +94,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
                   <button
                     type="button"
                     onClick={() => del(c.id)}
-                    className="text-[color:var(--danger)] hover:underline"
+                    className="text-(--danger) hover:underline"
                   >
                     Delete
                   </button>
@@ -116,7 +116,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
             {reported.map((c) => (
               <div
                 key={c.id}
-                className="border-t border-[color:var(--border)] py-3"
+                className="border-t border-(--border) py-3"
               >
                 <div className={`text-xs ${muted}`}>
                   {c.authorName ?? "Anonymous"}
@@ -162,7 +162,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
                   <button
                     type="button"
                     onClick={() => del(c.id)}
-                    className="text-[color:var(--danger)] hover:underline"
+                    className="text-(--danger) hover:underline"
                   >
                     Delete
                   </button>
@@ -184,7 +184,7 @@ export function ModerationPanels({ pending, reported, blocked }: Props) {
             {blocked.map((u) => (
               <div
                 key={u.id}
-                className="flex items-center justify-between border-t border-[color:var(--border)] py-2"
+                className="flex items-center justify-between border-t border-(--border) py-2"
               >
                 <span className="text-sm">{u.display_name ?? "(no name)"}</span>
                 <button

@@ -10,7 +10,7 @@ import {
 type State = "idle" | "submitting" | "done" | "error";
 
 const field =
-  "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
+  "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
 
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -64,7 +64,7 @@ export function ContactForm() {
 
   if (state === "done") {
     return (
-      <p className="rounded-md border border-[color:var(--border)] bg-[color:var(--hover)] px-4 py-3 text-sm">
+      <p className="rounded-md border border-(--border) bg-(--hover) px-4 py-3 text-sm">
         {message}
       </p>
     );
@@ -95,7 +95,7 @@ export function ContactForm() {
         />
       </label>
       <label className="block text-sm font-medium">
-        Subject <span className="font-normal text-[color:var(--muted)]">(optional)</span>
+        Subject <span className="font-normal text-(--muted)">(optional)</span>
         <input
           type="text"
           maxLength={200}
@@ -108,7 +108,7 @@ export function ContactForm() {
         <span className="flex items-center justify-between">
           Message
           <span
-            className={`text-xs font-normal ${body.length > 5000 ? "text-[color:var(--danger)]" : "text-[color:var(--muted)]"}`}
+            className={`text-xs font-normal ${body.length > 5000 ? "text-(--danger)" : "text-(--muted)"}`}
           >
             {body.length}/5000
           </span>
@@ -136,13 +136,13 @@ export function ContactForm() {
       <TurnstileWidget ref={turnstileRef} />
 
       {message && state === "error" ? (
-        <p className="text-sm text-[color:var(--danger)]">{message}</p>
+        <p className="text-sm text-(--danger)">{message}</p>
       ) : null}
 
       <button
         type="submit"
         disabled={state === "submitting"}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
       >
         {state === "submitting" ? "Sending…" : "Send message"}
       </button>

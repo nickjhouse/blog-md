@@ -18,7 +18,7 @@ type UsernameStatus =
   | "error";
 
 const inputClass =
-  "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
+  "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
 
 export function SignUpForm() {
   const [email, setEmail] = useState("");
@@ -114,7 +114,7 @@ export function SignUpForm() {
 
   if (done) {
     return (
-      <div className="mt-6 rounded-md border border-[color:var(--border)] p-4 text-sm">
+      <div className="mt-6 rounded-md border border-(--border) p-4 text-sm">
         <p>
           Check your email and click the confirmation link, then sign in to
           start commenting.
@@ -141,10 +141,10 @@ export function SignUpForm() {
   };
   const usernameNoteColor =
     usernameStatus === "available"
-      ? "text-[color:var(--success)]"
+      ? "text-(--success)"
       : usernameStatus === "taken" || usernameStatus === "invalid"
-        ? "text-[color:var(--danger)]"
-        : "text-[color:var(--muted)]";
+        ? "text-(--danger)"
+        : "text-(--muted)";
 
   return (
     <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -184,19 +184,19 @@ export function SignUpForm() {
           onChange={(e) => setPassword(e.target.value)}
           className={inputClass}
         />
-        <span className="mt-1 block text-xs text-[color:var(--muted)]">
+        <span className="mt-1 block text-xs text-(--muted)">
           At least 8 characters.
         </span>
       </label>
 
       <TurnstileWidget ref={turnstileRef} />
 
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
 
       <button
         type="submit"
         disabled={loading || usernameStatus === "checking"}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
       >
         {loading ? "Creating account…" : "Create account"}
       </button>

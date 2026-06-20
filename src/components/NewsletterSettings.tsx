@@ -21,7 +21,7 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
 
   return (
     <div className="max-w-xl">
-      <p className="text-sm text-[color:var(--muted)]">
+      <p className="text-sm text-(--muted)">
         When on, publishing a post emails it to your newsletter audience
         automatically (the same broadcast as the manual “Send to newsletter”
         button, which stays available either way).
@@ -61,7 +61,7 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
             />
             <span>
               Also send when publishing two or more posts at once
-              <span className="mt-0.5 block text-xs text-[color:var(--muted)]">
+              <span className="mt-0.5 block text-xs text-(--muted)">
                 Off by default. Publishing a single post (in the editor or from
                 the list) always follows the setting above; this only controls
                 multi-post bulk publishes, which could otherwise send one email
@@ -72,10 +72,10 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
         </>
       ) : null}
 
-      <hr className="my-6 border-[color:var(--border)]" />
+      <hr className="my-6 border-(--border)" />
 
       <h2 className="font-serif text-lg font-bold">Capture prompt</h2>
-      <p className="mt-1 text-sm text-[color:var(--muted)]">
+      <p className="mt-1 text-sm text-(--muted)">
         A non-modal card that slides into the bottom corner inviting readers to
         subscribe. It hides itself once a visitor subscribes (here or in the
         footer) and respects a dismissal.
@@ -91,7 +91,7 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
                 .value as SiteSettings["newsletter_prompt_trigger"],
             })
           }
-          className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+          className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
         >
           <option value="off">Off — never show</option>
           <option value="scroll">After scrolling down the page</option>
@@ -113,7 +113,7 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
                 newsletter_prompt_scroll_pct: Number(e.target.value),
               })
             }
-            className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
         </label>
       ) : null}
@@ -131,7 +131,7 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
                 newsletter_prompt_delay_seconds: Number(e.target.value),
               })
             }
-            className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
         </label>
       ) : null}
@@ -149,9 +149,9 @@ export function NewsletterSettings({ settings }: { settings: SiteSettings }) {
                 newsletter_prompt_redisplay_days: Number(e.target.value),
               })
             }
-            className="mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]"
+            className="mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)"
           />
-          <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+          <span className="mt-1 block text-xs font-normal text-(--muted)">
             How long after someone closes the card before it may appear again.
             Set to 0 to never re-show after a dismissal.
           </span>

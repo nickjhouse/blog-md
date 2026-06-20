@@ -113,7 +113,7 @@ export function ProfileForm({
   ];
 
   const field =
-    "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
+    "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
 
   return (
     <div className="mt-3 space-y-4">
@@ -130,7 +130,7 @@ export function ProfileForm({
             className="h-14 w-14 rounded-full object-cover"
           />
         ) : (
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--hover)] text-lg font-medium text-[color:var(--muted)]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-(--hover) text-lg font-medium text-(--muted)">
             {initials}
           </div>
         )}
@@ -138,7 +138,7 @@ export function ProfileForm({
           type="button"
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
-          className="rounded-md border border-[color:var(--border-strong)] px-3 py-1.5 text-sm disabled:opacity-50"
+          className="rounded-md border border-(--border-strong) px-3 py-1.5 text-sm disabled:opacity-50"
         >
           {uploading ? "Uploading…" : avatarUrl ? "Replace" : "Upload avatar"}
         </button>
@@ -175,7 +175,7 @@ export function ProfileForm({
           placeholder="e.g. Nick Smith"
           className={`${field} font-normal`}
         />
-        <span className="mt-1 block text-xs font-normal text-[color:var(--muted)]">
+        <span className="mt-1 block text-xs font-normal text-(--muted)">
           Shown as your byline and on your author page. Leave blank to use your
           username.
         </span>
@@ -186,7 +186,7 @@ export function ProfileForm({
         <span className="flex items-center justify-between">
           Bio
           <span
-            className={`text-xs font-normal ${bio.trim().length > BIO_MAX ? "text-[color:var(--danger)]" : "text-[color:var(--muted)]"}`}
+            className={`text-xs font-normal ${bio.trim().length > BIO_MAX ? "text-(--danger)" : "text-(--muted)"}`}
           >
             {bio.trim().length}/{BIO_MAX}
           </span>
@@ -218,16 +218,16 @@ export function ProfileForm({
         ))}
       </div>
 
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
       {saved ? (
-        <p className="text-sm text-[color:var(--success)]">Saved.</p>
+        <p className="text-sm text-(--success)">Saved.</p>
       ) : null}
 
       <button
         type="button"
         onClick={save}
         disabled={saving || uploading}
-        className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50"
+        className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50"
       >
         {saving ? "Saving…" : "Save profile"}
       </button>

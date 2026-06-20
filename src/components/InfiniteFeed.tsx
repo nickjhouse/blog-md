@@ -81,7 +81,7 @@ export function InfiniteFeed({
         posts.map((post) => <PostListItem key={post.id} post={post} />)
       )}
 
-      {error ? <p className="mt-4 text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="mt-4 text-sm text-(--danger)">{error}</p> : null}
 
       {!done && posts.length > 0 ? (
         <div ref={sentinel} className="mt-6 flex justify-center">
@@ -89,7 +89,7 @@ export function InfiniteFeed({
             type="button"
             onClick={loadMore}
             disabled={loading}
-            className="rounded-md border border-[color:var(--border-strong)] px-4 py-2 text-sm hover:bg-[color:var(--hover)] disabled:opacity-50"
+            className="rounded-md border border-(--border-strong) px-4 py-2 text-sm hover:bg-(--hover) disabled:opacity-50"
           >
             {loading ? "Loading…" : "Load more"}
           </button>

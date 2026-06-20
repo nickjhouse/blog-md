@@ -45,7 +45,7 @@ export function SiteNav({
           </Link>
           <Link
             href="/account"
-            className="text-[color:var(--muted)] hover:underline"
+            className="text-(--muted) hover:underline"
             onClick={close}
           >
             {session.displayName ?? "Account"}
@@ -125,7 +125,7 @@ export function SiteNav({
       {open ? (
         <div
           id="mobile-menu"
-          className="flex flex-col items-start gap-3 border-t border-[color:var(--border)] pb-4 pt-3 text-sm sm:hidden"
+          className="flex flex-col items-start gap-3 border-t border-(--border) pb-4 pt-3 text-sm sm:hidden"
         >
           {links}
         </div>

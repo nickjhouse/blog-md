@@ -56,15 +56,15 @@ export default async function SeriesPage({ params }: { params: Params }) {
         {series.title}
       </h1>
       {series.description ? (
-        <p className="mt-2 text-[color:var(--muted)]">{series.description}</p>
+        <p className="mt-2 text-(--muted)">{series.description}</p>
       ) : null}
-      <p className="mt-2 text-sm text-[color:var(--muted)]">
+      <p className="mt-2 text-sm text-(--muted)">
         {series.parts.length} part{series.parts.length === 1 ? "" : "s"}, in order
       </p>
 
       <div className="mt-6">
         {series.parts.length === 0 ? (
-          <p className="text-[color:var(--muted)]">No published parts yet.</p>
+          <p className="text-(--muted)">No published parts yet.</p>
         ) : (
           series.parts.map((post) => (
             <PostListItem key={post.id} post={post} />

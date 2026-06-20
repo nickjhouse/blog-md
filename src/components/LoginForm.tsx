@@ -73,7 +73,7 @@ export function LoginForm() {
   }
 
   const inputClass =
-    "mt-1 w-full rounded-md border border-[color:var(--border)] bg-transparent px-3 py-2 text-sm outline-none focus:border-[color:var(--border-strong)]";
+    "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
 
   return (
     <form onSubmit={onSubmit} className="mt-6 space-y-4">
@@ -102,13 +102,13 @@ export function LoginForm() {
 
       <TurnstileWidget ref={turnstileRef} />
 
-      {error ? <p className="text-sm text-[color:var(--danger)]">{error}</p> : null}
+      {error ? <p className="text-sm text-(--danger)">{error}</p> : null}
 
       <div className="flex items-center gap-4">
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-[color:var(--button-bg)] px-4 py-2 text-sm font-medium text-[color:var(--button-fg)] disabled:opacity-50 "
+          className="rounded-md bg-(--button-bg) px-4 py-2 text-sm font-medium text-(--button-fg) disabled:opacity-50 "
         >
           {loading ? "Signing in…" : "Sign in"}
         </button>
