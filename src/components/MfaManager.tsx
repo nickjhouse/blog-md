@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { SITE_NAME, SITE_URL } from "@/lib/site.config";
 
 type Factor = { id: string; created_at: string };
 type Enrolling = { factorId: string; qrCode: string; secret: string };
@@ -44,6 +45,11 @@ export function MfaManager() {
     const supabase = createClient();
     const { data, error } = await supabase.auth.mfa.enroll({
       factorType: "totp",
+      // Issuer = what the authenticator app displays (e.g. "astraljar.com").
+      // Set it explicitly so it never falls back to the Supabase Site URL
+      // default (which shows "localhost:3000" if that's left unset).
+      issuer: new URL(SITE_URL).host,
+      friendlyName: `${SITE_NAME} authenticator`,
     });
     setBusy(false);
     if (error || !data) {
