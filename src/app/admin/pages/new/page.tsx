@@ -26,6 +26,7 @@ export default async function NewPagePage() {
         mode="create"
         siteName={identity.name}
         contactEmail={identity.contactEmail}
+        siteUrl={identity.url}
       />
     </section>
   );

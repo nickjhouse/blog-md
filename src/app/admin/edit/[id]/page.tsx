@@ -5,6 +5,7 @@ import { getCategoryOptions, getPostByIdForAdmin } from "@/lib/posts";
 import { getSeriesOptions } from "@/lib/series";
 import { getAuthorOptions } from "@/lib/users";
 import { PostEditor } from "@/components/PostEditor";
+import { getSiteIdentity } from "@/lib/identity";
 import { NewsletterSendButton } from "@/components/NewsletterSendButton";
 
 export const metadata: Metadata = { title: "Edit post" };
@@ -16,11 +17,12 @@ export default async function EditPostPage({ params }: { params: Params }) {
   const me = await getContributorContext();
   if (!me) redirect("/admin");
 
-  const [post, categories, series, authors] = await Promise.all([
+  const [post, categories, series, authors, identity] = await Promise.all([
     getPostByIdForAdmin(id),
     getCategoryOptions(),
     getSeriesOptions(),
     me.isAdmin ? getAuthorOptions() : Promise.resolve([]),
+    getSiteIdentity(),
   ]);
   if (!post) notFound();
 
@@ -41,6 +43,9 @@ export default async function EditPostPage({ params }: { params: Params }) {
         series={series}
         authors={authors}
         initial={post}
+        siteName={identity.name}
+        contactEmail={identity.contactEmail}
+        siteUrl={identity.url}
       />
       {live && me.isAdmin ? (
         <NewsletterSendButton

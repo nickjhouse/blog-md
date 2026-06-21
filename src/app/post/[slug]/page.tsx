@@ -14,6 +14,7 @@ import { ShareButtons } from "@/components/ShareButtons";
 import { formatDate } from "@/lib/format";
 import { SITE_URL } from "@/lib/seo";
 import { getSiteIdentity } from "@/lib/identity";
+import { renderPageTokens } from "@/lib/page-tokens";
 import { getSettingsCached } from "@/lib/settings";
 import { brandLogoUrl } from "@/lib/brand";
 import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/structured-data";
@@ -200,7 +201,9 @@ export default async function PostPage({ params }: { params: Params }) {
         {showAids ? <ActiveSectionRail /> : null}
         <div
           className="prose-content mt-8"
-          dangerouslySetInnerHTML={{ __html: rewriteMediaHtml(bodyHtml) }}
+          dangerouslySetInnerHTML={{
+            __html: renderPageTokens(rewriteMediaHtml(bodyHtml), identity),
+          }}
         />
       </div>
       {/* Marks the end of readable content for the reading-progress bar, so it

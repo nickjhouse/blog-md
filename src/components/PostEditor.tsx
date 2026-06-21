@@ -7,6 +7,7 @@ import { slugify } from "@/lib/slug";
 import { splitFrontmatter } from "@/lib/frontmatter";
 import { MediaPicker } from "@/components/MediaPicker";
 import { MarkdownToolbar } from "@/components/MarkdownToolbar";
+import { renderPageTokens, PAGE_TOKENS } from "@/lib/page-tokens";
 import { RevisionHistory } from "@/components/RevisionHistory";
 import type { RevisionFull } from "@/lib/revisions";
 import { formatEdit, type FormatAction } from "@/lib/markdown-format";
@@ -29,6 +30,9 @@ type Props = {
   // Provided only to admins (for reassignment); authors never see this.
   authors?: AuthorOption[];
   initial?: AdminPostFull;
+  siteName: string;
+  contactEmail: string;
+  siteUrl: string;
 };
 
 const inputClass =
@@ -53,6 +57,9 @@ export function PostEditor({
   series: initialSeries,
   authors = [],
   initial,
+  siteName,
+  contactEmail,
+  siteUrl,
 }: Props) {
   const router = useRouter();
   // Stable for this mount; null for an unsaved new post (local autosave only).
@@ -1032,8 +1039,21 @@ export function PostEditor({
           </div>
         </div>
 
-        <div className="mt-2 border-b border-(--border) pb-2">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-b border-(--border) pb-2">
           <MarkdownToolbar onAction={applyFormat} />
+          <details className="relative text-xs text-(--muted)">
+            <summary className="cursor-pointer list-none select-none hover:text-(--foreground) [&::-webkit-details-marker]:hidden">
+              Supports tokens
+            </summary>
+            <ul className="absolute right-0 z-10 mt-1 w-64 space-y-1 rounded-md border border-(--border) bg-(--surface) p-3 shadow-md">
+              {PAGE_TOKENS.map((t) => (
+                <li key={t.token}>
+                  <code>{t.token}</code> — fills from your{" "}
+                  {t.label.toLowerCase()}
+                </li>
+              ))}
+            </ul>
+          </details>
         </div>
 
         <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -1054,7 +1074,15 @@ export function PostEditor({
                 across keystroke-debounced updates and keeps the existing <img>
                 nodes mounted — avoids the reload/blink on every refresh. The
                 HTML is already sanitized server-side. */}
-            <div className="prose-content">{parse(previewHtml)}</div>
+            <div className="prose-content">
+              {parse(
+                renderPageTokens(previewHtml, {
+                  name: siteName,
+                  contactEmail,
+                  url: siteUrl,
+                }),
+              )}
+            </div>
           </div>
         </div>
 

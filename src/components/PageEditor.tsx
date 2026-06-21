@@ -19,12 +19,14 @@ export function PageEditor({
   initial,
   siteName,
   contactEmail,
+  siteUrl,
   defaultBodyMd,
 }: {
   mode: "create" | "edit";
   initial?: Page;
   siteName: string;
   contactEmail: string;
+  siteUrl: string;
   // Built-in canonical copy for "system" pages (e.g. Privacy); enables the
   // "Reset to default" control. Omitted for ordinary pages.
   defaultBodyMd?: string;
@@ -293,7 +295,11 @@ export function PageEditor({
             </div>
             <div className="prose-content">
               {parse(
-                renderPageTokens(previewHtml, { name: siteName, contactEmail }),
+                renderPageTokens(previewHtml, {
+                name: siteName,
+                contactEmail,
+                url: siteUrl,
+              }),
               )}
             </div>
           </div>

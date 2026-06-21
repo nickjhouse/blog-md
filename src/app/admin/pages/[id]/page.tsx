@@ -35,6 +35,7 @@ export default async function EditPagePage({ params }: { params: Params }) {
         initial={page}
         siteName={identity.name}
         contactEmail={identity.contactEmail}
+        siteUrl={identity.url}
         defaultBodyMd={PAGE_DEFAULTS[page.slug]}
       />
     </section>
