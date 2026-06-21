@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import parse from "html-react-parser";
 import { slugify } from "@/lib/slug";
 import type { Page } from "@/lib/pages";
 import { renderPageTokens, PAGE_TOKENS } from "@/lib/page-tokens";
+import { MarkdownToolbar } from "@/components/MarkdownToolbar";
+import { formatEdit, type FormatAction } from "@/lib/markdown-format";
 
 const inputClass =
   "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
@@ -32,6 +34,7 @@ export function PageEditor({
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [slugLocked, setSlugLocked] = useState(mode === "edit");
   const [bodyMd, setBodyMd] = useState(initial?.bodyMd ?? "");
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
   const [enabled, setEnabled] = useState(initial?.enabled ?? false);
   const [showInFooter, setShowInFooter] = useState(
     initial?.showInFooter ?? false,
@@ -75,6 +78,50 @@ export function PageEditor({
   function onTitleChange(v: string) {
     setTitle(v);
     if (!slugLocked) setSlug(slugify(v));
+  }
+
+  // Apply a toolbar format action to the body textarea (same logic as the post
+  // editor). execCommand keeps edits on the native undo stack; falls back to a
+  // state-set when unavailable. Selection is restored afterward.
+  function applyFormat(action: FormatAction) {
+    const el = bodyRef.current;
+    if (!el) return;
+    const edit = formatEdit(
+      action,
+      el.value,
+      el.selectionStart,
+      el.selectionEnd,
+    );
+    el.focus();
+    el.setSelectionRange(edit.from, edit.to);
+    let ok = false;
+    try {
+      ok = document.execCommand("insertText", false, edit.text);
+    } catch {
+      ok = false;
+    }
+    if (!ok) {
+      setBodyMd(
+        el.value.slice(0, edit.from) + edit.text + el.value.slice(edit.to),
+      );
+    }
+    requestAnimationFrame(() => {
+      const t = bodyRef.current;
+      if (t) {
+        t.focus();
+        t.setSelectionRange(edit.selStart, edit.selEnd);
+      }
+    });
+  }
+
+  function onBodyKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (!(e.metaKey || e.ctrlKey) || e.altKey) return;
+    const k = e.key.toLowerCase();
+    const action: FormatAction | null =
+      k === "b" ? "bold" : k === "i" ? "italic" : k === "k" ? "link" : null;
+    if (!action) return;
+    e.preventDefault();
+    applyFormat(action);
   }
 
   async function save() {
@@ -214,10 +261,28 @@ export function PageEditor({
             </button>
           ) : null}
         </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-b border-(--border) pb-2">
+          <MarkdownToolbar onAction={applyFormat} />
+          <details className="relative text-xs text-(--muted)">
+            <summary className="cursor-pointer list-none select-none hover:text-(--foreground) [&::-webkit-details-marker]:hidden">
+              Supports tokens
+            </summary>
+            <ul className="absolute right-0 z-10 mt-1 w-64 space-y-1 rounded-md border border-(--border) bg-(--surface) p-3 shadow-md">
+              {PAGE_TOKENS.map((t) => (
+                <li key={t.token}>
+                  <code>{t.token}</code> — fills from your{" "}
+                  {t.label.toLowerCase()}
+                </li>
+              ))}
+            </ul>
+          </details>
+        </div>
         <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <textarea
+            ref={bodyRef}
             value={bodyMd}
             onChange={(e) => setBodyMd(e.target.value)}
+            onKeyDown={onBodyKeyDown}
             rows={18}
             className="w-full rounded-md border border-(--border) bg-transparent px-3 py-2 font-mono text-sm outline-hidden focus:border-(--border-strong)"
             placeholder="Write the page content in Markdown."
@@ -231,18 +296,6 @@ export function PageEditor({
                 renderPageTokens(previewHtml, { name: siteName, contactEmail }),
               )}
             </div>
-            <details className="col-span-full mt-1 text-xs text-(--muted)">
-              <summary className="cursor-pointer select-none hover:text-(--foreground)">
-                Supports tokens
-              </summary>
-              <ul className="mt-2 space-y-1 pl-1">
-                {PAGE_TOKENS.map((t) => (
-                  <li key={t.token}>
-                    <code>{t.token}</code> — fills from your {t.label.toLowerCase()}
-                  </li>
-                ))}
-              </ul>
-            </details>
           </div>
         </div>
       </div>
