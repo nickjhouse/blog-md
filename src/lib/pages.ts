@@ -27,7 +27,6 @@ export const RESERVED_SLUGS = new Set([
   "media",
   "newsletter",
   "post",
-  "privacy",
   "reset",
   "robots.txt",
   "search",

@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAdminContext } from "@/lib/auth";
 import { getPageForAdmin } from "@/lib/pages";
+import { getSiteIdentity } from "@/lib/identity";
+import { renderPageTokens } from "@/lib/page-tokens";
 
 export const metadata: Metadata = { title: "Preview page", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -18,6 +20,7 @@ export default async function PagePreview({ params }: { params: Params }) {
   const { id } = await params;
   const page = await getPageForAdmin(id);
   if (!page) notFound();
+  const identity = await getSiteIdentity();
 
   return (
     <article className="prose-content">
@@ -43,7 +46,11 @@ export default async function PagePreview({ params }: { params: Params }) {
       <h1 className="font-serif text-3xl font-bold tracking-tight">
         {page.title}
       </h1>
-      <div dangerouslySetInnerHTML={{ __html: page.bodyHtml }} />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: renderPageTokens(page.bodyHtml, identity),
+        }}
+      />
     </article>
   );
 }

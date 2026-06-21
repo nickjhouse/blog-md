@@ -3,6 +3,7 @@ import { requireAdmin, parseJson } from "@/lib/route-guards";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { markdownToSafeHtml } from "@/lib/markdown";
 import { parsePageInput } from "@/lib/pages";
+import { PAGE_DEFAULTS } from "@/lib/page-defaults";
 import { revalidatePage } from "@/lib/revalidate";
 import { mapPgError, serverError } from "@/lib/api-error";
 
@@ -93,11 +94,23 @@ export async function DELETE(_req: NextRequest, { params }: Ctx) {
     .select("slug")
     .eq("id", id)
     .maybeSingle();
+  const slug = (row as { slug: string } | null)?.slug ?? "";
+  // System pages (those with a built-in default, e.g. Privacy) can be disabled
+  // but not deleted — so they can always be restored to the canonical copy.
+  if (PAGE_DEFAULTS[slug]) {
+    return NextResponse.json(
+      {
+        error:
+          "This is a system page and can’t be deleted. Disable it instead if you don’t want it public.",
+      },
+      { status: 400 },
+    );
+  }
   const { error } = await admin.from("pages").delete().eq("id", id);
   if (error) {
     return serverError(error);
   }
   // Removed page → drop its now-404 URL + its footer link everywhere.
-  revalidatePage((row as { slug: string } | null)?.slug ?? "");
+  revalidatePage(slug);
   return NextResponse.json({ ok: true });
 }

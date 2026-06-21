@@ -11,9 +11,13 @@ import type { PageListItem } from "@/lib/pages";
 export function PagesAdmin({
   pages,
   contactEnabled,
+  systemSlugs,
 }: {
   pages: PageListItem[];
   contactEnabled: boolean;
+  // Slugs of seeded "system" pages (e.g. privacy): editable + toggleable, but
+  // protected from deletion, so we show a label instead of a Delete button.
+  systemSlugs: string[];
 }) {
   const router = useRouter();
   const [contact, setContact] = useState(contactEnabled);
@@ -142,14 +146,23 @@ export function PagesAdmin({
                   >
                     Edit
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => remove(p.id)}
-                    disabled={busyId === p.id}
-                    className="text-(--danger) hover:underline disabled:opacity-50"
-                  >
-                    Delete
-                  </button>
+                  {systemSlugs.includes(p.slug) ? (
+                    <span
+                      className="text-(--muted)"
+                      title="System page — disable it to hide it; it can’t be deleted."
+                    >
+                      System
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => remove(p.id)}
+                      disabled={busyId === p.id}
+                      className="text-(--danger) hover:underline disabled:opacity-50"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               </li>
             ))}

@@ -30,8 +30,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: SITE_URL, lastModified: new Date() },
-    // Always-present static pages.
-    { url: `${SITE_URL}/privacy` },
     // Contact is included only while enabled.
     ...(settings.contact_enabled ? [{ url: `${SITE_URL}/contact` }] : []),
     // Admin-managed pages (enabled only).

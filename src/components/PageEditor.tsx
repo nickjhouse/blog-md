@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import parse from "html-react-parser";
 import { slugify } from "@/lib/slug";
 import type { Page } from "@/lib/pages";
+import { renderPageTokens, PAGE_TOKENS } from "@/lib/page-tokens";
 
 const inputClass =
   "mt-1 w-full rounded-md border border-(--border) bg-transparent px-3 py-2 text-sm outline-hidden focus:border-(--border-strong)";
@@ -14,9 +15,17 @@ const inputClass =
 export function PageEditor({
   mode,
   initial,
+  siteName,
+  contactEmail,
+  defaultBodyMd,
 }: {
   mode: "create" | "edit";
   initial?: Page;
+  siteName: string;
+  contactEmail: string;
+  // Built-in canonical copy for "system" pages (e.g. Privacy); enables the
+  // "Reset to default" control. Omitted for ordinary pages.
+  defaultBodyMd?: string;
 }) {
   const router = useRouter();
   const [title, setTitle] = useState(initial?.title ?? "");
@@ -185,8 +194,25 @@ export function PageEditor({
       </label>
 
       <div>
-        <div className="border-b border-(--border) pb-2 text-sm font-medium">
-          Body
+        <div className="flex items-center justify-between border-b border-(--border) pb-2 text-sm font-medium">
+          <span>Body</span>
+          {defaultBodyMd ? (
+            <button
+              type="button"
+              onClick={() => {
+                if (
+                  confirm(
+                    "Replace the current body with the built-in default copy?",
+                  )
+                ) {
+                  setBodyMd(defaultBodyMd);
+                }
+              }}
+              className="text-xs font-normal text-(--muted) hover:text-(--foreground) hover:underline"
+            >
+              Reset to default
+            </button>
+          ) : null}
         </div>
         <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <textarea
@@ -200,7 +226,23 @@ export function PageEditor({
             <div className="mb-2 text-xs text-black/55 dark:text-white/40">
               {previewLoading ? "Updating preview…" : "Preview"}
             </div>
-            <div className="prose-content">{parse(previewHtml)}</div>
+            <div className="prose-content">
+              {parse(
+                renderPageTokens(previewHtml, { name: siteName, contactEmail }),
+              )}
+            </div>
+            <details className="col-span-full mt-1 text-xs text-(--muted)">
+              <summary className="cursor-pointer select-none hover:text-(--foreground)">
+                Supports tokens
+              </summary>
+              <ul className="mt-2 space-y-1 pl-1">
+                {PAGE_TOKENS.map((t) => (
+                  <li key={t.token}>
+                    <code>{t.token}</code> — fills from your {t.label.toLowerCase()}
+                  </li>
+                ))}
+              </ul>
+            </details>
           </div>
         </div>
       </div>

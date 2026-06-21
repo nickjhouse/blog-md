@@ -5,6 +5,7 @@ import { breadcrumbJsonLd } from "@/lib/structured-data";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/seo";
 import { getSiteIdentity } from "@/lib/identity";
+import { renderPageTokens, renderTokensPlain } from "@/lib/page-tokens";
 
 type Params = Promise<{ slug: string }>;
 
@@ -25,9 +26,12 @@ export async function generateMetadata({
   if (RESERVED_SLUGS.has(slug)) return { title: "Not found" };
   const page = await getPageBySlug(decodeURIComponent(slug));
   if (!page) return { title: "Not found" };
+  const identity = await getSiteIdentity();
   return {
     title: page.title,
-    description: page.seoDescription ?? undefined,
+    description: page.seoDescription
+      ? renderTokensPlain(page.seoDescription, identity)
+      : undefined,
     alternates: { canonical: `/${page.slug}` },
     // Admins can preview a disabled page; keep those out of the index.
     robots: page.enabled ? undefined : { index: false, follow: false },
@@ -56,7 +60,11 @@ export default async function StaticPage({ params }: { params: Params }) {
       <h1 className="font-serif text-3xl font-bold tracking-tight">
         {page.title}
       </h1>
-      <div dangerouslySetInnerHTML={{ __html: page.bodyHtml }} />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: renderPageTokens(page.bodyHtml, identity),
+        }}
+      />
     </article>
   );
 }

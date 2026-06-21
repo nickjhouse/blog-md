@@ -3,12 +3,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAdminContext } from "@/lib/auth";
 import { PageEditor } from "@/components/PageEditor";
+import { getSiteIdentity } from "@/lib/identity";
 
 export const metadata: Metadata = { title: "New page" };
 export const dynamic = "force-dynamic";
 
 export default async function NewPagePage() {
   if (!(await getAdminContext())) redirect("/admin");
+  const identity = await getSiteIdentity();
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -20,7 +22,11 @@ export default async function NewPagePage() {
           ← Pages
         </Link>
       </div>
-      <PageEditor mode="create" />
+      <PageEditor
+        mode="create"
+        siteName={identity.name}
+        contactEmail={identity.contactEmail}
+      />
     </section>
   );
 }

@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { getAdminContext } from "@/lib/auth";
 import { getPageForAdmin } from "@/lib/pages";
 import { PageEditor } from "@/components/PageEditor";
+import { getSiteIdentity } from "@/lib/identity";
+import { PAGE_DEFAULTS } from "@/lib/page-defaults";
 
 export const metadata: Metadata = { title: "Edit page" };
 export const dynamic = "force-dynamic";
@@ -15,6 +17,7 @@ export default async function EditPagePage({ params }: { params: Params }) {
   const { id } = await params;
   const page = await getPageForAdmin(id);
   if (!page) notFound();
+  const identity = await getSiteIdentity();
 
   return (
     <section>
@@ -27,7 +30,13 @@ export default async function EditPagePage({ params }: { params: Params }) {
           ← Pages
         </Link>
       </div>
-      <PageEditor mode="edit" initial={page} />
+      <PageEditor
+        mode="edit"
+        initial={page}
+        siteName={identity.name}
+        contactEmail={identity.contactEmail}
+        defaultBodyMd={PAGE_DEFAULTS[page.slug]}
+      />
     </section>
   );
 }

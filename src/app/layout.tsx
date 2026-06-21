@@ -201,12 +201,6 @@ export default async function RootLayout({
                   Contact
                 </Link>
               ) : null}
-              <Link
-                href="/privacy"
-                className="hover:text-(--foreground)"
-              >
-                Privacy
-              </Link>
               <a
                 href="/feed.xml"
                 className="hover:text-(--foreground)"

@@ -5,6 +5,7 @@ import { getAdminContext } from "@/lib/auth";
 import { listPages } from "@/lib/pages";
 import { getSettings } from "@/lib/settings";
 import { PagesAdmin } from "@/components/PagesAdmin";
+import { PAGE_DEFAULTS } from "@/lib/page-defaults";
 
 export const metadata: Metadata = { title: "Pages" };
 export const dynamic = "force-dynamic";
@@ -24,7 +25,11 @@ export default async function PagesPage() {
           ← Posts
         </Link>
       </div>
-      <PagesAdmin pages={pages} contactEnabled={settings.contact_enabled} />
+      <PagesAdmin
+        pages={pages}
+        contactEnabled={settings.contact_enabled}
+        systemSlugs={Object.keys(PAGE_DEFAULTS)}
+      />
     </section>
   );
 }
