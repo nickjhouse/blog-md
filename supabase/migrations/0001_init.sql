@@ -1,6 +1,3 @@
-
-
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -12,58 +9,23 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-
 CREATE EXTENSION IF NOT EXISTS "pg_cron" WITH SCHEMA "pg_catalog";
-
-
-
-
-
 
 CREATE EXTENSION IF NOT EXISTS "pg_net" WITH SCHEMA "extensions";
 
-
-
-
-
-
 CREATE SCHEMA IF NOT EXISTS "private";
-
 
 ALTER SCHEMA "private" OWNER TO "postgres";
 
-
 COMMENT ON SCHEMA "public" IS 'standard public schema';
-
-
 
 CREATE EXTENSION IF NOT EXISTS "pg_stat_statements" WITH SCHEMA "extensions";
 
-
-
-
-
-
 CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA "extensions";
-
-
-
-
-
 
 CREATE EXTENSION IF NOT EXISTS "supabase_vault" WITH SCHEMA "vault";
 
-
-
-
-
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
-
-
-
-
-
 
 CREATE TYPE "public"."comment_status" AS ENUM (
     'visible',
@@ -71,27 +33,21 @@ CREATE TYPE "public"."comment_status" AS ENUM (
     'pending'
 );
 
-
 ALTER TYPE "public"."comment_status" OWNER TO "postgres";
-
 
 CREATE TYPE "public"."post_status" AS ENUM (
     'draft',
     'published'
 );
 
-
 ALTER TYPE "public"."post_status" OWNER TO "postgres";
-
 
 CREATE TYPE "public"."term_kind" AS ENUM (
     'allow',
     'block'
 );
 
-
 ALTER TYPE "public"."term_kind" OWNER TO "postgres";
-
 
 CREATE TYPE "public"."user_role" AS ENUM (
     'reader',
@@ -99,9 +55,7 @@ CREATE TYPE "public"."user_role" AS ENUM (
     'admin'
 );
 
-
 ALTER TYPE "public"."user_role" OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "private"."handle_new_user"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
@@ -119,9 +73,7 @@ begin
 end;
 $$;
 
-
 ALTER FUNCTION "private"."handle_new_user"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "private"."is_admin"() RETURNS boolean
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -133,9 +85,7 @@ CREATE OR REPLACE FUNCTION "private"."is_admin"() RETURNS boolean
   );
 $$;
 
-
 ALTER FUNCTION "private"."is_admin"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "private"."is_author"() RETURNS boolean
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -147,9 +97,7 @@ CREATE OR REPLACE FUNCTION "private"."is_author"() RETURNS boolean
   );
 $$;
 
-
 ALTER FUNCTION "private"."is_author"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "private"."is_blocked"() RETURNS boolean
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -161,9 +109,7 @@ CREATE OR REPLACE FUNCTION "private"."is_blocked"() RETURNS boolean
   );
 $$;
 
-
 ALTER FUNCTION "private"."is_blocked"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "private"."rls_auto_enable"() RETURNS "event_trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
@@ -193,9 +139,7 @@ BEGIN
 END;
 $$;
 
-
 ALTER FUNCTION "private"."rls_auto_enable"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."active_categories"() RETURNS TABLE("id" "uuid", "name" "text", "slug" "text")
     LANGUAGE "sql" STABLE
@@ -212,9 +156,7 @@ CREATE OR REPLACE FUNCTION "public"."active_categories"() RETURNS TABLE("id" "uu
   order by c.name;
 $$;
 
-
 ALTER FUNCTION "public"."active_categories"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."active_tags"() RETURNS TABLE("id" "uuid", "name" "text", "slug" "text")
     LANGUAGE "sql" STABLE
@@ -232,9 +174,7 @@ CREATE OR REPLACE FUNCTION "public"."active_tags"() RETURNS TABLE("id" "uuid", "
   order by t.name;
 $$;
 
-
 ALTER FUNCTION "public"."active_tags"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."analytics_summary"("p_days" integer DEFAULT 30) RETURNS "jsonb"
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -271,9 +211,7 @@ CREATE OR REPLACE FUNCTION "public"."analytics_summary"("p_days" integer DEFAULT
   );
 $$;
 
-
 ALTER FUNCTION "public"."analytics_summary"("p_days" integer) OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."category_counts"() RETURNS TABLE("id" "uuid", "name" "text", "slug" "text", "total" integer, "published" integer)
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -290,9 +228,7 @@ CREATE OR REPLACE FUNCTION "public"."category_counts"() RETURNS TABLE("id" "uuid
   order by c.name;
 $$;
 
-
 ALTER FUNCTION "public"."category_counts"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."published_series"() RETURNS TABLE("id" "uuid", "title" "text", "slug" "text", "description" "text", "published" integer)
     LANGUAGE "sql" STABLE
@@ -311,9 +247,7 @@ CREATE OR REPLACE FUNCTION "public"."published_series"() RETURNS TABLE("id" "uui
   order by s.title;
 $$;
 
-
 ALTER FUNCTION "public"."published_series"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."record_error_alert"("p_fingerprint" "text") RETURNS TABLE("occurrences" integer, "first_seen" timestamp with time zone, "last_emailed_at" timestamp with time zone)
     LANGUAGE "plpgsql" SECURITY DEFINER
@@ -332,9 +266,7 @@ begin
 end;
 $$;
 
-
 ALTER FUNCTION "public"."record_error_alert"("p_fingerprint" "text") OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."series_counts"() RETURNS TABLE("id" "uuid", "title" "text", "slug" "text", "description" "text", "total" integer, "published" integer)
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -351,9 +283,7 @@ CREATE OR REPLACE FUNCTION "public"."series_counts"() RETURNS TABLE("id" "uuid",
   order by s.title;
 $$;
 
-
 ALTER FUNCTION "public"."series_counts"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."set_updated_at"() RETURNS "trigger"
     LANGUAGE "plpgsql"
@@ -365,9 +295,7 @@ begin
 end;
 $$;
 
-
 ALTER FUNCTION "public"."set_updated_at"() OWNER TO "postgres";
-
 
 CREATE OR REPLACE FUNCTION "public"."tag_counts"() RETURNS TABLE("id" "uuid", "name" "text", "slug" "text", "total" integer, "published" integer)
     LANGUAGE "sql" STABLE SECURITY DEFINER
@@ -385,13 +313,11 @@ CREATE OR REPLACE FUNCTION "public"."tag_counts"() RETURNS TABLE("id" "uuid", "n
   order by t.name;
 $$;
 
-
 ALTER FUNCTION "public"."tag_counts"() OWNER TO "postgres";
 
 SET default_tablespace = '';
 
 SET default_table_access_method = "heap";
-
 
 CREATE TABLE IF NOT EXISTS "public"."analytics_events" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -401,9 +327,7 @@ CREATE TABLE IF NOT EXISTS "public"."analytics_events" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."analytics_events" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."bookmarks" (
     "user_id" "uuid" NOT NULL,
@@ -411,9 +335,7 @@ CREATE TABLE IF NOT EXISTS "public"."bookmarks" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."bookmarks" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."categories" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -422,9 +344,7 @@ CREATE TABLE IF NOT EXISTS "public"."categories" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."categories" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."comment_reports" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -434,9 +354,7 @@ CREATE TABLE IF NOT EXISTS "public"."comment_reports" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."comment_reports" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."comments" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -450,9 +368,7 @@ CREATE TABLE IF NOT EXISTS "public"."comments" (
     CONSTRAINT "comments_body_check" CHECK ((("char_length"("body") >= 1) AND ("char_length"("body") <= 5000)))
 );
 
-
 ALTER TABLE "public"."comments" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."contact_messages" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -469,9 +385,7 @@ CREATE TABLE IF NOT EXISTS "public"."contact_messages" (
     CONSTRAINT "contact_messages_subject_len" CHECK ((("subject" IS NULL) OR ("char_length"("subject") <= 200)))
 );
 
-
 ALTER TABLE "public"."contact_messages" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."error_alerts" (
     "fingerprint" "text" NOT NULL,
@@ -481,9 +395,7 @@ CREATE TABLE IF NOT EXISTS "public"."error_alerts" (
     "last_emailed_at" timestamp with time zone
 );
 
-
 ALTER TABLE "public"."error_alerts" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."media" (
     "path" "text" NOT NULL,
@@ -496,9 +408,7 @@ CREATE TABLE IF NOT EXISTS "public"."media" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."media" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."moderation_terms" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -507,9 +417,7 @@ CREATE TABLE IF NOT EXISTS "public"."moderation_terms" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."moderation_terms" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."newsletter_confirmations" (
     "token" "text" NOT NULL,
@@ -518,9 +426,7 @@ CREATE TABLE IF NOT EXISTS "public"."newsletter_confirmations" (
     "expires_at" timestamp with time zone NOT NULL
 );
 
-
 ALTER TABLE "public"."newsletter_confirmations" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."pages" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -537,9 +443,7 @@ CREATE TABLE IF NOT EXISTS "public"."pages" (
     CONSTRAINT "pages_title_len" CHECK ((("char_length"("title") >= 1) AND ("char_length"("title") <= 200)))
 );
 
-
 ALTER TABLE "public"."pages" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."post_revisions" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -565,18 +469,14 @@ CREATE TABLE IF NOT EXISTS "public"."post_revisions" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."post_revisions" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."post_tags" (
     "post_id" "uuid" NOT NULL,
     "tag_id" "uuid" NOT NULL
 );
 
-
 ALTER TABLE "public"."post_tags" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -605,9 +505,7 @@ CREATE TABLE IF NOT EXISTS "public"."posts" (
     "noindex" boolean DEFAULT false NOT NULL
 );
 
-
 ALTER TABLE "public"."posts" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "id" "uuid" NOT NULL,
@@ -637,9 +535,7 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
     CONSTRAINT "profiles_x_url_ck" CHECK ((("x_url" IS NULL) OR (("char_length"("x_url") <= 500) AND ("x_url" ~* '^https?://'::"text"))))
 );
 
-
 ALTER TABLE "public"."profiles" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."reactions" (
     "post_id" "uuid" NOT NULL,
@@ -647,9 +543,7 @@ CREATE TABLE IF NOT EXISTS "public"."reactions" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."reactions" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."series" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -659,9 +553,7 @@ CREATE TABLE IF NOT EXISTS "public"."series" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."series" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."site_settings" (
     "id" boolean DEFAULT true NOT NULL,
@@ -694,9 +586,7 @@ CREATE TABLE IF NOT EXISTS "public"."site_settings" (
     CONSTRAINT "site_settings_singleton" CHECK ("id")
 );
 
-
 ALTER TABLE "public"."site_settings" OWNER TO "postgres";
-
 
 CREATE TABLE IF NOT EXISTS "public"."tags" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -705,948 +595,414 @@ CREATE TABLE IF NOT EXISTS "public"."tags" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
-
 ALTER TABLE "public"."tags" OWNER TO "postgres";
-
 
 ALTER TABLE ONLY "public"."analytics_events"
     ADD CONSTRAINT "analytics_events_pkey" PRIMARY KEY ("id");
 
-
-
 ALTER TABLE ONLY "public"."bookmarks"
     ADD CONSTRAINT "bookmarks_pkey" PRIMARY KEY ("user_id", "post_id");
-
-
 
 ALTER TABLE ONLY "public"."categories"
     ADD CONSTRAINT "categories_name_key" UNIQUE ("name");
 
-
-
 ALTER TABLE ONLY "public"."categories"
     ADD CONSTRAINT "categories_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."categories"
     ADD CONSTRAINT "categories_slug_key" UNIQUE ("slug");
 
-
-
 ALTER TABLE ONLY "public"."comment_reports"
     ADD CONSTRAINT "comment_reports_comment_id_reporter_id_key" UNIQUE ("comment_id", "reporter_id");
-
-
 
 ALTER TABLE ONLY "public"."comment_reports"
     ADD CONSTRAINT "comment_reports_pkey" PRIMARY KEY ("id");
 
-
-
 ALTER TABLE ONLY "public"."comments"
     ADD CONSTRAINT "comments_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."contact_messages"
     ADD CONSTRAINT "contact_messages_pkey" PRIMARY KEY ("id");
 
-
-
 ALTER TABLE ONLY "public"."error_alerts"
     ADD CONSTRAINT "error_alerts_pkey" PRIMARY KEY ("fingerprint");
-
-
 
 ALTER TABLE ONLY "public"."media"
     ADD CONSTRAINT "media_pkey" PRIMARY KEY ("path");
 
-
-
 ALTER TABLE ONLY "public"."moderation_terms"
     ADD CONSTRAINT "moderation_terms_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."moderation_terms"
     ADD CONSTRAINT "moderation_terms_term_kind_key" UNIQUE ("term", "kind");
 
-
-
 ALTER TABLE ONLY "public"."newsletter_confirmations"
     ADD CONSTRAINT "newsletter_confirmations_pkey" PRIMARY KEY ("token");
-
-
 
 ALTER TABLE ONLY "public"."pages"
     ADD CONSTRAINT "pages_pkey" PRIMARY KEY ("id");
 
-
-
 ALTER TABLE ONLY "public"."post_revisions"
     ADD CONSTRAINT "post_revisions_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."post_tags"
     ADD CONSTRAINT "post_tags_pkey" PRIMARY KEY ("post_id", "tag_id");
 
-
-
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_slug_key" UNIQUE ("slug");
 
-
-
 ALTER TABLE ONLY "public"."profiles"
     ADD CONSTRAINT "profiles_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."reactions"
     ADD CONSTRAINT "reactions_pkey" PRIMARY KEY ("post_id", "user_id");
 
-
-
 ALTER TABLE ONLY "public"."series"
     ADD CONSTRAINT "series_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."series"
     ADD CONSTRAINT "series_slug_key" UNIQUE ("slug");
 
-
-
 ALTER TABLE ONLY "public"."site_settings"
     ADD CONSTRAINT "site_settings_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."tags"
     ADD CONSTRAINT "tags_name_key" UNIQUE ("name");
 
-
-
 ALTER TABLE ONLY "public"."tags"
     ADD CONSTRAINT "tags_pkey" PRIMARY KEY ("id");
-
-
 
 ALTER TABLE ONLY "public"."tags"
     ADD CONSTRAINT "tags_slug_key" UNIQUE ("slug");
 
-
-
 CREATE INDEX "analytics_events_name_created_idx" ON "public"."analytics_events" USING "btree" ("name", "created_at" DESC);
-
-
 
 CREATE INDEX "bookmarks_user_idx" ON "public"."bookmarks" USING "btree" ("user_id", "created_at" DESC);
 
-
-
 CREATE INDEX "comment_reports_comment_idx" ON "public"."comment_reports" USING "btree" ("comment_id");
-
-
 
 CREATE INDEX "comments_parent_idx" ON "public"."comments" USING "btree" ("parent_id");
 
-
-
 CREATE INDEX "comments_post_idx" ON "public"."comments" USING "btree" ("post_id", "created_at" DESC);
-
-
 
 CREATE INDEX "contact_messages_created_idx" ON "public"."contact_messages" USING "btree" ("created_at" DESC);
 
-
-
 CREATE INDEX "error_alerts_last_emailed_idx" ON "public"."error_alerts" USING "btree" ("last_emailed_at");
-
-
 
 CREATE INDEX "media_created_idx" ON "public"."media" USING "btree" ("created_at" DESC);
 
-
-
 CREATE INDEX "newsletter_confirmations_email_idx" ON "public"."newsletter_confirmations" USING "btree" ("email");
-
-
 
 CREATE INDEX "pages_enabled_idx" ON "public"."pages" USING "btree" ("enabled");
 
-
-
 CREATE UNIQUE INDEX "pages_slug_unique" ON "public"."pages" USING "btree" ("lower"("slug"));
-
-
 
 CREATE INDEX "post_revisions_post_created_idx" ON "public"."post_revisions" USING "btree" ("post_id", "created_at" DESC);
 
-
-
 CREATE INDEX "post_tags_tag_idx" ON "public"."post_tags" USING "btree" ("tag_id");
-
-
 
 CREATE INDEX "posts_author_idx" ON "public"."posts" USING "btree" ("author_id");
 
-
-
 CREATE INDEX "posts_category_idx" ON "public"."posts" USING "btree" ("category_id");
-
-
 
 CREATE INDEX "posts_search_tsv_idx" ON "public"."posts" USING "gin" ("search_tsv");
 
-
-
 CREATE INDEX "posts_series_idx" ON "public"."posts" USING "btree" ("series_id", "series_order");
-
-
 
 CREATE INDEX "posts_status_published_at_idx" ON "public"."posts" USING "btree" ("status", "published_at" DESC);
 
-
-
 CREATE UNIQUE INDEX "profiles_username_unique" ON "public"."profiles" USING "btree" ("lower"("display_name")) WHERE ("display_name" IS NOT NULL);
-
-
 
 CREATE INDEX "reactions_post_idx" ON "public"."reactions" USING "btree" ("post_id");
 
-
-
 CREATE OR REPLACE TRIGGER "posts_set_updated_at" BEFORE UPDATE ON "public"."posts" FOR EACH ROW EXECUTE FUNCTION "public"."set_updated_at"();
-
-
 
 ALTER TABLE ONLY "public"."bookmarks"
     ADD CONSTRAINT "bookmarks_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."bookmarks"
     ADD CONSTRAINT "bookmarks_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."profiles"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."comment_reports"
     ADD CONSTRAINT "comment_reports_comment_id_fkey" FOREIGN KEY ("comment_id") REFERENCES "public"."comments"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."comment_reports"
     ADD CONSTRAINT "comment_reports_reporter_id_fkey" FOREIGN KEY ("reporter_id") REFERENCES "public"."profiles"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."comments"
     ADD CONSTRAINT "comments_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "public"."profiles"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."comments"
     ADD CONSTRAINT "comments_parent_id_fkey" FOREIGN KEY ("parent_id") REFERENCES "public"."comments"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."comments"
     ADD CONSTRAINT "comments_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."media"
     ADD CONSTRAINT "media_uploaded_by_fkey" FOREIGN KEY ("uploaded_by") REFERENCES "public"."profiles"("id") ON DELETE SET NULL;
-
-
 
 ALTER TABLE ONLY "public"."post_revisions"
     ADD CONSTRAINT "post_revisions_edited_by_fkey" FOREIGN KEY ("edited_by") REFERENCES "public"."profiles"("id") ON DELETE SET NULL;
 
-
-
 ALTER TABLE ONLY "public"."post_revisions"
     ADD CONSTRAINT "post_revisions_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."post_tags"
     ADD CONSTRAINT "post_tags_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."post_tags"
     ADD CONSTRAINT "post_tags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "public"."tags"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "public"."profiles"("id") ON DELETE SET NULL;
 
-
-
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "public"."categories"("id") ON DELETE SET NULL;
-
-
 
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_series_id_fkey" FOREIGN KEY ("series_id") REFERENCES "public"."series"("id") ON DELETE SET NULL;
 
-
-
 ALTER TABLE ONLY "public"."profiles"
     ADD CONSTRAINT "profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE CASCADE;
-
-
 
 ALTER TABLE ONLY "public"."reactions"
     ADD CONSTRAINT "reactions_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON DELETE CASCADE;
 
-
-
 ALTER TABLE ONLY "public"."reactions"
     ADD CONSTRAINT "reactions_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."profiles"("id") ON DELETE CASCADE;
 
-
-
 CREATE POLICY "admins manage all posts" ON "public"."posts" USING ("private"."is_admin"()) WITH CHECK ("private"."is_admin"());
-
-
 
 ALTER TABLE "public"."analytics_events" ENABLE ROW LEVEL SECURITY;
 
-
 CREATE POLICY "author or admin deletes comment" ON "public"."comments" FOR DELETE USING ((("auth"."uid"() = "author_id") OR "private"."is_admin"()));
-
-
 
 CREATE POLICY "author or admin updates comment" ON "public"."comments" FOR UPDATE USING ((("auth"."uid"() = "author_id") OR "private"."is_admin"())) WITH CHECK ((("auth"."uid"() = "author_id") OR "private"."is_admin"()));
 
-
-
 CREATE POLICY "authors manage own posts" ON "public"."posts" USING (("private"."is_author"() AND ("author_id" = "auth"."uid"()))) WITH CHECK (("private"."is_author"() AND ("author_id" = "auth"."uid"())));
-
-
 
 ALTER TABLE "public"."bookmarks" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."categories" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "categories readable by everyone" ON "public"."categories" FOR SELECT USING (true);
 
-
-
 ALTER TABLE "public"."comment_reports" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."contact_messages" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "enabled pages readable by everyone" ON "public"."pages" FOR SELECT USING (("enabled" OR "private"."is_admin"()));
 
-
-
 ALTER TABLE "public"."error_alerts" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "logged-in non-blocked users insert comments" ON "public"."comments" FOR INSERT WITH CHECK ((("auth"."uid"() = "author_id") AND (NOT "private"."is_blocked"())));
 
-
-
 ALTER TABLE "public"."media" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."moderation_terms" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."newsletter_confirmations" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."analytics_events" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "no client access (service-role only)" ON "public"."bookmarks" USING (false) WITH CHECK (false);
-
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."comment_reports" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "no client access (service-role only)" ON "public"."contact_messages" USING (false) WITH CHECK (false);
-
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."error_alerts" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "no client access (service-role only)" ON "public"."media" USING (false) WITH CHECK (false);
-
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."moderation_terms" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "no client access (service-role only)" ON "public"."newsletter_confirmations" USING (false) WITH CHECK (false);
-
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."post_revisions" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "no client access (service-role only)" ON "public"."reactions" USING (false) WITH CHECK (false);
-
-
 
 CREATE POLICY "no client access (service-role only)" ON "public"."site_settings" USING (false) WITH CHECK (false);
 
-
-
 CREATE POLICY "only admin writes categories" ON "public"."categories" USING ("private"."is_admin"()) WITH CHECK ("private"."is_admin"());
-
-
 
 ALTER TABLE "public"."pages" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."post_revisions" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."post_tags" ENABLE ROW LEVEL SECURITY;
 
-
 CREATE POLICY "post_tags readable by everyone" ON "public"."post_tags" FOR SELECT USING (true);
-
-
 
 ALTER TABLE "public"."posts" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "profiles are readable by everyone" ON "public"."profiles" FOR SELECT USING (true);
 
-
-
 CREATE POLICY "published posts readable by everyone" ON "public"."posts" FOR SELECT USING (((("status" = 'published'::"public"."post_status") AND ("published_at" IS NOT NULL) AND ("published_at" <= "now"())) OR "private"."is_admin"()));
-
-
 
 ALTER TABLE "public"."reactions" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."series" ENABLE ROW LEVEL SECURITY;
-
 
 CREATE POLICY "series readable by everyone" ON "public"."series" FOR SELECT USING (true);
 
-
-
 ALTER TABLE "public"."site_settings" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."tags" ENABLE ROW LEVEL SECURITY;
 
-
 CREATE POLICY "tags readable by everyone" ON "public"."tags" FOR SELECT USING (true);
-
-
 
 CREATE POLICY "users update own profile" ON "public"."profiles" FOR UPDATE USING (("auth"."uid"() = "id")) WITH CHECK (("auth"."uid"() = "id"));
 
-
-
 CREATE POLICY "visible comments readable by everyone" ON "public"."comments" FOR SELECT USING ((("status" = 'visible'::"public"."comment_status") OR "private"."is_admin"() OR (("status" = 'pending'::"public"."comment_status") AND ("author_id" = "auth"."uid"()))));
-
-
-
-
 
 ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
-
-
-
-
-
-
-
 GRANT USAGE ON SCHEMA "private" TO PUBLIC;
-
-
 
 GRANT USAGE ON SCHEMA "public" TO "postgres";
 GRANT USAGE ON SCHEMA "public" TO "anon";
 GRANT USAGE ON SCHEMA "public" TO "authenticated";
 GRANT USAGE ON SCHEMA "public" TO "service_role";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 GRANT ALL ON FUNCTION "public"."active_categories"() TO "anon";
 GRANT ALL ON FUNCTION "public"."active_categories"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."active_categories"() TO "service_role";
-
-
 
 GRANT ALL ON FUNCTION "public"."active_tags"() TO "anon";
 GRANT ALL ON FUNCTION "public"."active_tags"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."active_tags"() TO "service_role";
 
-
-
 REVOKE ALL ON FUNCTION "public"."analytics_summary"("p_days" integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."analytics_summary"("p_days" integer) TO "service_role";
 
-
-
 REVOKE ALL ON FUNCTION "public"."category_counts"() FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."category_counts"() TO "service_role";
-
-
 
 GRANT ALL ON FUNCTION "public"."published_series"() TO "anon";
 GRANT ALL ON FUNCTION "public"."published_series"() TO "authenticated";
 GRANT ALL ON FUNCTION "public"."published_series"() TO "service_role";
 
-
-
 REVOKE ALL ON FUNCTION "public"."record_error_alert"("p_fingerprint" "text") FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."record_error_alert"("p_fingerprint" "text") TO "service_role";
-
-
 
 REVOKE ALL ON FUNCTION "public"."series_counts"() FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."series_counts"() TO "service_role";
 
-
-
 REVOKE ALL ON FUNCTION "public"."tag_counts"() FROM PUBLIC;
 GRANT ALL ON FUNCTION "public"."tag_counts"() TO "service_role";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."analytics_events" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."analytics_events" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."analytics_events" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."bookmarks" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."bookmarks" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."bookmarks" TO "service_role";
-
-
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."categories" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."categories" TO "authenticated";
 GRANT ALL ON TABLE "public"."categories" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."comment_reports" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."comment_reports" TO "authenticated";
 GRANT ALL ON TABLE "public"."comment_reports" TO "service_role";
-
-
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."comments" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."comments" TO "authenticated";
 GRANT ALL ON TABLE "public"."comments" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."contact_messages" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."contact_messages" TO "authenticated";
 GRANT ALL ON TABLE "public"."contact_messages" TO "service_role";
-
-
 
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."error_alerts" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."error_alerts" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN,UPDATE ON TABLE "public"."error_alerts" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."media" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."media" TO "authenticated";
 GRANT ALL ON TABLE "public"."media" TO "service_role";
-
-
 
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."moderation_terms" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."moderation_terms" TO "authenticated";
 GRANT ALL ON TABLE "public"."moderation_terms" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."newsletter_confirmations" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."newsletter_confirmations" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."newsletter_confirmations" TO "service_role";
-
-
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."pages" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."pages" TO "authenticated";
 GRANT ALL ON TABLE "public"."pages" TO "service_role";
 
-
-
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."post_revisions" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."post_revisions" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."post_revisions" TO "service_role";
-
-
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."post_tags" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."post_tags" TO "authenticated";
 GRANT ALL ON TABLE "public"."post_tags" TO "service_role";
 
-
-
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."posts" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."posts" TO "authenticated";
 GRANT ALL ON TABLE "public"."posts" TO "service_role";
-
-
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."profiles" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."profiles" TO "authenticated";
 GRANT ALL ON TABLE "public"."profiles" TO "service_role";
 
-
-
 GRANT UPDATE("display_name") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT UPDATE("avatar_url") ON TABLE "public"."profiles" TO "authenticated";
 
-
-
 GRANT UPDATE("notify_on_reply") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT UPDATE("bio") ON TABLE "public"."profiles" TO "authenticated";
 
-
-
 GRANT UPDATE("website_url") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT UPDATE("x_url") ON TABLE "public"."profiles" TO "authenticated";
 
-
-
 GRANT UPDATE("github_url") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT UPDATE("bluesky_url") ON TABLE "public"."profiles" TO "authenticated";
 
-
-
 GRANT UPDATE("mastodon_url") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT UPDATE("linkedin_url") ON TABLE "public"."profiles" TO "authenticated";
 
-
-
 GRANT UPDATE("full_name") ON TABLE "public"."profiles" TO "authenticated";
-
-
 
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."reactions" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."reactions" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."reactions" TO "service_role";
 
-
-
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."series" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."series" TO "authenticated";
 GRANT ALL ON TABLE "public"."series" TO "service_role";
-
-
 
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."site_settings" TO "anon";
 GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."site_settings" TO "authenticated";
 GRANT SELECT,INSERT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN,UPDATE ON TABLE "public"."site_settings" TO "service_role";
 
-
-
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."tags" TO "anon";
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE "public"."tags" TO "authenticated";
 GRANT ALL ON TABLE "public"."tags" TO "service_role";
 
-
-
-
-
-
-
-
-
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES TO "postgres";
 
-
-
-
-
-
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS TO "postgres";
-
-
-
-
-
 
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "postgres";
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLES TO "anon";
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLES TO "authenticated";
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLES TO "service_role";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
