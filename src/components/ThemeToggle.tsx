@@ -1,19 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+// The active theme lives on <html class="dark">. Read it reactively via
+// useSyncExternalStore (a MutationObserver on the class attribute) so the button
+// reflects the live theme WITHOUT a mount effect + setState (which
+// react-hooks/set-state-in-effect flags). getServerSnapshot returns light, so
+// SSR / pre-hydration renders the neutral moon icon — same flash-avoidance the
+// old `ready` flag provided.
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
+const getSnapshot = () => document.documentElement.classList.contains("dark");
+const getServerSnapshot = () => false;
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    setReady(true);
-  }, []);
+  const dark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   function toggle() {
     const next = !dark;
-    setDark(next);
+    // Mutate the DOM; the MutationObserver above re-reads the snapshot and
+    // re-renders this button. No setState needed.
     document.documentElement.classList.toggle("dark", next);
     // Keep the inline color-scheme in sync too. The boot script sets it inline,
     // which overrides the `.dark { color-scheme }` CSS rule — so native controls
@@ -34,7 +46,6 @@ export function ThemeToggle() {
       aria-label={dark ? "Switch to light theme" : "Switch to dark theme"}
       className="text-(--muted) hover:text-(--foreground)"
     >
-      {/* Until mounted, render a neutral icon to avoid a hydration flash. */}
       <svg
         width="18"
         height="18"
@@ -46,7 +57,7 @@ export function ThemeToggle() {
         strokeLinejoin="round"
         aria-hidden="true"
       >
-        {ready && dark ? (
+        {dark ? (
           <>
             <circle cx="12" cy="12" r="4" />
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />

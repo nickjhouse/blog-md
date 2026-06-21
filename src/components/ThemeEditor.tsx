@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { useRouter } from "next/navigation";
 import type { ThemeOverrides } from "@/lib/settings";
 import {
@@ -367,6 +373,37 @@ function Preview({ eff, label }: { eff: Map; label: string }) {
   );
 }
 
+// "Advanced" token visibility is a persisted client preference. Read it via
+// useSyncExternalStore (not a mount effect + setState) so it's SSR-safe and
+// clean under react-hooks/set-state-in-effect. A custom event keeps the current
+// tab in sync on write; the native storage event covers other tabs.
+const ADVANCED_KEY = "themeEditor.advanced";
+const ADVANCED_EVENT = "themeEditor:advanced-change";
+
+function readAdvanced() {
+  try {
+    return localStorage.getItem(ADVANCED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+function writeAdvanced(value: boolean) {
+  try {
+    localStorage.setItem(ADVANCED_KEY, value ? "1" : "0");
+  } catch {
+    // ignore (private mode, etc.)
+  }
+  window.dispatchEvent(new Event(ADVANCED_EVENT));
+}
+function subscribeAdvanced(onChange: () => void) {
+  window.addEventListener(ADVANCED_EVENT, onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    window.removeEventListener(ADVANCED_EVENT, onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
 export function ThemeEditor({
   overrides,
   defaultOverrides,
@@ -384,19 +421,17 @@ export function ThemeEditor({
   // The saved-default snapshot — the target of "Reset to default". Tracked in
   // state so it updates immediately after "Save as default" (no refresh wait).
   const [savedDefault, setSavedDefault] = useState<ThemeOverrides>(defaultOverrides);
-  const [advanced, setAdvanced] = useState(false);
+  const advanced = useSyncExternalStore(
+    subscribeAdvanced,
+    readAdvanced,
+    () => false,
+  );
   const [busy, setBusy] = useState(false);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setAdvanced(localStorage.getItem("themeEditor.advanced") === "1");
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("themeEditor.advanced", advanced ? "1" : "0");
-  }, [advanced]);
 
   const ov: ThemeOverrides = useMemo(() => ({ light, dark }), [light, dark]);
   const effLight = useMemo(() => getEffectiveTheme(ov, "light"), [ov]);
@@ -574,7 +609,7 @@ export function ThemeEditor({
           <input
             type="checkbox"
             checked={advanced}
-            onChange={(e) => setAdvanced(e.target.checked)}
+            onChange={(e) => writeAdvanced(e.target.checked)}
           />
           Advanced
         </label>
