@@ -11,9 +11,12 @@ import { JsonLd } from "@/components/JsonLd";
 
 // ISR: the feed has no per-user data (nav hydrates client-side). force-static is
 // required because the data comes from a DB client, not Next's fetch cache.
-// Shorter window than posts — feeds change when a post is published.
+// 30-min time-based window. Publishing/editing a post refreshes the feeds
+// on-demand (see revalidatePost), so this window is only a fallback — kept long
+// so crawler/monitor traffic can't keep it perpetually expired and trigger a
+// revalidation storm against the free-tier database.
 export const dynamic = "force-static";
-export const revalidate = 60;
+export const revalidate = 1800;
 
 export default async function HomePage() {
   const [feed, categories, series, identity, settings] = await Promise.all([

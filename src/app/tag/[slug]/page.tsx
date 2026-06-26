@@ -13,7 +13,7 @@ type Params = Promise<{ slug: string }>;
 // ISR (see home page note). force-static + revalidate so the DB-backed feed is
 // cached; no per-user data in the render.
 export const dynamic = "force-static";
-export const revalidate = 60;
+export const revalidate = 1800; // 30-min fallback; publishes revalidate on-demand
 
 export async function generateMetadata({
   params,
